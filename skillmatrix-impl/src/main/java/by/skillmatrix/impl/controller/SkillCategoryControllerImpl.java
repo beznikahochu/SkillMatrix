@@ -20,29 +20,29 @@ public class SkillCategoryControllerImpl implements SkillCategoryController {
 
     @Override
     public SkillCategoryDto create(SkillCategoryCreationDto creationDto) {
-        log.trace("Trying to create new SkillCategory: {}", creationDto);
+        log.info("Trying to create new SkillCategory: {}", creationDto);
 
         SkillCategoryDto createdSkillCategory = skillCategoryService.create(creationDto);
 
-        log.trace("Return created SkillCategory: {}", createdSkillCategory);
+        log.info("Return created SkillCategory: {}", createdSkillCategory);
         return createdSkillCategory;
     }
 
     @Override
     public void update(SkillCategoryDto skillCategoryDto) {
-        log.trace("Try to update SkillCategory: {}", skillCategoryDto);
+        log.info("Try to update SkillCategory: {}", skillCategoryDto);
 
         SkillCategoryDto updatedScheme = skillCategoryService.update(skillCategoryDto);
 
-        log.trace("Updated SkillCategory: {}", updatedScheme);
+        log.info("Updated SkillCategory: {}", updatedScheme);
     }
 
     @Override
     public void delete(Long id) {
-        log.trace("Try to delete SkillCategory by id {}", id);
+        log.info("Try to delete SkillCategory by id {}", id);
 
         skillCategoryService.delete(id);
 
-        log.trace("SkillCategory with id: {}, deleted", id);
+        log.info("SkillCategory with id: {}, deleted", id);
     }
 }

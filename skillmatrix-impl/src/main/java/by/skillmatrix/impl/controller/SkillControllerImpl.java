@@ -20,29 +20,29 @@ public class SkillControllerImpl implements SkillController {
 
     @Override
     public SkillDto createSkill(SkillCreationDto creationDto) {
-        log.trace("Trying to create new Skill: {}", creationDto);
+        log.info("Trying to create new Skill: {}", creationDto);
 
         SkillDto createdSkill = skillService.create(creationDto);
 
-        log.trace("Return created Skill: {}", createdSkill);
+        log.info("Return created Skill: {}", createdSkill);
         return createdSkill;
     }
 
     @Override
     public void updateSkill(SkillDto skillDto) {
-        log.trace("Try to update Skill: {}", skillDto);
+        log.info("Try to update Skill: {}", skillDto);
 
         SkillDto updatedSkill = skillService.update(skillDto);
 
-        log.trace("Updated SkillCategory: {}", updatedSkill);
+        log.info("Updated SkillCategory: {}", updatedSkill);
     }
 
     @Override
     public void deleteById(Long id) {
-        log.trace("Try to delete Skill by id {}", id);
+        log.info("Try to delete Skill by id {}", id);
 
         skillService.delete(id);
 
-        log.trace("Skill with id: {}, deleted", id);
+        log.info("Skill with id: {}, deleted", id);
     }
 }

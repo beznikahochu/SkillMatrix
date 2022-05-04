@@ -23,11 +23,11 @@ public class UserRegistrationControllerImpl implements UserRegistrationControlle
 
     @Override
     public UserDto createUser(UserCreationDto userCreationDto) {
-        log.trace("Try to create new user with login: {}", userCreationDto.getLogin());
+        log.info("Try to create new user with login: {}", userCreationDto.getLogin());
 
         UserDto createdUser = userService.registrationUser(userCreationDto);
 
-        log.trace("Return created user: {}", createdUser);
+        log.info("Return created user: {}", createdUser);
         return createdUser;
     }
 }

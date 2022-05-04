@@ -20,20 +20,20 @@ public class SkillAssessmentControllerImpl implements SkillAssessmentController 
 
     @Override
     public SkillAssessmentDto create(SkillAssessmentFullInfoDto creationDto) {
-        log.trace("Trying to create new SkillAssessment: {}", creationDto);
+        log.info("Trying to create new SkillAssessment: {}", creationDto);
 
         SkillAssessmentDto createdSkillCategory = skillAssessmentService.create(creationDto);
 
-        log.trace("Return created SkillAssessment: {}", createdSkillCategory);
+        log.info("Return created SkillAssessment: {}", createdSkillCategory);
         return createdSkillCategory;
     }
 
     @Override
     public void update(SkillAssessmentFullInfoDto skillAssessmentDto) {
-        log.trace("Try to update SkillAssessment: {}", skillAssessmentDto);
+        log.info("Try to update SkillAssessment: {}", skillAssessmentDto);
 
         SkillAssessmentDto updatedSkillAssessment = skillAssessmentService.update(skillAssessmentDto);
 
-        log.trace("Updated SkillAssessment: {}", updatedSkillAssessment);
+        log.info("Updated SkillAssessment: {}", updatedSkillAssessment);
     }
 }

@@ -25,21 +25,21 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
 
     @Override
     public SkillMatrixDto create(SkillMatrixCreationDto skillMatrixCreationDto) {
-        log.trace("Trying to create new SkillMatrix: {}", skillMatrixCreationDto);
+        log.info("Trying to create new SkillMatrix: {}", skillMatrixCreationDto);
 
         SkillMatrixDto createdSkillMatrix = skillMatrixService.create(skillMatrixCreationDto);
 
-        log.trace("Return created SkillMatrix: {}", createdSkillMatrix);
+        log.info("Return created SkillMatrix: {}", createdSkillMatrix);
         return createdSkillMatrix;
     }
 
     @Override
     public void update(SkillMatrixModificationDto modificationDto) {
-        log.trace("Try to update SkillMatrix: {}", modificationDto);
+        log.info("Try to update SkillMatrix: {}", modificationDto);
 
         SkillMatrixDto updatedSkillMatrix = skillMatrixService.update(modificationDto);
 
-        log.trace("Updated SkillMatrix: {}", updatedSkillMatrix);
+        log.info("Updated SkillMatrix: {}", updatedSkillMatrix);
     }
 
     @Override

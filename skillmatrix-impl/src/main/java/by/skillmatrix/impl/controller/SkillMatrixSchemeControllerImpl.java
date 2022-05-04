@@ -23,60 +23,60 @@ public class SkillMatrixSchemeControllerImpl implements SkillMatrixSchemeControl
 
     @Override
     public SkillMatrixSchemeDto createScheme(SkillMatrixSchemeCreationDto schemeCreationDto) {
-        log.trace("Trying to create new SkillMatrixScheme: {}", schemeCreationDto);
+        log.info("Trying to create new SkillMatrixScheme: {}", schemeCreationDto);
 
         SkillMatrixSchemeDto createdScheme = skillMatrixSchemeService.create(schemeCreationDto);
 
-        log.trace("Return created SkillMatrixScheme: {}", createdScheme);
+        log.info("Return created SkillMatrixScheme: {}", createdScheme);
         return createdScheme;
     }
 
     @Override
     //TODO: @PreAuthorize("hasRoles('MANAGER')")
     public void updateScheme(SkillMatrixSchemeDto matrixSchemeDto) {
-        log.trace("Try to update SkillMatrixScheme: {}", matrixSchemeDto);
+        log.info("Try to update SkillMatrixScheme: {}", matrixSchemeDto);
 
         SkillMatrixSchemeDto updatedScheme = skillMatrixSchemeService.update(matrixSchemeDto);
 
-        log.trace("Updated SkillMatrixScheme: {}", updatedScheme);
+        log.info("Updated SkillMatrixScheme: {}", updatedScheme);
     }
 
     @Override
     public void deleteById(Long id) {
-        log.trace("Try to delete SkillMatrixScheme by id {}", id);
+        log.info("Try to delete SkillMatrixScheme by id {}", id);
 
         skillMatrixSchemeService.delete(id);
 
-        log.trace("SkillMatrixScheme with id: {}, deleted", id);
+        log.info("SkillMatrixScheme with id: {}, deleted", id);
     }
 
     @Override
     public List<SkillMatrixSchemeDto> findAll() {
-        log.trace("Find all SkillMatrixSchemes");
+        log.info("Find all SkillMatrixSchemes");
 
         List<SkillMatrixSchemeDto> foundList = skillMatrixSchemeService.findAll();
 
-        log.trace("Return all SkillMatrixSchemes: {}", foundList);
+        log.info("Return all SkillMatrixSchemes: {}", foundList);
         return foundList;
     }
 
     @Override
     public SkillMatrixSchemeDto findById(Long id) {
-        log.trace("Find SkillMatrixScheme by id {}", id);
+        log.info("Find SkillMatrixScheme by id {}", id);
 
         SkillMatrixSchemeDto skillMatrixScheme = skillMatrixSchemeService.findById(id);
 
-        log.trace("Return SkillMatrixScheme: {}", skillMatrixScheme);
+        log.info("Return SkillMatrixScheme: {}", skillMatrixScheme);
         return skillMatrixScheme;
     }
 
     @Override
     public SkillMatrixSchemeFullInfoDto findFullInfoById(Long id) {
-        log.trace("Find full SkillMatrixScheme by id");
+        log.info("Find full SkillMatrixScheme by id");
 
         SkillMatrixSchemeFullInfoDto skillMatrixScheme = skillMatrixSchemeService.findFullInfoById(id);
 
-        log.trace("Return full SkillMatrixScheme: {}", skillMatrixScheme);
+        log.info("Return full SkillMatrixScheme: {}", skillMatrixScheme);
         return skillMatrixScheme;
     }
 }
