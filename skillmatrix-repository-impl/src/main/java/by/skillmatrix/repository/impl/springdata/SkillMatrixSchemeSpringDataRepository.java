@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface SkillMatrixSchemeSpringDataRepository extends JpaRepository<SkillMatrixSchemeEntity, Long> {
-    @EntityGraph("scheme-with-categories-and-skill")
-    Optional<SkillMatrixSchemeEntity> findFullInfoById(Long id);
+    @EntityGraph("scheme-with-categories")
+    Optional<SkillMatrixSchemeEntity> findWithCategoriesById(Long id);
 }

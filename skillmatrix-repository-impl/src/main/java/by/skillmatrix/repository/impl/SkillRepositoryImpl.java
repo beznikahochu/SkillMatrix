@@ -45,4 +45,9 @@ public class SkillRepositoryImpl implements SkillRepository {
     public Optional<SkillEntity> findById(Long id) {
         return repository.findById(id);
     }
+
+    @Override
+    public List<SkillEntity> findByCategories(List<SkillCategoryEntity> categories) {
+        return repository.findByCategories(categories);
+    }
 }

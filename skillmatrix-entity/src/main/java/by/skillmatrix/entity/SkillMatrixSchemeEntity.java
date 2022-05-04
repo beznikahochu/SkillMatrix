@@ -11,7 +11,7 @@ import java.util.List;
 
 //TODO: Изменить cascade
 @NamedEntityGraph(
-        name = "scheme-with-categories-and-skill",
+        name = "scheme-with-categories",
         attributeNodes = {
                 @NamedAttributeNode("skillCategories")
         }

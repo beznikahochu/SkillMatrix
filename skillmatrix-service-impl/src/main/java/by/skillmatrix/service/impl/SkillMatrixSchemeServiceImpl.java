@@ -3,16 +3,21 @@ package by.skillmatrix.service.impl;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeCreationDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeFullInfoDto;
+import by.skillmatrix.entity.SkillCategoryEntity;
+import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.mapper.SkillMatrixSchemeMapper;
 import by.skillmatrix.repository.SkillMatrixSchemeRepository;
+import by.skillmatrix.repository.SkillRepository;
 import by.skillmatrix.service.SkillMatrixSchemeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -20,6 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     private final SkillMatrixSchemeRepository schemeRepository;
+    private final SkillRepository skillRepository;
     private final SkillMatrixSchemeMapper schemeMapper;
 
     @Override
@@ -83,11 +89,23 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     }
 
     @Override
+    @Transactional
     public SkillMatrixSchemeFullInfoDto findFullInfoById(Long id) {
         log.debug("Find full SkillMatrixScheme by id: {}", id);
 
-        SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findFullInfoById(id)
+        SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findWithCategoriesById(id)
                 .orElseThrow(RuntimeException::new); //TODO: Изменить на нот фаунд ексепшн
+        List<SkillCategoryEntity> categories = skillMatrixScheme.getSkillCategories();
+        List<SkillEntity> skills = skillRepository.findByCategories(categories);
+
+        for (SkillCategoryEntity category: categories) {
+            List<SkillEntity> skillEntities = skills.stream().parallel()
+                    .filter(skill -> skill.getId().equals(category.getId()))
+                    .collect(Collectors.toList());
+            category.setSkills(skillEntities);
+            category.setSkills(skills);
+        }
+
         SkillMatrixSchemeFullInfoDto result = schemeMapper.toSkillMatrixSchemeFullInfoDto(skillMatrixScheme);
 
         log.debug("Return SkillMatrixScheme: {}", result);
