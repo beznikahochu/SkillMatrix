@@ -17,13 +17,13 @@
     </parent>
 
     <modules>
-        <module>skillmatrix-impl</module>
         <module>skillmatrix-api</module>
         <module>skillmatrix-entity</module>
         <module>skillmatrix-repository</module>
         <module>skillmatrix-repository-impl</module>
         <module>skillmatrix-service</module>
         <module>skillmatrix-service-impl</module>
+        <module>skillmatrix-impl</module>
     </modules>
 
     <properties>
@@ -33,9 +33,10 @@
         <maven.compiler.target>11</maven.compiler.target>
 
         <lombok.version>1.18.24</lombok.version>
-
+        <jjwt.version>0.9.1</jjwt.version>
         <swagger-annotations.version>2.1.11</swagger-annotations.version>
         <springdoc-openapi.version>1.6.2</springdoc-openapi.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
 
     </properties>
     <dependencyManagement>
@@ -102,21 +103,49 @@
                 <artifactId>swagger-annotations</artifactId>
                 <version>${swagger-annotations.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>1.4.2.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <release>11</release>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <release>11</release>
+                        <annotationProcessorPaths>
+                            <dependency>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </dependency>
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${mapstruct.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>

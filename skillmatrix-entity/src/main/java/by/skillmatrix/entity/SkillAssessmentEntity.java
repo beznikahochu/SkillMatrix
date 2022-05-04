@@ -1,28 +1,38 @@
 package by.skillmatrix.entity;
 
+import by.skillmatrix.entity.id.SkillAssessmentId;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
+
 import javax.persistence.*;
 
-//TODO: Изменить optional и cascade
+//TODO: Изменить CASCADE
+@Getter
+@Setter
+@FieldNameConstants
 @Entity
 @Table(name = "skill_assessments")
+@ToString
+@NoArgsConstructor
+@IdClass(SkillAssessmentId.class)
 public class SkillAssessmentEntity {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @OneToOne
+    @JoinColumn(name = "skill_matrix_id")
+    private SkillMatrixEntity skillMatrix;
+
+    @Id
+    @OneToOne
+    @JoinColumn(name = "skill_id")
+    private SkillEntity skill;
 
     @Column(name = "assessment")
     private Byte assessment;
 
     @Column(name = "comment")
     private String comment;
-
-    @OneToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumn(name = "skill_matrix_id")
-    private SkillMatrixEntity skillMatrix;
-
-    @OneToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumn(name = "skill_id")
-    private SkillEntity skill;
 }

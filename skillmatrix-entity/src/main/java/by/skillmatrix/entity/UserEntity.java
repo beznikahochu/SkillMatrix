@@ -1,11 +1,21 @@
 package by.skillmatrix.entity;
 
 import by.skillmatrix.entity.enumeration.UserRoleEnum;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
+@FieldNameConstants
 @Entity
 @Table(name = "users")
+@ToString
+@NoArgsConstructor
 public class UserEntity {
 
     @Id
@@ -13,16 +23,16 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false, name = "login")
+    @Column(name = "login", unique = true, nullable = false)
     private String login;
 
-    @Column(nullable = false, name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role")
+    @Column(name = "role") //TODO Изменить роли
     @Enumerated(EnumType.STRING)
     private UserRoleEnum userRole;
 }

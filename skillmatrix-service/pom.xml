@@ -12,4 +12,18 @@
 
     <artifactId>skillmatrix-service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>by.skillmatrix</groupId>
+            <artifactId>skillmatrix-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>by.skillmatrix</groupId>
+            <artifactId>skillmatrix-entity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 </project>
