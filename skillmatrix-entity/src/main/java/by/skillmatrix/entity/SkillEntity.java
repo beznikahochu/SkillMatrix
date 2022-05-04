@@ -29,8 +29,4 @@ public class SkillEntity {
     @ManyToOne (optional=false)
     @JoinColumn(name = "skill_category_id")
     private SkillCategoryEntity skillCategory;
-
-    @ManyToOne (optional=false)
-    @JoinColumn(name = "skill_matrix_scheme_id")
-    private SkillMatrixSchemeEntity skillMatrixScheme;
 }

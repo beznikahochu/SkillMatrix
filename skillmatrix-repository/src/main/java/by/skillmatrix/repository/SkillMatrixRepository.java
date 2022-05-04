@@ -12,5 +12,5 @@ public interface SkillMatrixRepository {
     void delete(Long id);
     List<SkillMatrixEntity> findAll();
     Optional<SkillMatrixEntity> findById(Long id);
-    Optional<SkillMatrixEntity> findFullInfoById(Long id);
+    Optional<SkillMatrixEntity> findWithAssessmentsById(Long id);
 }

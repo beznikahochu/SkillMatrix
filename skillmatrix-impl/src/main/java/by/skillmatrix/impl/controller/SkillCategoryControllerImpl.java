@@ -39,7 +39,7 @@ public class SkillCategoryControllerImpl implements SkillCategoryController {
 
     @Override
     public void delete(Long id) {
-        log.info("Try to delete SkillCategory by id {}", id);
+        log.info("Try to delete SkillCategory by id: {}", id);
 
         skillCategoryService.delete(id);
 

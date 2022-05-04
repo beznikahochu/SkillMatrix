@@ -8,10 +8,9 @@ import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
 import by.skillmatrix.entity.SkillMatrixEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.entity.UserEntity;
+import by.skillmatrix.entity.id.SkillAssessmentId;
 import by.skillmatrix.mapper.SkillMatrixMapper;
-import by.skillmatrix.repository.SkillMatrixRepository;
-import by.skillmatrix.repository.SkillMatrixSchemeRepository;
-import by.skillmatrix.repository.UserRepository;
+import by.skillmatrix.repository.*;
 import by.skillmatrix.service.SkillMatrixService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +29,8 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
 
     private final SkillMatrixRepository skillMatrixRepository;
     private final SkillMatrixSchemeRepository schemeRepository;
+    private final SkillRepository skillRepository;
+    private final SkillAssessmentRepository skillAssessmentRepository;
     private final UserRepository userRepository;
     private final SkillMatrixMapper skillMatrixMapper;
 
@@ -109,6 +110,15 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
 
     @Override
     public SkillMatrixFullInfoDto findFullInfoById(Long id) {
-        return null; //TODO Сделать как надо
+        log.debug("Find full SkillMatrix by id: {}", id);
+
+        SkillMatrixEntity skillMatrix = skillMatrixRepository.findWithAssessmentsById(id)
+                .orElseThrow(RuntimeException::new); //TODO: Изменить на нот фаунд ексепшн;
+        skillMatrix.getSkillMatrixScheme();
+
+        SkillMatrixFullInfoDto result = null;
+
+        log.debug("Return SkillMatrix: {}", result);
+        return result;
     }
 }

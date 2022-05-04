@@ -12,6 +12,12 @@ import java.time.LocalTime;
 import java.util.List;
 
 //TODO: Изменить cascade
+@NamedEntityGraph(
+        name = "skill-matrix-with-assessments",
+        attributeNodes = {
+                @NamedAttributeNode("skillAssessments")
+        }
+)
 @Getter
 @Setter
 @FieldNameConstants

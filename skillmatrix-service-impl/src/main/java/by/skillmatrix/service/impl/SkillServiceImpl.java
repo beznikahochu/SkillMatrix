@@ -23,7 +23,6 @@ public class SkillServiceImpl implements SkillService {
 
     private final SkillRepository skillRepository;
     private final SkillCategoryRepository skillCategoryRepository;
-    private final SkillMatrixSchemeRepository schemeRepository;
     private final SkillMapper skillMapper;
 
     @Override
@@ -38,11 +37,8 @@ public class SkillServiceImpl implements SkillService {
 
         SkillCategoryEntity skillCategory = skillCategoryRepository.findById(categoryId)
                 .orElseThrow(RuntimeException::new); //TODO: заменить на бее осмысленный
-        SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findById(schemeId)
-                .orElseThrow(RuntimeException::new); //TODO: заменить на бее осмысленный
 
         skillEntity.setSkillCategory(skillCategory);
-        skillEntity.setSkillMatrixScheme(skillMatrixScheme);
 
         SkillEntity createdSkill = skillRepository.create(skillEntity);
         SkillDto createdSkillDto = skillMapper.toSkillDto(createdSkill);

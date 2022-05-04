@@ -43,7 +43,7 @@ public class SkillMatrixSchemeControllerImpl implements SkillMatrixSchemeControl
 
     @Override
     public void deleteById(Long id) {
-        log.info("Try to delete SkillMatrixScheme by id {}", id);
+        log.info("Try to delete SkillMatrixScheme by id: {}", id);
 
         skillMatrixSchemeService.delete(id);
 
@@ -62,7 +62,7 @@ public class SkillMatrixSchemeControllerImpl implements SkillMatrixSchemeControl
 
     @Override
     public SkillMatrixSchemeDto findById(Long id) {
-        log.info("Find SkillMatrixScheme by id {}", id);
+        log.info("Find SkillMatrixScheme by id: {}", id);
 
         SkillMatrixSchemeDto skillMatrixScheme = skillMatrixSchemeService.findById(id);
 
@@ -72,7 +72,7 @@ public class SkillMatrixSchemeControllerImpl implements SkillMatrixSchemeControl
 
     @Override
     public SkillMatrixSchemeFullInfoDto findFullInfoById(Long id) {
-        log.info("Find full SkillMatrixScheme by id");
+        log.info("Find full SkillMatrixScheme by: id");
 
         SkillMatrixSchemeFullInfoDto skillMatrixScheme = skillMatrixSchemeService.findFullInfoById(id);
 

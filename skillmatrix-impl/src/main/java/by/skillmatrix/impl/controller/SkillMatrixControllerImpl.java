@@ -44,30 +44,30 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
 
     @Override
     public void delete(Long id) {
-        log.trace("Try to delete SkillMatrix by id {}", id);
+        log.info("Try to delete SkillMatrix by id: {}", id);
 
         skillMatrixService.delete(id);
 
-        log.trace("SkillMatrix with id: {}, deleted", id);
+        log.info("SkillMatrix with id: {}, deleted", id);
     }
 
     @Override
     public List<SkillMatrixDto> findAll() {
-        log.trace("Find all SkillMatrix");
+        log.info("Find all SkillMatrix");
 
         List<SkillMatrixDto> foundList = skillMatrixService.findAll();
 
-        log.trace("Return all SkillMatrixSchemes: {}", foundList);
+        log.info("Return all SkillMatrixSchemes: {}", foundList);
         return foundList;
     }
 
     @Override
     public SkillMatrixDto findById(Long id) {
-        log.trace("Find SkillMatrix by id {}", id);
+        log.info("Find SkillMatrix by id {}", id);
 
         SkillMatrixDto skillMatrix = skillMatrixService.findById(id);
 
-        log.trace("Return SkillMatrix: {}", skillMatrix);
+        log.info("Return SkillMatrix: {}", skillMatrix);
         return skillMatrix;
     }
 

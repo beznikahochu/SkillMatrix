@@ -35,7 +35,4 @@ public class SkillMatrixSchemeEntity {
 
     @OneToMany (fetch=FetchType.LAZY, cascade=CascadeType.REMOVE, mappedBy = "skillMatrixScheme")
     private List<SkillCategoryEntity> skillCategories;
-
-    @OneToMany (fetch=FetchType.LAZY, cascade=CascadeType.REMOVE, mappedBy = "skillMatrixScheme")
-    private List<SkillEntity> skills;
 }

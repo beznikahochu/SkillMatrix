@@ -54,8 +54,7 @@ public class SkillMatrixRepositoryImpl implements SkillMatrixRepository {
     }
 
     @Override
-    public Optional<SkillMatrixEntity> findFullInfoById(Long id) {
-        return skillMatrixRepository.findFullInfoById(id);
+    public Optional<SkillMatrixEntity> findWithAssessmentsById(Long id) {
+        return skillMatrixRepository.findWithAssessmentsById(id);
     }
-
 }

@@ -39,7 +39,7 @@ public class SkillControllerImpl implements SkillController {
 
     @Override
     public void deleteById(Long id) {
-        log.info("Try to delete Skill by id {}", id);
+        log.info("Try to delete Skill by id: {}", id);
 
         skillService.delete(id);
 
