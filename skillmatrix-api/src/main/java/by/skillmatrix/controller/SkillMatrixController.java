@@ -20,11 +20,11 @@ public interface SkillMatrixController {
 
     @PostMapping
     @Operation(summary = "Create new skill matrix")
-    SkillMatrixDto create(SkillMatrixCreationDto skillMatrixCreationDto);
+    SkillMatrixDto create(@RequestBody SkillMatrixCreationDto skillMatrixCreationDto);
 
     @PutMapping
     @Operation(summary = "Update skill matrix")
-    void update(SkillMatrixModificationDto modificationDto);
+    void update(@RequestBody SkillMatrixModificationDto modificationDto);
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete skill matrix")
