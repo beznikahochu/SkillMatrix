@@ -1,20 +1,14 @@
 package by.skillmatrix.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "skill_categories")
-@ToString
-@NoArgsConstructor
 public class SkillCategoryEntity {
 
     @Id
@@ -25,9 +19,13 @@ public class SkillCategoryEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany (fetch=FetchType.LAZY, mappedBy = "skillCategory")
     private List<SkillEntity> skills;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne (fetch=FetchType.LAZY)
     @JoinColumn (name="skill_matrix_scheme_id")
     private SkillMatrixSchemeEntity skillMatrixScheme;

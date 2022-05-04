@@ -13,11 +13,9 @@ import org.mapstruct.Mapping;
 public interface SkillMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "skillCategory", ignore = true)
-    @Mapping(target = "skillMatrixScheme", ignore = true)
     SkillEntity toSkillEntity(SkillCreationDto skillCreationDto);
 
     @Mapping(target = "skillCategory", ignore = true)
-    @Mapping(target = "skillMatrixScheme", ignore = true)
     SkillEntity toSkillEntity(SkillDto skillDto);
 
     SkillDto toSkillDto(SkillEntity skillEntity);

@@ -1,9 +1,6 @@
 package by.skillmatrix.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
@@ -18,12 +15,9 @@ import java.util.List;
                 @NamedAttributeNode("skillAssessments")
         }
 )
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "skill_matrices")
-@ToString
-@NoArgsConstructor
 public class SkillMatrixEntity {
 
     @Id
@@ -38,6 +32,8 @@ public class SkillMatrixEntity {
     @JoinColumn (name="skill_matrix_scheme_id")
     private SkillMatrixSchemeEntity skillMatrixScheme;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany (cascade=CascadeType.REMOVE, mappedBy = "skillMatrix")
     private List<SkillAssessmentEntity> skillAssessments;
 

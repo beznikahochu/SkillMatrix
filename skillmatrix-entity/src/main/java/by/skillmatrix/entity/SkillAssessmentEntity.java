@@ -1,21 +1,15 @@
 package by.skillmatrix.entity;
 
 import by.skillmatrix.entity.id.SkillAssessmentId;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 
 //TODO: Изменить CASCADE
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "skill_assessments")
-@ToString
-@NoArgsConstructor
 @IdClass(SkillAssessmentId.class)
 public class SkillAssessmentEntity {
 

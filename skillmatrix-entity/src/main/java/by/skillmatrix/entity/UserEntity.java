@@ -1,20 +1,14 @@
 package by.skillmatrix.entity;
 
 import by.skillmatrix.entity.enumeration.UserRoleEnum;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "users")
-@ToString
-@NoArgsConstructor
 public class UserEntity {
 
     @Id

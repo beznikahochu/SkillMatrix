@@ -1,20 +1,14 @@
 package by.skillmatrix.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 
 //TODO: Изменить optional и cascade
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "skills")
-@ToString
-@NoArgsConstructor
 public class SkillEntity {
 
     @Id
