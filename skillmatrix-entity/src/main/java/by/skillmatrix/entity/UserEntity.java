@@ -11,7 +11,6 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@FieldNameConstants
 @Entity
 @Table(name = "users")
 @ToString

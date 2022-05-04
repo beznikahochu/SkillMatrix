@@ -20,7 +20,6 @@ import java.util.List;
 )
 @Getter
 @Setter
-@FieldNameConstants
 @Entity
 @Table(name = "skill_matrices")
 @ToString

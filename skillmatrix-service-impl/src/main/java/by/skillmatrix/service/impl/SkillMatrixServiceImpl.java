@@ -114,7 +114,8 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
 
         SkillMatrixEntity skillMatrix = skillMatrixRepository.findWithAssessmentsById(id)
                 .orElseThrow(RuntimeException::new); //TODO: Изменить на нот фаунд ексепшн;
-        skillMatrix.getSkillMatrixScheme();
+        SkillMatrixSchemeEntity skillMatrixSchemeEntity = skillMatrix.getSkillMatrixScheme();
+        log.info(skillMatrixSchemeEntity.getName());
 
         SkillMatrixFullInfoDto result = null;
 

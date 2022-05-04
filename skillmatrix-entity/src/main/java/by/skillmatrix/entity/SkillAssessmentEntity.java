@@ -12,7 +12,6 @@ import javax.persistence.*;
 //TODO: Изменить CASCADE
 @Getter
 @Setter
-@FieldNameConstants
 @Entity
 @Table(name = "skill_assessments")
 @ToString

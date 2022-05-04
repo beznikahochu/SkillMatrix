@@ -11,7 +11,6 @@ import javax.persistence.*;
 //TODO: Изменить optional и cascade
 @Getter
 @Setter
-@FieldNameConstants
 @Entity
 @Table(name = "skills")
 @ToString

@@ -2,6 +2,7 @@ package by.skillmatrix.impl.controller;
 
 import by.skillmatrix.controller.SkillMatrixController;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
+import by.skillmatrix.dto.scheme.SkillMatrixSchemeFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
@@ -73,6 +74,11 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
 
     @Override
     public SkillMatrixFullInfoDto findFullInfoById(Long id) {
-        return null;//TODO Сделать
+        log.info("Find full SkillMatrix by id:", id);
+
+        SkillMatrixFullInfoDto skillMatrix = skillMatrixService.findFullInfoById(id);
+
+        log.info("Return full SkillMatrix: {}", skillMatrix);
+        return skillMatrix;
     }
 }
