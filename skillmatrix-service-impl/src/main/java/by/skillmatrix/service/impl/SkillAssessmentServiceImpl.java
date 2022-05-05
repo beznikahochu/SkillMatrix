@@ -44,14 +44,12 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
     public SkillAssessmentDto update(SkillAssessmentFullInfoDto skillAssessmentDto) {
         log.debug("Trying to update SkillAssessment: {}", skillAssessmentDto);
 
-        SkillEntity skill = skillRepository.findById(skillAssessmentDto.getSkillId())
+        skillRepository.findById(skillAssessmentDto.getSkillId())
                 .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
-        SkillMatrixEntity skillMatrix = skillMatrixRepository.findById(skillAssessmentDto.getSkillMatrixId())
+        skillMatrixRepository.findById(skillAssessmentDto.getSkillMatrixId())
                 .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
 
         SkillAssessmentEntity skillAssessmentEntity = skillAssessmentMapper.toSkillAssessmentEntity(skillAssessmentDto);
-        skillAssessmentEntity.setSkill(skill);
-        skillAssessmentEntity.setSkillMatrix(skillMatrix);
 
         SkillAssessmentEntity updatedAssessment = skillAssessmentRepository.update(skillAssessmentEntity);
         SkillAssessmentDto updatedAssessmentDto = skillAssessmentMapper.toSkillAssessmentDto(updatedAssessment);
