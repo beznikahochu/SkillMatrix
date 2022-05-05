@@ -4,16 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -31,12 +22,10 @@ public class SkillCategoryEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(fetch=FetchType.LAZY, mappedBy = "skillCategory")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch=FetchType.LAZY, mappedBy = "skillCategory")
     private List<SkillEntity> skills;
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToOne (fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn (name="skill_matrix_scheme_id")
     private SkillMatrixSchemeEntity skillMatrixScheme;
 }

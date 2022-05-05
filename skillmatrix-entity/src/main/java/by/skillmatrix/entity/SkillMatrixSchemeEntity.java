@@ -40,4 +40,9 @@ public class SkillMatrixSchemeEntity {
     @EqualsAndHashCode.Exclude
     @OneToMany (cascade=CascadeType.REMOVE, mappedBy = "skillMatrixScheme")
     private List<SkillCategoryEntity> skillCategories;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany (cascade=CascadeType.REMOVE, mappedBy = "skillMatrixScheme")
+    private List<SkillMatrixEntity> skillMatrixEntities;
 }

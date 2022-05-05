@@ -1,15 +1,11 @@
 package by.skillmatrix.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -27,4 +23,9 @@ public class SkillEntity {
     @ManyToOne (optional=false)
     @JoinColumn(name = "skill_category_id")
     private SkillCategoryEntity skillCategory;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany (cascade=CascadeType.REMOVE, mappedBy = "skill")
+    private List<SkillAssessmentEntity> skillAssessmentEntities;
 }
