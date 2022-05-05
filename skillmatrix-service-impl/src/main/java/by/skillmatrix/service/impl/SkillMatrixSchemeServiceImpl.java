@@ -6,6 +6,7 @@ import by.skillmatrix.dto.scheme.SkillMatrixSchemeFullInfoDto;
 import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
+import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMatrixSchemeMapper;
 import by.skillmatrix.repository.SkillMatrixSchemeRepository;
 import by.skillmatrix.repository.SkillRepository;
@@ -81,7 +82,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
         log.debug("Find SkillMatrixScheme by id: {}", id);
 
         SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findById(id)
-                .orElseThrow(RuntimeException::new); //TODO: Изменить на нот фаунд ексепшн
+                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
         SkillMatrixSchemeDto result = schemeMapper.toSkillMatrixSchemeDto(skillMatrixScheme);
 
         log.debug("Return SkillMatrixScheme: {}", result);
@@ -94,7 +95,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
         log.debug("Find full SkillMatrixScheme by id: {}", id);
 
         SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findWithCategoriesById(id)
-                .orElseThrow(RuntimeException::new); //TODO: Изменить на нот фаунд ексепшн
+                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
         List<SkillCategoryEntity> categories = skillMatrixScheme.getSkillCategories();
         List<SkillEntity> skills = skillRepository.findByCategories(categories);
 

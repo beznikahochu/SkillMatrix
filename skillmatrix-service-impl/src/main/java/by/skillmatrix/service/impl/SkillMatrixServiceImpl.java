@@ -10,6 +10,7 @@ import by.skillmatrix.entity.SkillMatrixEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.entity.UserEntity;
 import by.skillmatrix.entity.id.SkillAssessmentId;
+import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMatrixMapper;
 import by.skillmatrix.repository.*;
 import by.skillmatrix.service.SkillMatrixService;
@@ -46,9 +47,9 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
         Long schemeId = skillMatrixCreationDto.getSchemeId();
 
         UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(RuntimeException::new);//TODO: Заменить на более осмысленный
+                .orElseThrow(() -> new NotFoundException("User not found by id"));
         SkillMatrixSchemeEntity matrixScheme = schemeRepository.findById(schemeId)
-                .orElseThrow(RuntimeException::new);//TODO: Заменить на более осмысленный
+                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
 
         skillMatrixEntity.setUser(userEntity);
         skillMatrixEntity.setSkillMatrixScheme(matrixScheme);
@@ -102,7 +103,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
         log.debug("Find SkillMatrix by id: {}", id);
 
         SkillMatrixEntity skillMatrix = skillMatrixRepository.findById(id)
-                .orElseThrow(RuntimeException::new); //TODO: Изменить на нот фаунд ексепшн
+                .orElseThrow(() -> new NotFoundException("SkillMatrix not found by id"));
         SkillMatrixDto result = skillMatrixMapper.toSkillMatrixDto(skillMatrix);
 
         log.debug("Return SkillMatrix: {}", result);

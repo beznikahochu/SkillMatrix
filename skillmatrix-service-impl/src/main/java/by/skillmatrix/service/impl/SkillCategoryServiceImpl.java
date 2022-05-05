@@ -4,6 +4,7 @@ import by.skillmatrix.dto.category.SkillCategoryCreationDto;
 import by.skillmatrix.dto.category.SkillCategoryDto;
 import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
+import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillCategoryMapper;
 import by.skillmatrix.repository.SkillCategoryRepository;
 import by.skillmatrix.repository.SkillMatrixSchemeRepository;
@@ -31,7 +32,7 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
         SkillCategoryEntity schemeEntity = skillCategoryMapper.toSkillCategoryEntity(skillCategoryCreationDto);
         SkillMatrixSchemeEntity skillMatrixSchemeEntity = skillMatrixSchemeRepository
                 .findById(skillCategoryCreationDto.getSkillMatrixSchemeId())
-                .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
+                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
         schemeEntity.setSkillMatrixScheme(skillMatrixSchemeEntity);
 
         SkillCategoryEntity createdScheme = skillCategoryRepository.create(schemeEntity);

@@ -3,6 +3,7 @@ package by.skillmatrix.service.impl;
 import by.skillmatrix.dto.assessment.SkillAssessmentDto;
 import by.skillmatrix.dto.assessment.SkillAssessmentFullInfoDto;
 import by.skillmatrix.entity.*;
+import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillAssessmentMapper;
 import by.skillmatrix.repository.SkillAssessmentRepository;
 import by.skillmatrix.repository.SkillMatrixRepository;
@@ -27,9 +28,9 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
         log.debug("Trying to save SkillAssessment: {}", creationDto);
 
         skillRepository.findById(creationDto.getSkillId())
-                .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
+                .orElseThrow(() -> new NotFoundException("Skill not found by id"));
         skillMatrixRepository.findById(creationDto.getSkillMatrixId())
-                .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный*/
+                .orElseThrow(() -> new NotFoundException("SkillMatrix not found by id"));
 
         SkillAssessmentEntity skillAssessmentEntity = skillAssessmentMapper.toSkillAssessmentEntity(creationDto);
 
