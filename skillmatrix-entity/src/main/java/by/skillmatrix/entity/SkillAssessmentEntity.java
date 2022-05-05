@@ -6,7 +6,6 @@ import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 
-//TODO: Ебаные id
 @Data
 @Entity
 @Table(name = "skill_assessments")
