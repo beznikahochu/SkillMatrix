@@ -1,10 +1,15 @@
 package by.skillmatrix.entity;
 
 import by.skillmatrix.entity.id.SkillAssessmentId;
-import lombok.*;
-import lombok.experimental.FieldNameConstants;
+import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 
 @Data
 @Entity

@@ -1,9 +1,19 @@
 package by.skillmatrix.entity;
 
-import lombok.*;
-import lombok.experimental.FieldNameConstants;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 import java.util.List;
 
 
@@ -28,6 +38,6 @@ public class SkillMatrixSchemeEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany (fetch=FetchType.LAZY, cascade=CascadeType.REMOVE, mappedBy = "skillMatrixScheme")
+    @OneToMany (cascade=CascadeType.REMOVE, mappedBy = "skillMatrixScheme")
     private List<SkillCategoryEntity> skillCategories;
 }
