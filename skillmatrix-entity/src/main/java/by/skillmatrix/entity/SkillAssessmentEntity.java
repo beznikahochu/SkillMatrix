@@ -14,13 +14,19 @@ import javax.persistence.*;
 public class SkillAssessmentEntity {
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "skill_matrix_id")
-    private SkillMatrixEntity skillMatrix;
+    @Column(name = "skill_matrix_id")
+    private Long skillMatrixId;
 
     @Id
+    @Column(name = "skill_id")
+    private Long skillId;
+
     @ManyToOne
-    @JoinColumn(name = "skill_id")
+    @JoinColumn(name = "skill_matrix_id", insertable = false, updatable = false)
+    private SkillMatrixEntity skillMatrix;
+
+    @ManyToOne
+    @JoinColumn(name = "skill_id", insertable = false, updatable = false)
     private SkillEntity skill;
 
     @Column(name = "assessment")

@@ -23,21 +23,18 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
     private final SkillAssessmentMapper skillAssessmentMapper;
 
     @Override
-    public SkillAssessmentDto create(SkillAssessmentFullInfoDto creationDto) {
+    public SkillAssessmentDto create(SkillAssessmentFullInfoDto creationDto) {//TODO: .... ЛИ С ПРОВЕРКОЙ ИЛИ БД РАЗБЕРЕТСЯ?
         log.debug("Trying to save SkillAssessment: {}", creationDto);
 
-        SkillEntity skill = skillRepository.findById(creationDto.getSkillId())
+        skillRepository.findById(creationDto.getSkillId())
                 .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
-        SkillMatrixEntity skillMatrix = skillMatrixRepository.findById(creationDto.getSkillMatrixId())
+        skillMatrixRepository.findById(creationDto.getSkillMatrixId())
                 .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
 
         SkillAssessmentEntity skillAssessmentEntity = skillAssessmentMapper.toSkillAssessmentEntity(creationDto);
-        skillAssessmentEntity.setSkill(skill);
-        skillAssessmentEntity.setSkillMatrix(skillMatrix);
-        skillMatrix.getSkillMatrixScheme();
 
         SkillAssessmentEntity createdAssessment = skillAssessmentRepository.create(skillAssessmentEntity);
-        SkillAssessmentDto createdAssessmentDto = null;//skillAssessmentMapper.toSkillAssessmentDto(createdAssessment);
+        SkillAssessmentDto createdAssessmentDto = skillAssessmentMapper.toSkillAssessmentDto(createdAssessment);
 
         log.debug("Return saved SkillAssessment: {}", createdAssessmentDto);
         return createdAssessmentDto;

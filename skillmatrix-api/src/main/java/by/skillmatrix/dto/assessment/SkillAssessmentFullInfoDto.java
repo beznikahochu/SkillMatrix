@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @Schema(description = "SkillAssessmentCreationDto")
 public class SkillAssessmentFullInfoDto {
 
-    @JsonProperty("assessment")
-    private Long assessment;
-
-    @JsonProperty("comment")
-    private String comment;
-
     @JsonProperty("skillMatrixId")
     private Long skillMatrixId;
 
     @JsonProperty("skillId")
     private Long skillId;
+
+    @JsonProperty("assessment")
+    private Long assessment;
+
+    @JsonProperty("comment")
+    private String comment;
 }

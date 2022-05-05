@@ -8,6 +8,6 @@ import java.io.Serializable;
 
 @Data
 public class SkillAssessmentId implements Serializable {
-    private SkillMatrixEntity skillMatrix;
-    private SkillEntity skill;
+    private Long skillMatrixId;
+    private Long skillId;
 }
