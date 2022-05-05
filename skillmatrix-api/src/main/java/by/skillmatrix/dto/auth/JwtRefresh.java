@@ -14,8 +14,6 @@ import static by.skillmatrix.config.OpenApiConstants.EXAMPLE_TOKEN;
  * Dto for refresh token.
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "Refresh token")
 public class JwtRefresh {

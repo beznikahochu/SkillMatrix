@@ -11,14 +11,12 @@ import static by.skillmatrix.config.OpenApiConstants.DESCRIPTION_TOKEN;
 import static by.skillmatrix.config.OpenApiConstants.EXAMPLE_TOKEN;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "SkillAssessmentDto")
 public class SkillAssessmentDto {
 
     @JsonProperty("assessment")
-    private Byte assessment;
+    private Long assessment;
 
     @JsonProperty("comment")
     private String comment;

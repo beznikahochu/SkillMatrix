@@ -14,7 +14,6 @@ import static by.skillmatrix.config.OpenApiConstants.EXAMPLE_TOKEN;
  */
 // TODO: Добавить обновление токена
 @Data
-@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "Success response for authentication")
 public class JwtResponse {

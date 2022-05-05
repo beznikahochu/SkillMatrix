@@ -8,14 +8,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "SkillAssessmentCreationDto")
 public class SkillAssessmentFullInfoDto {
 
     @JsonProperty("assessment")
-    private Byte assessment;
+    private Long assessment;
 
     @JsonProperty("comment")
     private String comment;

@@ -6,7 +6,7 @@ import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 
-//TODO: Изменить CASCADE
+//TODO: Ебаные id
 @Data
 @Entity
 @Table(name = "skill_assessments")
@@ -14,17 +14,17 @@ import javax.persistence.*;
 public class SkillAssessmentEntity {
 
     @Id
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "skill_matrix_id")
     private SkillMatrixEntity skillMatrix;
 
     @Id
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "skill_id")
     private SkillEntity skill;
 
     @Column(name = "assessment")
-    private Byte assessment;
+    private Long assessment;
 
     @Column(name = "comment")
     private String comment;

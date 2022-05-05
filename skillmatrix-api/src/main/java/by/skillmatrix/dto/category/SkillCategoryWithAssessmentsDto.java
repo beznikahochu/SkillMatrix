@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "SkillCategoryWithAssessmentsDto")
 public class SkillCategoryWithAssessmentsDto {

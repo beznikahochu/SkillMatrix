@@ -34,9 +34,10 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
         SkillAssessmentEntity skillAssessmentEntity = skillAssessmentMapper.toSkillAssessmentEntity(creationDto);
         skillAssessmentEntity.setSkill(skill);
         skillAssessmentEntity.setSkillMatrix(skillMatrix);
+        skillMatrix.getSkillMatrixScheme();
 
         SkillAssessmentEntity createdAssessment = skillAssessmentRepository.create(skillAssessmentEntity);
-        SkillAssessmentDto createdAssessmentDto = skillAssessmentMapper.toSkillAssessmentDto(createdAssessment);
+        SkillAssessmentDto createdAssessmentDto = null;//skillAssessmentMapper.toSkillAssessmentDto(createdAssessment);
 
         log.debug("Return saved SkillAssessment: {}", createdAssessmentDto);
         return createdAssessmentDto;

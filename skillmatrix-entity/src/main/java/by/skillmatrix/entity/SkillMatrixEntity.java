@@ -12,7 +12,8 @@ import java.util.List;
 @NamedEntityGraph(
         name = "skill-matrix-with-assessments",
         attributeNodes = {
-                @NamedAttributeNode("skillAssessments")
+                @NamedAttributeNode("skillAssessments"),
+                @NamedAttributeNode("skillMatrixScheme")
         }
 )
 @Data

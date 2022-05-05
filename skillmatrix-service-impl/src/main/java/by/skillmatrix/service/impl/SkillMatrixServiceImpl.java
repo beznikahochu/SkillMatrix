@@ -5,6 +5,7 @@ import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
+import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillMatrixEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.entity.UserEntity;
@@ -115,7 +116,8 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
         SkillMatrixEntity skillMatrix = skillMatrixRepository.findWithAssessmentsById(id)
                 .orElseThrow(RuntimeException::new); //TODO: Изменить на нот фаунд ексепшн;
         SkillMatrixSchemeEntity skillMatrixSchemeEntity = skillMatrix.getSkillMatrixScheme();
-        log.info(skillMatrixSchemeEntity.getName());
+        //log.info(skillMatrix.getSkillAssessments().get(1).getSkill().getSkillCategory().getName());
+
 
         SkillMatrixFullInfoDto result = null;
 
