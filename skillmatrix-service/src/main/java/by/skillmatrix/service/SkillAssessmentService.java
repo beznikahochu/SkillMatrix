@@ -9,18 +9,10 @@ import by.skillmatrix.dto.assessment.SkillAssessmentFullInfoDto;
 public interface SkillAssessmentService {
 
     /**
-     * Create new SkillAssessment.
+     * Create or update SkillAssessment.
      *
      * @param creationDto new SkillAssessment
      * @return created SkillAssessment
      */
-    SkillAssessmentDto create(SkillAssessmentFullInfoDto creationDto);
-
-    /**
-     * Update SkillAssessment.
-     *
-     * @param skillAssessmentDto SkillAssessment to update
-     * @return updating SkillAssessment
-     */
-    SkillAssessmentDto update(SkillAssessmentFullInfoDto skillAssessmentDto);
+    SkillAssessmentDto createOrUpdate(SkillAssessmentFullInfoDto creationDto);
 }

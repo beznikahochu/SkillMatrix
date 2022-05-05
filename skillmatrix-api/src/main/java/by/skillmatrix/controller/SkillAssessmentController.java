@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public interface SkillAssessmentController {
 
     @PostMapping
-    @Operation(summary = "Create skill assessment for matrix")
-    SkillAssessmentDto create(@RequestBody SkillAssessmentFullInfoDto creationDto);
-
-    @PutMapping
-    @Operation(summary = "Update skill assessment")
-    void update(@RequestBody SkillAssessmentFullInfoDto skillAssessmentDto);
+    @Operation(summary = "Create or update skill assessment for matrix")
+    SkillAssessmentDto createOrUpdate(@RequestBody SkillAssessmentFullInfoDto creationDto);
 }

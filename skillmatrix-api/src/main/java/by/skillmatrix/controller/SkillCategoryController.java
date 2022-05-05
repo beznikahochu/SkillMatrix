@@ -18,7 +18,7 @@ public interface SkillCategoryController {
     @Operation(summary = "Create new skill category for skill matrix scheme")
     SkillCategoryDto create(@RequestBody SkillCategoryCreationDto creationDto);
 
-    @PutMapping
+    @PutMapping //TODO /{id}
     @Operation(summary = "Update skill category")
     void update(@RequestBody SkillCategoryDto skillCategoryDto);
 

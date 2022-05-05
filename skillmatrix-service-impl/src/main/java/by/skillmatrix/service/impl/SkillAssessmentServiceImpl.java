@@ -23,38 +23,20 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
     private final SkillAssessmentMapper skillAssessmentMapper;
 
     @Override
-    public SkillAssessmentDto create(SkillAssessmentFullInfoDto creationDto) {//TODO: .... ЛИ С ПРОВЕРКОЙ ИЛИ БД РАЗБЕРЕТСЯ?
+    public SkillAssessmentDto createOrUpdate(SkillAssessmentFullInfoDto creationDto) {
         log.debug("Trying to save SkillAssessment: {}", creationDto);
 
-        /*skillRepository.findById(creationDto.getSkillId())
+        skillRepository.findById(creationDto.getSkillId())
                 .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
         skillMatrixRepository.findById(creationDto.getSkillMatrixId())
                 .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный*/
 
         SkillAssessmentEntity skillAssessmentEntity = skillAssessmentMapper.toSkillAssessmentEntity(creationDto);
 
-        SkillAssessmentEntity createdAssessment = skillAssessmentRepository.create(skillAssessmentEntity);
+        SkillAssessmentEntity createdAssessment = skillAssessmentRepository.save(skillAssessmentEntity);
         SkillAssessmentDto createdAssessmentDto = skillAssessmentMapper.toSkillAssessmentDto(createdAssessment);
 
         log.debug("Return saved SkillAssessment: {}", createdAssessmentDto);
         return createdAssessmentDto;
-    }
-
-    @Override
-    public SkillAssessmentDto update(SkillAssessmentFullInfoDto skillAssessmentDto) {
-        log.debug("Trying to update SkillAssessment: {}", skillAssessmentDto);
-
-        skillRepository.findById(skillAssessmentDto.getSkillId())
-                .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
-        skillMatrixRepository.findById(skillAssessmentDto.getSkillMatrixId())
-                .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
-
-        SkillAssessmentEntity skillAssessmentEntity = skillAssessmentMapper.toSkillAssessmentEntity(skillAssessmentDto);
-
-        SkillAssessmentEntity updatedAssessment = skillAssessmentRepository.update(skillAssessmentEntity);
-        SkillAssessmentDto updatedAssessmentDto = skillAssessmentMapper.toSkillAssessmentDto(updatedAssessment);
-
-        log.debug("Return updated SkillAssessment: {}", updatedAssessmentDto);
-        return updatedAssessmentDto;
     }
 }

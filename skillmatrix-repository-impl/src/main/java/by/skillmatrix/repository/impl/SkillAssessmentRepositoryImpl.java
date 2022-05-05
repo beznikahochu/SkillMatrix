@@ -13,12 +13,7 @@ public class SkillAssessmentRepositoryImpl implements SkillAssessmentRepository 
     private final SkillAssessmentSpringDataRepository repository;
 
     @Override
-    public SkillAssessmentEntity create(SkillAssessmentEntity skillAssessment) {
-        return repository.save(skillAssessment);
-    }
-
-    @Override
-    public SkillAssessmentEntity update(SkillAssessmentEntity skillAssessment) {
+    public SkillAssessmentEntity save(SkillAssessmentEntity skillAssessment) {
         return repository.save(skillAssessment);
     }
 }

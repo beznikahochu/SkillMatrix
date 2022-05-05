@@ -23,7 +23,7 @@ public interface SkillMatrixSchemeController {
     @PostMapping
     SkillMatrixSchemeDto createScheme(@RequestBody SkillMatrixSchemeCreationDto schemeCreationDto);
 
-    @PutMapping
+    @PutMapping  //TODO /{id}
     @Operation(summary = "Update skill matrix scheme")
     void updateScheme(@RequestBody SkillMatrixSchemeDto schemeCreationDto);
 

@@ -22,7 +22,7 @@ public interface SkillMatrixController {
     @Operation(summary = "Create new skill matrix")
     SkillMatrixDto create(@RequestBody SkillMatrixCreationDto skillMatrixCreationDto);
 
-    @PutMapping
+    @PutMapping //TODO /{id}
     @Operation(summary = "Update skill matrix")
     void update(@RequestBody SkillMatrixModificationDto modificationDto);
 
