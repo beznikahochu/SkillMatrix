@@ -26,10 +26,10 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
     public SkillAssessmentDto create(SkillAssessmentFullInfoDto creationDto) {//TODO: .... ЛИ С ПРОВЕРКОЙ ИЛИ БД РАЗБЕРЕТСЯ?
         log.debug("Trying to save SkillAssessment: {}", creationDto);
 
-        skillRepository.findById(creationDto.getSkillId())
+        /*skillRepository.findById(creationDto.getSkillId())
                 .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
         skillMatrixRepository.findById(creationDto.getSkillMatrixId())
-                .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный
+                .orElseThrow(RuntimeException::new); //TODO: заменить на более осмысленный*/
 
         SkillAssessmentEntity skillAssessmentEntity = skillAssessmentMapper.toSkillAssessmentEntity(creationDto);
 

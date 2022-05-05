@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-//TODO: Изменить cascade
+
 @NamedEntityGraph(
         name = "skill-matrix-with-assessments",
         attributeNodes = {

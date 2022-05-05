@@ -5,7 +5,6 @@ import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 
-//TODO: Изменить optional и cascade
 @Data
 @Entity
 @Table(name = "skills")

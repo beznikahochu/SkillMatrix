@@ -6,7 +6,7 @@ import lombok.experimental.FieldNameConstants;
 import javax.persistence.*;
 import java.util.List;
 
-//TODO: Изменить cascade
+
 @NamedEntityGraph(
         name = "scheme-with-categories",
         attributeNodes = {
