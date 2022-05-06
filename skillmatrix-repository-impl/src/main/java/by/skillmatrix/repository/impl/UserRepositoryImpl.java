@@ -16,7 +16,7 @@ public class UserRepositoryImpl implements UserRepository {
     private final UserSpringDataRepository userRepository;
 
     @Override
-    public UserEntity create(UserEntity user) {
+    public UserEntity save(UserEntity user) {
         return userRepository.save(user);
     }
 

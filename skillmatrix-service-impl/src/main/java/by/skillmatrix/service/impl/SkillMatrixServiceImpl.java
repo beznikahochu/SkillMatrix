@@ -37,6 +37,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     private final SkillMatrixMapper skillMatrixMapper;
 
     @Override
+    @Transactional
     public SkillMatrixDto create(SkillMatrixCreationDto skillMatrixCreationDto) {
         log.debug("Trying to save SkillMatrix: {}", skillMatrixCreationDto);
 
@@ -55,7 +56,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
         skillMatrixEntity.setCreationDate(LocalDate.now());
         skillMatrixEntity.setCreationTime(LocalTime.now());
 
-        SkillMatrixEntity createdMatrix = skillMatrixRepository.create(skillMatrixEntity);
+        SkillMatrixEntity createdMatrix = skillMatrixRepository.save(skillMatrixEntity);
 
         SkillMatrixDto skillMatrixDto = skillMatrixMapper.toSkillMatrixDto(createdMatrix);
 
@@ -64,11 +65,12 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     }
 
     @Override
+    @Transactional
     public SkillMatrixDto update(SkillMatrixModificationDto modificationDto) {
         log.debug("Trying to update SkillMatrix: {}", modificationDto);
 
         SkillMatrixEntity skillMatrixEntity = skillMatrixMapper.toSkillMatrixEntity(modificationDto);
-        SkillMatrixEntity updatedSkillMatrix = skillMatrixRepository.update(skillMatrixEntity);
+        SkillMatrixEntity updatedSkillMatrix = skillMatrixRepository.save(skillMatrixEntity);
         SkillMatrixDto createdSchemeDto = skillMatrixMapper.toSkillMatrixDto(updatedSkillMatrix);
 
         log.debug("Return updated SkillMatrix: {}", createdSchemeDto);

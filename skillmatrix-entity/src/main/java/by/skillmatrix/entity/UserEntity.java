@@ -31,7 +31,7 @@ public class UserEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role") //TODO Изменить роли
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private UserRoleEnum userRole;
 }

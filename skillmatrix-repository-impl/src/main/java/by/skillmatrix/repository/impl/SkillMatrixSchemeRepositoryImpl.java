@@ -16,18 +16,7 @@ public class SkillMatrixSchemeRepositoryImpl implements SkillMatrixSchemeReposit
     private final SkillMatrixSchemeSpringDataRepository schemeRepository;
 
     @Override
-    public SkillMatrixSchemeEntity create(SkillMatrixSchemeEntity schemeEntity) {
-        if (schemeEntity.getId() != null) {
-            throw new RuntimeException(); //TODO: Изменить на более осмысленный
-        }
-        return schemeRepository.save(schemeEntity);
-    }
-
-    @Override
-    public SkillMatrixSchemeEntity update(SkillMatrixSchemeEntity schemeEntity) {
-        if (schemeEntity.getId() == null) {
-            throw new RuntimeException(); //TODO: Изменить на более осмысленный
-        }
+    public SkillMatrixSchemeEntity save(SkillMatrixSchemeEntity schemeEntity) {
         return schemeRepository.save(schemeEntity);
     }
 

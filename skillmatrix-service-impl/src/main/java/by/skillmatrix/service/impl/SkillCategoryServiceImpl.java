@@ -25,6 +25,7 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     private final SkillCategoryMapper skillCategoryMapper;
 
     @Override
+    @Transactional
     public SkillCategoryDto create(SkillCategoryCreationDto skillCategoryCreationDto) {
         log.debug("Trying to save SkillCategory: {}", skillCategoryCreationDto);
 
@@ -34,7 +35,7 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
                 .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
         schemeEntity.setSkillMatrixScheme(skillMatrixSchemeEntity);
 
-        SkillCategoryEntity createdScheme = skillCategoryRepository.create(schemeEntity);
+        SkillCategoryEntity createdScheme = skillCategoryRepository.save(schemeEntity);
 
         SkillCategoryDto createdSchemeDto = skillCategoryMapper.toSkillCategoryDto(createdScheme);
 
@@ -43,11 +44,12 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     }
 
     @Override
+    @Transactional
     public SkillCategoryDto update(SkillCategoryDto skillCategoryDto) {
         log.debug("Trying to update SkillCategory: {}", skillCategoryDto);
 
         SkillCategoryEntity schemeEntity = skillCategoryMapper.toSkillCategoryEntity(skillCategoryDto);
-        SkillCategoryEntity updatedSkillCategory = skillCategoryRepository.update(schemeEntity);
+        SkillCategoryEntity updatedSkillCategory = skillCategoryRepository.save(schemeEntity);
         SkillCategoryDto updatedSkillCategoryDto = skillCategoryMapper.toSkillCategoryDto(updatedSkillCategory);
 
         log.debug("Return updated SkillMatrixScheme: {}", updatedSkillCategoryDto);

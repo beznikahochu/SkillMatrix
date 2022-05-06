@@ -28,11 +28,12 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     private final SkillMatrixSchemeMapper schemeMapper;
 
     @Override
+    @Transactional
     public SkillMatrixSchemeDto create(SkillMatrixSchemeCreationDto schemeCreationDto) {
         log.debug("Trying to save SkillMatrixScheme: {}", schemeCreationDto);
 
         SkillMatrixSchemeEntity schemeEntity = schemeMapper.toSkillMatrixSchemeEntity(schemeCreationDto);
-        SkillMatrixSchemeEntity createdScheme = schemeRepository.create(schemeEntity);
+        SkillMatrixSchemeEntity createdScheme = schemeRepository.save(schemeEntity);
         SkillMatrixSchemeDto createdSchemeDto = schemeMapper.toSkillMatrixSchemeDto(createdScheme);
 
         log.debug("Return saved SkillMatrixScheme: {}", createdSchemeDto);
@@ -40,11 +41,12 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     }
 
     @Override
+    @Transactional
     public SkillMatrixSchemeDto update(SkillMatrixSchemeDto schemeDto) {
         log.debug("Trying to update SkillMatrixScheme: {}", schemeDto);
 
         SkillMatrixSchemeEntity schemeEntity = schemeMapper.toSkillMatrixSchemeEntity(schemeDto);
-        SkillMatrixSchemeEntity updatedScheme = schemeRepository.update(schemeEntity);
+        SkillMatrixSchemeEntity updatedScheme = schemeRepository.save(schemeEntity);
         SkillMatrixSchemeDto updatedSchemeDto = schemeMapper.toSkillMatrixSchemeDto(updatedScheme);
 
         log.debug("Return updated SkillMatrixScheme: {}", updatedSchemeDto);
@@ -95,16 +97,20 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
         List<SkillCategoryEntity> categories = skillMatrixScheme.getSkillCategories();
         List<SkillEntity> skills = skillRepository.findByCategories(categories);
 
+        fillUpCategories(categories, skills);
+
+        SkillMatrixSchemeFullInfoDto result = schemeMapper.toSkillMatrixSchemeFullInfoDto(skillMatrixScheme);
+
+        log.debug("Return SkillMatrixScheme: {}", result);
+        return result;
+    }
+
+    private void fillUpCategories(List<SkillCategoryEntity> categories, List<SkillEntity> skills) {
         for (SkillCategoryEntity category: categories) {
             List<SkillEntity> skillEntities = skills.stream().parallel()
                     .filter(skill -> skill.getSkillCategory().getId().equals(category.getId()))
                     .collect(Collectors.toList());
             category.setSkills(skillEntities);
         }
-
-        SkillMatrixSchemeFullInfoDto result = schemeMapper.toSkillMatrixSchemeFullInfoDto(skillMatrixScheme);
-
-        log.debug("Return SkillMatrixScheme: {}", result);
-        return result;
     }
 }

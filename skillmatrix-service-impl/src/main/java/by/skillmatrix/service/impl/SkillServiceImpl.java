@@ -27,6 +27,7 @@ public class SkillServiceImpl implements SkillService {
     private final SkillMapper skillMapper;
 
     @Override
+    @Transactional
     public SkillDto create(SkillCreationDto skillCreationDto) {
         log.debug("Trying to save Skill: {}", skillCreationDto);
 
@@ -39,7 +40,7 @@ public class SkillServiceImpl implements SkillService {
 
         skillEntity.setSkillCategory(skillCategory);
 
-        SkillEntity createdSkill = skillRepository.create(skillEntity);
+        SkillEntity createdSkill = skillRepository.save(skillEntity);
         SkillDto createdSkillDto = skillMapper.toSkillDto(createdSkill);
 
         log.debug("Return saved Skill: {}", createdSkillDto);
@@ -47,11 +48,12 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
+    @Transactional
     public SkillDto update(SkillDto skillDto) {
         log.debug("Trying to update Skill: {}", skillDto);
 
         SkillEntity skillEntity = skillMapper.toSkillEntity(skillDto);
-        SkillEntity updatedSkill = skillRepository.update(skillEntity);
+        SkillEntity updatedSkill = skillRepository.save(skillEntity);
         SkillDto updatedSkillDto = skillMapper.toSkillDto(updatedSkill);
 
         log.debug("Return updated Skill: {}", updatedSkillDto);

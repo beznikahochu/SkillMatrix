@@ -25,6 +25,7 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
     private final SkillAssessmentMapper skillAssessmentMapper;
 
     @Override
+    @Transactional
     public SkillAssessmentDto createOrUpdate(SkillAssessmentFullInfoDto creationDto) {
         log.debug("Trying to save SkillAssessment: {}", creationDto);
 

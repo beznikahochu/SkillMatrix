@@ -20,13 +20,15 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
+    @Transactional
     public UserDto registrationUser(UserCreationDto user) {
         log.debug("Admit new user: {}", user);
 
         UserEntity userEntity = userMapper.toUserEntity(user);
         userEntity.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        UserEntity createdUser = userRepository.create(userEntity);
+        UserEntity createdUser = userRepository.save(userEntity);
         UserDto result = userMapper.toUserDto(createdUser);
 
         log.debug("Admitted user: {}", user);

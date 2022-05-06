@@ -6,8 +6,7 @@ import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import java.util.Optional;
 
 public interface SkillCategoryRepository {
-    SkillCategoryEntity create(SkillCategoryEntity schemeEntity);
-    SkillCategoryEntity update(SkillCategoryEntity schemeEntity);
+    SkillCategoryEntity save(SkillCategoryEntity schemeEntity);
     void delete(Long id);
     Optional<SkillCategoryEntity> findById(Long id);
 }

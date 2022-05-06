@@ -15,22 +15,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SkillMatrixRepositoryImpl implements SkillMatrixRepository {
 
-
     private final SkillMatrixSpringDataRepository skillMatrixRepository;
 
     @Override
-    public SkillMatrixEntity create(SkillMatrixEntity skillMatrixEntity) {
-        if (skillMatrixEntity.getId() != null) {
-            throw new RuntimeException(); //TODO: Изменить на более осмысленный
-        }
-        return skillMatrixRepository.save(skillMatrixEntity);
-    }
-
-    @Override//TODO: Разобраться с cascade
-    public SkillMatrixEntity update(SkillMatrixEntity skillMatrixEntity) {
-        if (skillMatrixEntity.getId() == null) {
-            throw new RuntimeException(); //TODO: Изменить на более осмысленный
-        }
+    public SkillMatrixEntity save(SkillMatrixEntity skillMatrixEntity) {
         return skillMatrixRepository.save(skillMatrixEntity);
     }
 

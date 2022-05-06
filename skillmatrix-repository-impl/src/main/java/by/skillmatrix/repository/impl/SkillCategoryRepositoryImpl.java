@@ -16,18 +16,7 @@ public class SkillCategoryRepositoryImpl implements SkillCategoryRepository {
     private final SkillCategorySpringDataRepository repository;
 
     @Override
-    public SkillCategoryEntity create(SkillCategoryEntity skillCategoryEntity) {
-        if (skillCategoryEntity.getId() != null) {
-            throw new RuntimeException(); //TODO: Изменить на более осмысленный
-        }
-        return repository.save(skillCategoryEntity);
-    }
-
-    @Override
-    public SkillCategoryEntity update(SkillCategoryEntity skillCategoryEntity) {
-        if (skillCategoryEntity.getId() == null) {
-            throw new RuntimeException(); //TODO: Изменить на более осмысленный
-        }
+    public SkillCategoryEntity save(SkillCategoryEntity skillCategoryEntity) {
         return repository.save(skillCategoryEntity);
     }
 
