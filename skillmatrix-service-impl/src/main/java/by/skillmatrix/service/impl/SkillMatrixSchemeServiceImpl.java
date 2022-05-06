@@ -54,6 +54,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         log.debug("Trying to delete SkillMatrixScheme by id: {}", id);
 
@@ -88,7 +89,6 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     }
 
     @Override
-    @Transactional
     public SkillMatrixSchemeFullInfoDto findFullInfoById(Long id) {
         log.debug("Find full SkillMatrixScheme by id: {}", id);
 
@@ -99,10 +99,9 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
 
         for (SkillCategoryEntity category: categories) {
             List<SkillEntity> skillEntities = skills.stream().parallel()
-                    .filter(skill -> skill.getId().equals(category.getId()))
+                    .filter(skill -> skill.getSkillCategory().getId().equals(category.getId()))
                     .collect(Collectors.toList());
             category.setSkills(skillEntities);
-            category.setSkills(skills);
         }
 
         SkillMatrixSchemeFullInfoDto result = schemeMapper.toSkillMatrixSchemeFullInfoDto(skillMatrixScheme);
