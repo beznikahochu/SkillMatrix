@@ -42,7 +42,7 @@ public class SkillMatrixEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn (name="skill_matrix_scheme_id")
+    @JoinColumn (name="skill_matrix_scheme_id", updatable = false)
     private SkillMatrixSchemeEntity skillMatrixScheme;
 
     @ToString.Exclude
@@ -57,6 +57,6 @@ public class SkillMatrixEntity {
     private LocalTime creationTime;
 
     @ManyToOne
-    @JoinColumn (name="user_id")
+    @JoinColumn (name="user_id", updatable = false)
     private UserEntity user;
 }

@@ -36,6 +36,6 @@ public class SkillCategoryEntity {
     private List<SkillEntity> skills;
 
     @ManyToOne
-    @JoinColumn (name="skill_matrix_scheme_id")
+    @JoinColumn (name="skill_matrix_scheme_id",updatable = false)
     private SkillMatrixSchemeEntity skillMatrixScheme;
 }

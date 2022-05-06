@@ -29,11 +29,7 @@ public class SkillRepositoryImpl implements SkillRepository {
         if (skillEntity.getId() == null) {
             throw new RuntimeException(); //TODO: Изменить на более осмысленный
         }
-        SkillEntity persistedSkillEntity = repository.findById(skillEntity.getId())
-                .orElseThrow(RuntimeException::new); //TODO: Изменить на более осмысленный
-
-        persistedSkillEntity.setName(skillEntity.getName());
-        return persistedSkillEntity;
+        return repository.save(skillEntity);
     }
 
     @Override

@@ -31,11 +31,7 @@ public class SkillMatrixRepositoryImpl implements SkillMatrixRepository {
         if (skillMatrixEntity.getId() == null) {
             throw new RuntimeException(); //TODO: Изменить на более осмысленный
         }
-        SkillMatrixEntity persistedSkillMatrix = skillMatrixRepository.findById(skillMatrixEntity.getId())
-                .orElseThrow(RuntimeException::new); //TODO: Изменить на более осмысленный
-
-        persistedSkillMatrix.setName(skillMatrixEntity.getName());
-        return persistedSkillMatrix;
+        return skillMatrixRepository.save(skillMatrixEntity);
     }
 
     @Override

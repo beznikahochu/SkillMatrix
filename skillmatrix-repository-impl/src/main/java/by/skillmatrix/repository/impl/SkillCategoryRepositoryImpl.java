@@ -28,11 +28,7 @@ public class SkillCategoryRepositoryImpl implements SkillCategoryRepository {
         if (skillCategoryEntity.getId() == null) {
             throw new RuntimeException(); //TODO: Изменить на более осмысленный
         }
-        SkillCategoryEntity persistedSkillCategoryEntity = repository.findById(skillCategoryEntity.getId())
-                .orElseThrow(RuntimeException::new); //TODO: Изменить на более осмысленный
-
-        persistedSkillCategoryEntity.setName(skillCategoryEntity.getName());
-        return persistedSkillCategoryEntity;
+        return repository.save(skillCategoryEntity);
     }
 
     @Override

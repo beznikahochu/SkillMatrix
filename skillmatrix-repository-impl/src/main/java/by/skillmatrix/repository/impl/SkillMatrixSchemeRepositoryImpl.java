@@ -28,11 +28,7 @@ public class SkillMatrixSchemeRepositoryImpl implements SkillMatrixSchemeReposit
         if (schemeEntity.getId() == null) {
             throw new RuntimeException(); //TODO: Изменить на более осмысленный
         }
-        SkillMatrixSchemeEntity persistedSchemeEntity = schemeRepository.findById(schemeEntity.getId())
-                .orElseThrow(RuntimeException::new); //TODO: Изменить на более осмысленный
-
-        persistedSchemeEntity.setName(schemeEntity.getName());
-        return persistedSchemeEntity;
+        return schemeRepository.save(schemeEntity);
     }
 
     @Override
