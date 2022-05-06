@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Controller for work with SkillMatrices.
  */
-@Tag(name = "Skill Matrix controller", description = "works with skill matrix ")
+@Tag(name = "Skill Matrix Controller", description = "works with skill matrix ")
 @RequestMapping(value = "/skill-matrices")
 public interface SkillMatrixController {
 

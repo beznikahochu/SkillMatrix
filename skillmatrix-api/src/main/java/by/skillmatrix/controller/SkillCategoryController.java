@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Controller for work with skill categories.
  */
-@Tag(name = "Skill Matrix Scheme controller", description = "works with skill matrix schemes")
+@Tag(name = "Skill Category Controller", description = "works with skill categories")
 @RequestMapping(value = "/skill-categories")
 public interface SkillCategoryController {
 

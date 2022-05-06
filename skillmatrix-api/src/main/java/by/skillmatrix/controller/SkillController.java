@@ -8,9 +8,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controller for work with skill.
+ * Controller for work with skills.
  */
-@Tag(name = "Skill Controller", description = "works with skill matrix schemes")
+@Tag(name = "Skill Controller", description = "works with skills")
 @RequestMapping(value = "/skills")
 public interface SkillController {
 
