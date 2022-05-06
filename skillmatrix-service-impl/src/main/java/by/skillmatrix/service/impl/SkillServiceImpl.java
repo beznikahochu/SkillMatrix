@@ -27,7 +27,6 @@ public class SkillServiceImpl implements SkillService {
     private final SkillMapper skillMapper;
 
     @Override
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public SkillDto create(SkillCreationDto skillCreationDto) {
         log.debug("Trying to save Skill: {}", skillCreationDto);
 
@@ -48,7 +47,6 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    @Transactional
     public SkillDto update(SkillDto skillDto) {
         log.debug("Trying to update Skill: {}", skillDto);
 
@@ -61,6 +59,7 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         log.debug("Trying to delete Skill by id: {}", id);
 

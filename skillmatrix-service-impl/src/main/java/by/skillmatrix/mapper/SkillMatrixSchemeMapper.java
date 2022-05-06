@@ -15,9 +15,11 @@ public interface SkillMatrixSchemeMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "skillCategories", ignore = true)
+    @Mapping(target = "skillMatrixEntities", ignore = true)
     SkillMatrixSchemeEntity toSkillMatrixSchemeEntity(SkillMatrixSchemeCreationDto schemeCreationDto);
 
     @Mapping(target = "skillCategories", ignore = true)
+    @Mapping(target = "skillMatrixEntities", ignore = true)
     SkillMatrixSchemeEntity toSkillMatrixSchemeEntity(SkillMatrixSchemeDto schemeCreationDto);
 
     SkillMatrixSchemeDto toSkillMatrixSchemeDto(SkillMatrixSchemeEntity skillMatrixSchemeEntity);

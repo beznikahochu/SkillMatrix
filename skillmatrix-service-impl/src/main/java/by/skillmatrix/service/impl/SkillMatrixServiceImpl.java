@@ -37,7 +37,6 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     private final SkillMatrixMapper skillMatrixMapper;
 
     @Override
-    @Transactional
     public SkillMatrixDto create(SkillMatrixCreationDto skillMatrixCreationDto) {
         log.debug("Trying to save SkillMatrix: {}", skillMatrixCreationDto);
 
@@ -77,6 +76,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         log.debug("Trying to delete SkillMatrix by id: {}", id);
 

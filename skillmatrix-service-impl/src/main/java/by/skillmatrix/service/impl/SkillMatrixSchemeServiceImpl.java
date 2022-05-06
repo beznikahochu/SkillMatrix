@@ -28,7 +28,6 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     private final SkillMatrixSchemeMapper schemeMapper;
 
     @Override
-    @Transactional
     public SkillMatrixSchemeDto create(SkillMatrixSchemeCreationDto schemeCreationDto) {
         log.debug("Trying to save SkillMatrixScheme: {}", schemeCreationDto);
 
@@ -41,7 +40,6 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     }
 
     @Override
-    @Transactional
     public SkillMatrixSchemeDto update(SkillMatrixSchemeDto schemeDto) {
         log.debug("Trying to update SkillMatrixScheme: {}", schemeDto);
 

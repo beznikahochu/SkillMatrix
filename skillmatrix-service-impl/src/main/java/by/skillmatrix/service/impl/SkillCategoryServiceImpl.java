@@ -25,7 +25,6 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     private final SkillCategoryMapper skillCategoryMapper;
 
     @Override
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public SkillCategoryDto create(SkillCategoryCreationDto skillCategoryCreationDto) {
         log.debug("Trying to save SkillCategory: {}", skillCategoryCreationDto);
 
@@ -44,7 +43,6 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     }
 
     @Override
-    @Transactional
     public SkillCategoryDto update(SkillCategoryDto skillCategoryDto) {
         log.debug("Trying to update SkillCategory: {}", skillCategoryDto);
 
@@ -57,6 +55,7 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         log.debug("Trying to delete SkillCategory by id: {}", id);
 
