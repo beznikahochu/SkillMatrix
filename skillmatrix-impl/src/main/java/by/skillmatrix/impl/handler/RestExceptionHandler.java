@@ -2,7 +2,6 @@ package by.skillmatrix.impl.handler;
 
 import by.skillmatrix.error.ErrorDto;
 import by.skillmatrix.exception.NotFoundException;
-import by.skillmatrix.mapper.ErrorMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,20 +17,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RequiredArgsConstructor
 public class RestExceptionHandler {
 
-    private final ErrorMapper errorMapper;
-
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     protected ErrorDto handleNotFoundException(NotFoundException exception) {
         log.info("Caught not found exception: {}", exception.toString());
 
-        ErrorDto notFoundError = errorMapper.toNotFoundError(exception);
+        ErrorDto notFoundError = new ErrorDto();
+        notFoundError.setMessage(exception.getMessage());
+        notFoundError.setErrorCode(HttpStatus.NOT_FOUND.value());
 
         log.info("Handled not found error, message: {}, error code: {}",
                 notFoundError.getMessage(),
                 notFoundError.getErrorCode());
 
-        return errorMapper.toNotFoundError(exception);
+        return notFoundError;
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
