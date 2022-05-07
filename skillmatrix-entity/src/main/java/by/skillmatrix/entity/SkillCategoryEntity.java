@@ -15,8 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.NamedAttributeNode;
 import java.util.List;
 
 @Data
