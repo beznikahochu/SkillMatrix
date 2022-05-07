@@ -1,12 +1,12 @@
 package by.skillmatrix.repository.impl;
 
 import by.skillmatrix.entity.SkillCategoryEntity;
-import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.repository.SkillCategoryRepository;
 import by.skillmatrix.repository.impl.springdata.SkillCategorySpringDataRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -28,5 +28,9 @@ public class SkillCategoryRepositoryImpl implements SkillCategoryRepository {
     @Override
     public Optional<SkillCategoryEntity> findById(Long id) {
         return repository.findById(id);
+    }
+
+    public List<SkillCategoryEntity> findFullSkillCategoryBySchemeId(Long id) {
+        return repository.findFullSkillCategoryBySchemeId(id);
     }
 }

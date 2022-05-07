@@ -15,8 +15,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedAttributeNode;
 import java.util.List;
 
+@NamedEntityGraph(
+        name = "skill-category-with-skills",
+        attributeNodes = {
+                @NamedAttributeNode("skills"),
+        }
+)
 @Data
 @Entity
 @Table(name = "skill_categories")
@@ -35,6 +43,8 @@ public class SkillCategoryEntity {
     @OneToMany(cascade = CascadeType.REMOVE, fetch=FetchType.LAZY, mappedBy = "skillCategory")
     private List<SkillEntity> skills;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn (name="skill_matrix_scheme_id",updatable = false)
     private SkillMatrixSchemeEntity skillMatrixScheme;

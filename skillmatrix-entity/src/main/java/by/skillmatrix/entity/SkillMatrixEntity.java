@@ -41,6 +41,8 @@ public class SkillMatrixEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn (name="skill_matrix_scheme_id", updatable = false)
     private SkillMatrixSchemeEntity skillMatrixScheme;
@@ -56,6 +58,8 @@ public class SkillMatrixEntity {
     @Column(name = "creation_time", nullable = false)
     private LocalTime creationTime;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn (name="user_id", updatable = false)
     private UserEntity user;

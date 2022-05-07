@@ -1,14 +1,13 @@
 package by.skillmatrix.dto.skillmatrix;
 
-import by.skillmatrix.dto.category.SkillCategoryWithAssessmentsDto;
+import by.skillmatrix.dto.scheme.SkillMatrixSchemeWithAssessmentsDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
+import java.time.LocalTime;;
 
 import static by.skillmatrix.config.OpenApiConstants.EXAMPLE_LONG;
 
@@ -26,8 +25,8 @@ public class SkillMatrixFullInfoDto {
     private String name;
 
     @Schema(description = "Skill category with assessments")
-    @JsonProperty("skillCategory")
-    private List<SkillCategoryWithAssessmentsDto> skillCategory;
+    @JsonProperty("skillMatrixScheme")
+    private SkillMatrixSchemeWithAssessmentsDto skillMatrixScheme;
 
     @Schema(description = "Creation date of skill matrix", example = "Spring", defaultValue = "Spring")
     @JsonProperty("creationDate")

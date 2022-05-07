@@ -1,9 +1,7 @@
 package by.skillmatrix.repository.impl;
 
 import by.skillmatrix.entity.SkillMatrixEntity;
-import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.repository.SkillMatrixRepository;
-import by.skillmatrix.repository.impl.springdata.SkillMatrixSchemeSpringDataRepository;
 import by.skillmatrix.repository.impl.springdata.SkillMatrixSpringDataRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;

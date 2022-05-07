@@ -5,14 +5,14 @@ import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
-import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillMatrixEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.entity.UserEntity;
-import by.skillmatrix.entity.id.SkillAssessmentId;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMatrixMapper;
-import by.skillmatrix.repository.*;
+import by.skillmatrix.repository.SkillMatrixRepository;
+import by.skillmatrix.repository.SkillMatrixSchemeRepository;
+import by.skillmatrix.repository.UserRepository;
 import by.skillmatrix.service.SkillMatrixService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +31,6 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
 
     private final SkillMatrixRepository skillMatrixRepository;
     private final SkillMatrixSchemeRepository schemeRepository;
-    private final SkillRepository skillRepository;
-    private final SkillAssessmentRepository skillAssessmentRepository;
     private final UserRepository userRepository;
     private final SkillMatrixMapper skillMatrixMapper;
 

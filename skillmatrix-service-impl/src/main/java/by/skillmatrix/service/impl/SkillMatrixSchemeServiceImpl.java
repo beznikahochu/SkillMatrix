@@ -4,10 +4,10 @@ import by.skillmatrix.dto.scheme.SkillMatrixSchemeCreationDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeFullInfoDto;
 import by.skillmatrix.entity.SkillCategoryEntity;
-import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMatrixSchemeMapper;
+import by.skillmatrix.repository.SkillCategoryRepository;
 import by.skillmatrix.repository.SkillMatrixSchemeRepository;
 import by.skillmatrix.repository.SkillRepository;
 import by.skillmatrix.service.SkillMatrixSchemeService;
@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     private final SkillMatrixSchemeRepository schemeRepository;
     private final SkillRepository skillRepository;
+    private final SkillCategoryRepository categoryRepository;
     private final SkillMatrixSchemeMapper schemeMapper;
 
     @Override
@@ -92,25 +93,12 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     public SkillMatrixSchemeFullInfoDto findFullInfoById(Long id) {
         log.debug("Find full SkillMatrixScheme by id: {}", id);
 
-        SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findWithCategoriesById(id)
-                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
-        List<SkillCategoryEntity> categories = skillMatrixScheme.getSkillCategories();
-        List<SkillEntity> skills = skillRepository.findByCategories(categories);
-
-        fillUpCategories(categories, skills);
-
+        List<SkillCategoryEntity> categories = categoryRepository.findFullSkillCategoryBySchemeId(id);
+        SkillMatrixSchemeEntity skillMatrixScheme = categories.get(0).getSkillMatrixScheme();
+        skillMatrixScheme.setSkillCategories(categories);
         SkillMatrixSchemeFullInfoDto result = schemeMapper.toSkillMatrixSchemeFullInfoDto(skillMatrixScheme);
 
         log.debug("Return SkillMatrixScheme: {}", result);
         return result;
-    }
-
-    private void fillUpCategories(List<SkillCategoryEntity> categories, List<SkillEntity> skills) {
-        for (SkillCategoryEntity category: categories) {
-            List<SkillEntity> skillEntities = skills.stream().parallel()
-                    .filter(skill -> skill.getSkillCategory().getId().equals(category.getId()))
-                    .collect(Collectors.toList());
-            category.setSkills(skillEntities);
-        }
     }
 }

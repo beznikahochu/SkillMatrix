@@ -10,5 +10,4 @@ public interface SkillMatrixSchemeRepository {
     void delete(Long id);
     List<SkillMatrixSchemeEntity> findAll();
     Optional<SkillMatrixSchemeEntity> findById(Long id);
-    Optional<SkillMatrixSchemeEntity> findWithCategoriesById(Long id);
 }

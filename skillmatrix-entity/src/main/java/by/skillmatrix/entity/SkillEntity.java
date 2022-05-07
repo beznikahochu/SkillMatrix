@@ -29,6 +29,8 @@ public class SkillEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne (optional=false)
     @JoinColumn(name = "skill_category_id", updatable = false)
     private SkillCategoryEntity skillCategory;

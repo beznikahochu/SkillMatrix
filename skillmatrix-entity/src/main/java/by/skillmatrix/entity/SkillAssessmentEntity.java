@@ -2,6 +2,8 @@ package by.skillmatrix.entity;
 
 import by.skillmatrix.entity.id.SkillAssessmentId;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,10 +27,14 @@ public class SkillAssessmentEntity {
     @Column(name = "skill_id")
     private Long skillId;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "skill_matrix_id", insertable = false, updatable = false)
     private SkillMatrixEntity skillMatrix;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "skill_id", insertable = false, updatable = false)
     private SkillEntity skill;
