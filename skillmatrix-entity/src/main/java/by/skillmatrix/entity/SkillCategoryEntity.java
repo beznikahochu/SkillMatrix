@@ -19,12 +19,6 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedAttributeNode;
 import java.util.List;
 
-@NamedEntityGraph(
-        name = "skill-category-with-skills",
-        attributeNodes = {
-                @NamedAttributeNode("skills"),
-        }
-)
 @Data
 @Entity
 @Table(name = "skill_categories")

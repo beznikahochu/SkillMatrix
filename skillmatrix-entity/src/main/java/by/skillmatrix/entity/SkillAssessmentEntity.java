@@ -20,11 +20,11 @@ import javax.persistence.JoinColumn;
 public class SkillAssessmentEntity {
 
     @Id
-    @Column(name = "skill_matrix_id")
+    @Column(name = "skill_matrix_id", updatable = false)
     private Long skillMatrixId;
 
     @Id
-    @Column(name = "skill_id")
+    @Column(name = "skill_id", updatable = false)
     private Long skillId;
 
     @ToString.Exclude
