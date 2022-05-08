@@ -1,7 +1,7 @@
 package by.skillmatrix.repository.impl;
 
-import by.skillmatrix.entity.UserEntity;
-import by.skillmatrix.repository.UserRepository;
+import by.skillmatrix.entity.EmployeeEntity;
+import by.skillmatrix.repository.EmployeeRepository;
 import by.skillmatrix.repository.impl.springdata.UserSpringDataRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -10,17 +10,17 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class UserRepositoryImpl implements UserRepository {
+public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private final UserSpringDataRepository userRepository;
 
     @Override
-    public UserEntity save(UserEntity user) {
+    public EmployeeEntity save(EmployeeEntity user) {
         return userRepository.save(user);
     }
 
     @Override
-    public Optional<UserEntity> findById(Long id) {
+    public Optional<EmployeeEntity> findById(Long id) {
         return userRepository.findById(id);
     }
 }

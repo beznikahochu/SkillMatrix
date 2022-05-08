@@ -8,14 +8,13 @@ import lombok.Data;
 
 import java.util.List;
 
-import static by.skillmatrix.config.OpenApiConstants.EXAMPLE_LONG;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "SkillMatrixSchemeWithAssessmentsDto")
 public class SkillMatrixSchemeWithAssessmentsDto {
 
-    @Schema(description = "Skill matrix id", example = EXAMPLE_LONG, defaultValue = EXAMPLE_LONG)
+    @Schema(description = "Skill matrix id", example = "1", defaultValue = "1")
     @JsonProperty("id")
     private Long id;
 

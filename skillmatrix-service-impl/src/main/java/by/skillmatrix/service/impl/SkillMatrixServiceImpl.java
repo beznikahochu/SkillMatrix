@@ -7,7 +7,7 @@ import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
 import by.skillmatrix.entity.SkillMatrixEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
-import by.skillmatrix.entity.UserEntity;
+import by.skillmatrix.entity.EmployeeEntity;
 import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillAssessmentEntity;
 import by.skillmatrix.entity.SkillCategoryEntity;
@@ -16,7 +16,7 @@ import by.skillmatrix.mapper.SkillMatrixMapper;
 import by.skillmatrix.repository.SkillCategoryRepository;
 import by.skillmatrix.repository.SkillMatrixRepository;
 import by.skillmatrix.repository.SkillMatrixSchemeRepository;
-import by.skillmatrix.repository.UserRepository;
+import by.skillmatrix.repository.EmployeeRepository;
 import by.skillmatrix.service.SkillMatrixService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     private final SkillMatrixRepository skillMatrixRepository;
     private final SkillMatrixSchemeRepository schemeRepository;
     private final SkillCategoryRepository categoryRepository;
-    private final UserRepository userRepository;
+    private final EmployeeRepository employeeRepository;
     private final SkillMatrixMapper skillMatrixMapper;
 
     @Override
@@ -50,12 +50,12 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
         Long userId = skillMatrixCreationDto.getUserId();
         Long schemeId = skillMatrixCreationDto.getSchemeId();
 
-        UserEntity userEntity = userRepository.findById(userId)
+        EmployeeEntity employeeEntity = employeeRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found by id"));
         SkillMatrixSchemeEntity matrixScheme = schemeRepository.findById(schemeId)
                 .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
 
-        skillMatrixEntity.setUser(userEntity);
+        skillMatrixEntity.setUser(employeeEntity);
         skillMatrixEntity.setSkillMatrixScheme(matrixScheme);
         skillMatrixEntity.setCreationDate(LocalDate.now());
         skillMatrixEntity.setCreationTime(LocalTime.now());

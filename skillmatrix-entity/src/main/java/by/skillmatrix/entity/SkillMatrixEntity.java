@@ -64,5 +64,5 @@ public class SkillMatrixEntity {
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn (name="user_id", updatable = false)
-    private UserEntity user;
+    private EmployeeEntity user;
 }

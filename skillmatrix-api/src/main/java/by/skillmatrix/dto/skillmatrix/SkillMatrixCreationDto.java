@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import static by.skillmatrix.config.OpenApiConstants.EXAMPLE_LONG;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -16,11 +15,11 @@ public class SkillMatrixCreationDto {
     @JsonProperty("name")
     private String name;
 
-    @Schema(description = "Skill matrix scheme id", example = EXAMPLE_LONG, defaultValue = EXAMPLE_LONG)
+    @Schema(description = "Skill matrix scheme id", example = "1", defaultValue = "1")
     @JsonProperty("schemeId")
     private Long schemeId;
 
-    @Schema(description = "User id", example = EXAMPLE_LONG, defaultValue = EXAMPLE_LONG)
+    @Schema(description = "User id", example = "1", defaultValue = "1")
     @JsonProperty("userId")
     private Long userId;
 }

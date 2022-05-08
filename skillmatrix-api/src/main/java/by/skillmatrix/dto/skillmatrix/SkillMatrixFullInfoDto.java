@@ -9,18 +9,17 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalTime;;
 
-import static by.skillmatrix.config.OpenApiConstants.EXAMPLE_LONG;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "SkillMatrixSchemeDto")
 public class SkillMatrixFullInfoDto {
 
-    @Schema(description = "Skill matrix id", example = EXAMPLE_LONG, defaultValue = EXAMPLE_LONG)
+    @Schema(description = "Skill matrix id")
     @JsonProperty("id")
     private Long id;
 
-    @Schema(description = "Skill matrix name", example = "Spring", defaultValue = "Spring")
+    @Schema(description = "Skill matrix name")
     @JsonProperty("name")
     private String name;
 
@@ -28,11 +27,11 @@ public class SkillMatrixFullInfoDto {
     @JsonProperty("skillMatrixScheme")
     private SkillMatrixSchemeWithAssessmentsDto skillMatrixScheme;
 
-    @Schema(description = "Creation date of skill matrix", example = "Spring", defaultValue = "Spring")
+    @Schema(description = "Creation date of skill matrix")
     @JsonProperty("creationDate")
     private LocalDate creationDate;
 
-    @Schema(description = "Creation time of skill matrix", example = "Spring", defaultValue = "Spring")
+    @Schema(description = "Creation time of skill matrix")
     @JsonProperty("creationTime")
     private LocalTime creationTime;
 }
