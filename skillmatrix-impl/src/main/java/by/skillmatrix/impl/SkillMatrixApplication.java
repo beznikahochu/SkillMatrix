@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EntityScan("by.skillmatrix.entity")
 @EnableJpaRepositories("by.skillmatrix.repository.impl.springdata")
 @SpringBootApplication
-@EnableWebSecurity
 public class SkillMatrixApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SkillMatrixApplication.class, args);
