@@ -19,7 +19,7 @@ public class SkillControllerImpl implements SkillController {
     private final SkillService skillService;
 
     @Override
-    public SkillDto createSkill(SkillCreationDto creationDto) {
+    public SkillDto create(SkillCreationDto creationDto) {
         log.info("Trying to create new Skill: {}", creationDto);
 
         SkillDto createdSkill = skillService.create(creationDto);
@@ -29,7 +29,7 @@ public class SkillControllerImpl implements SkillController {
     }
 
     @Override
-    public void updateSkill(SkillDto skillDto) {
+    public void update(SkillDto skillDto) {
         log.info("Try to update Skill: {}", skillDto);
 
         SkillDto updatedSkill = skillService.update(skillDto);

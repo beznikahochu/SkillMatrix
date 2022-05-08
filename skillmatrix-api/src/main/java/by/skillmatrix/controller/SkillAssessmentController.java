@@ -4,7 +4,9 @@ import by.skillmatrix.dto.assessment.SkillAssessmentDto;
 import by.skillmatrix.dto.assessment.SkillAssessmentFullInfoDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Controller for mapping SkillCategory.

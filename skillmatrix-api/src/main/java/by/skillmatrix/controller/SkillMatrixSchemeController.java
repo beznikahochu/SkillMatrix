@@ -21,11 +21,11 @@ public interface SkillMatrixSchemeController {
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create new skill matrix scheme")
     @PostMapping
-    SkillMatrixSchemeDto createScheme(@RequestBody SkillMatrixSchemeCreationDto schemeCreationDto);
+    SkillMatrixSchemeDto create(@RequestBody SkillMatrixSchemeCreationDto schemeCreationDto);
 
     @PutMapping  //TODO /{id}
     @Operation(summary = "Update skill matrix scheme")
-    void updateScheme(@RequestBody SkillMatrixSchemeDto schemeCreationDto);
+    void update(@RequestBody SkillMatrixSchemeDto schemeCreationDto);
 
     @Operation(summary = "Delete skill matrix scheme by id")
     @DeleteMapping("/{id}")

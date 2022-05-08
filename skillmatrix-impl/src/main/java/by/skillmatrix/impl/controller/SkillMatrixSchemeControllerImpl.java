@@ -22,7 +22,7 @@ public class SkillMatrixSchemeControllerImpl implements SkillMatrixSchemeControl
     private final SkillMatrixSchemeService skillMatrixSchemeService;
 
     @Override
-    public SkillMatrixSchemeDto createScheme(SkillMatrixSchemeCreationDto schemeCreationDto) {
+    public SkillMatrixSchemeDto create(SkillMatrixSchemeCreationDto schemeCreationDto) {
         log.info("Trying to create new SkillMatrixScheme: {}", schemeCreationDto);
 
         SkillMatrixSchemeDto createdScheme = skillMatrixSchemeService.create(schemeCreationDto);
@@ -32,8 +32,7 @@ public class SkillMatrixSchemeControllerImpl implements SkillMatrixSchemeControl
     }
 
     @Override
-    //TODO: @PreAuthorize("hasRoles('MANAGER')")
-    public void updateScheme(SkillMatrixSchemeDto matrixSchemeDto) {
+    public void update(SkillMatrixSchemeDto matrixSchemeDto) {
         log.info("Try to update SkillMatrixScheme: {}", matrixSchemeDto);
 
         SkillMatrixSchemeDto updatedScheme = skillMatrixSchemeService.update(matrixSchemeDto);
