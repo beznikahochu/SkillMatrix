@@ -27,9 +27,4 @@ public class EmployeeControllerImpl implements EmployeeController {
         log.info("Return created user: {}", createdUser);
         return createdUser;
     }
-
-    @Override
-    public EmployeeDto findById(Long id) {
-        return null;
-    }
 }

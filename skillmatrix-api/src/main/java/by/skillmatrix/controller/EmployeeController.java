@@ -20,11 +20,4 @@ public interface EmployeeController {
     @Operation(summary = "Create new employee")
     @PostMapping
     EmployeeDto create(@RequestBody EmployeeCreationDto employeeDto);
-
-    @Operation(summary = "Get employee by id", description = "get employee information by id")
-    @GetMapping("/{id}")
-    EmployeeDto findById(
-            @Parameter(description = "employee id", required = true)
-            @PathVariable("id") Long id
-    );
 }
