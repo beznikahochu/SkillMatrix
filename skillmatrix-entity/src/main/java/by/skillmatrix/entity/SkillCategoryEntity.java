@@ -32,7 +32,7 @@ public class SkillCategoryEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(cascade = CascadeType.REMOVE, fetch=FetchType.LAZY, mappedBy = "skillCategory")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "skillCategory")
     private List<SkillEntity> skills;
 
     @ToString.Exclude
