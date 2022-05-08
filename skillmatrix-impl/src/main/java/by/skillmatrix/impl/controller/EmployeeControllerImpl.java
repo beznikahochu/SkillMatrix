@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class EmployeeControllerImpl implements EmployeeController {
 
-    private final EmployeeService userService;
+    private final EmployeeService employeeService;
 
     @Override
     public EmployeeDto create(EmployeeCreationDto employeeDto) {
         log.info("Try to create new user with login: {}", employeeDto);
 
-        EmployeeDto createdUser = userService.create(employeeDto);
+        EmployeeDto createdEmployee = employeeService.create(employeeDto);
 
-        log.info("Return created user: {}", createdUser);
-        return createdUser;
+        log.info("Return created user: {}", createdEmployee);
+        return createdEmployee;
     }
 }

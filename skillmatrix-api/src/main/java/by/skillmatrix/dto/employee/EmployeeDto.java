@@ -19,7 +19,7 @@ public class EmployeeDto {
     private Long id;
 
     @Schema(description = "First name of employee", example = "Ivan", defaultValue = "Ivan")
-    @JsonProperty("lastName")
+    @JsonProperty("firstName")
     private String firstName;
 
     @Schema(description = "Last name of employee", example = "Czarevich", defaultValue = "Czarevich")

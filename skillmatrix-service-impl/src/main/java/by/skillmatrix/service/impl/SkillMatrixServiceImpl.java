@@ -143,7 +143,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
             skill.setSkillAssessments(new ArrayList<>());
             for (SkillAssessmentEntity assessment: assessments) {
                 if (assessment.getSkillId().equals(skill.getId())) {
-                    skill.setSkillAssessments(List.of(assessment));
+                    skill.getSkillAssessments().add(assessment);
                     break;
                 }
             }
