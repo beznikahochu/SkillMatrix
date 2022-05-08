@@ -93,8 +93,10 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     public SkillMatrixSchemeFullInfoDto findFullInfoById(Long id) {
         log.debug("Find full SkillMatrixScheme by id: {}", id);
 
+        SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));;
+
         List<SkillCategoryEntity> categories = categoryRepository.findFullSkillCategoryBySchemeId(id);
-        SkillMatrixSchemeEntity skillMatrixScheme = categories.get(0).getSkillMatrixScheme();
         skillMatrixScheme.setSkillCategories(categories);
         SkillMatrixSchemeFullInfoDto result = schemeMapper.toSkillMatrixSchemeFullInfoDto(skillMatrixScheme);
 

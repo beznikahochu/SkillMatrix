@@ -3,6 +3,7 @@ package by.skillmatrix.mapper;
 import by.skillmatrix.config.MatrixMapperConfig;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
+import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
 import by.skillmatrix.entity.SkillMatrixEntity;
 import org.mapstruct.Mapper;
@@ -29,4 +30,6 @@ public interface SkillMatrixMapper {
     SkillMatrixEntity toSkillMatrixEntity(SkillMatrixModificationDto modificationDto);
 
     SkillMatrixDto toSkillMatrixDto(SkillMatrixEntity skillMatrixEntity);
+
+    SkillMatrixFullInfoDto toFullSkillMatrixEntity(SkillMatrixEntity skillMatrixEntity);
 }

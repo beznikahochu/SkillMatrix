@@ -25,5 +25,5 @@ public class SkillMatrixSchemeWithAssessmentsDto {
 
     @Schema(description = "Skill category with assessments")
     @JsonProperty("skillCategory")
-    private List<SkillCategoryWithAssessmentsDto> categories;
+    private List<SkillCategoryWithAssessmentsDto> skillCategories;
 }

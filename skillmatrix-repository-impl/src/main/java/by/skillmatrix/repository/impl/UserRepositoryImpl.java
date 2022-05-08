@@ -6,7 +6,6 @@ import by.skillmatrix.repository.impl.springdata.UserSpringDataRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,11 +17,6 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public UserEntity save(UserEntity user) {
         return userRepository.save(user);
-    }
-
-    @Override
-    public List<UserEntity> findAll() {
-        return userRepository.findAll();
     }
 
     @Override

@@ -16,6 +16,7 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
 @NamedEntityGraph(
         name = "skill-matrix-with-assessments",
         attributeNodes = {
+                @NamedAttributeNode("user"),
                 @NamedAttributeNode("skillAssessments"),
                 @NamedAttributeNode("skillMatrixScheme")
         }
@@ -43,13 +45,13 @@ public class SkillMatrixEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn (name="skill_matrix_scheme_id", updatable = false)
     private SkillMatrixSchemeEntity skillMatrixScheme;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany (cascade=CascadeType.REMOVE, mappedBy = "skillMatrix")
+    @OneToMany (cascade={CascadeType.REMOVE, CascadeType.DETACH}, mappedBy = "skillMatrix")
     private List<SkillAssessmentEntity> skillAssessments;
 
     @Column(name = "creation_date", nullable = false)
@@ -60,7 +62,7 @@ public class SkillMatrixEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn (name="user_id", updatable = false)
     private UserEntity user;
 }

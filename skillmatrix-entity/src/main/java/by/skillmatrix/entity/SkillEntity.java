@@ -38,5 +38,5 @@ public class SkillEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany (cascade=CascadeType.REMOVE, mappedBy = "skill")
-    private List<SkillAssessmentEntity> skillAssessmentEntities;
+    private List<SkillAssessmentEntity> skillAssessments;
 }
