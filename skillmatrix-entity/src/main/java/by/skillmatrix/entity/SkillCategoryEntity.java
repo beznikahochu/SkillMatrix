@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
-import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
 import java.util.List;
 
