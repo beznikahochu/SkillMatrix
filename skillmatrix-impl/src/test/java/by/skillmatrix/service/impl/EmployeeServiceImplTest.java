@@ -16,11 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EmployeeServiceImplTest {
 
-    @Autowired
     private EmployeeService employeeService;
-    @MockBean
     private EmployeeRepository employeeRepository;
-    @MockBean
     private EmployeeMapper employeeMapper;
 
     @BeforeEach
