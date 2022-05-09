@@ -26,9 +26,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         EmployeeEntity employee = employeeMapper.toEmployeeEntity(employeeDto);
         EmployeeEntity createdEmployee = employeeRepository.save(employee);
-        EmployeeDto result = employeeMapper.toEmployeeDto(createdEmployee);
+        EmployeeDto createdEmployeeDto = employeeMapper.toEmployeeDto(createdEmployee);
 
-        log.debug("Admitted employee: {}", employee);
-        return result;
+        log.debug("Admitted employee: {}", createdEmployeeDto);
+        return createdEmployeeDto;
     }
 }

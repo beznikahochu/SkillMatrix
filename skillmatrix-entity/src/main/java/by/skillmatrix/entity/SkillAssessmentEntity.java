@@ -39,7 +39,7 @@ public class SkillAssessmentEntity {
     @JoinColumn(name = "skill_id", insertable = false, updatable = false)
     private SkillEntity skill;
 
-    @Column(name = "assessment")
+    @Column(name = "assessment", nullable = false)
     private Long assessment;
 
     @Column(name = "comment")

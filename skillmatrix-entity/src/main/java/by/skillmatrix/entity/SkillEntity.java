@@ -32,7 +32,7 @@ public class SkillEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne (optional=false)
-    @JoinColumn(name = "skill_category_id", updatable = false)
+    @JoinColumn(name = "skill_category_id", updatable = false, nullable = false)
     private SkillCategoryEntity skillCategory;
 
     @ToString.Exclude

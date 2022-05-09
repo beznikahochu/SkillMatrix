@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
+
     private final SkillMatrixSchemeRepository schemeRepository;
     private final SkillCategoryRepository categoryRepository;
     private final SkillMatrixSchemeMapper schemeMapper;

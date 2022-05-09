@@ -38,6 +38,6 @@ public class SkillCategoryEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne
-    @JoinColumn (name="skill_matrix_scheme_id", updatable = false)
+    @JoinColumn (name="skill_matrix_scheme_id", updatable = false, nullable = false)
     private SkillMatrixSchemeEntity skillMatrixScheme;
 }

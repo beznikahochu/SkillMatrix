@@ -46,7 +46,7 @@ public class SkillMatrixEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinColumn (name="skill_matrix_scheme_id", updatable = false)
+    @JoinColumn (name="skill_matrix_scheme_id", updatable = false, nullable = false)
     private SkillMatrixSchemeEntity skillMatrixScheme;
 
     @ToString.Exclude
