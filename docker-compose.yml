@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+
+  skill-matrix:
+    image: skill-matrix:1.0
+    restart: always
+    environment:
+      DATASOURCE_URL: "jdbc:postgresql://skill-matrix-bd:5432/skill-matrix-bd"
+      DATASOURCE_USERNAME: postgres
+      DATASOURCE_PASSWORD: 1234
+      PORT: 8080
+    depends_on:
+      - skill-matrix-bd
+    ports:
+      - 8080:8080
+
+  skill-matrix-bd:
+    image: postgres:13.2
+    environment:
+      - POSTGRES_DB=skill-matrix-bd
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+    volumes:
+      - skill-matrix-bd
+    restart: always
+    ports:
+      - 5433:5432
+
+volumes:
+  skill-matrix-bd:
+

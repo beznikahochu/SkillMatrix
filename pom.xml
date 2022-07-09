@@ -24,6 +24,8 @@
         <module>skillmatrix-service</module>
         <module>skillmatrix-service-impl</module>
         <module>skillmatrix-impl</module>
+        <module>skillmatrix-test</module>
+        <module>skillmatrix-security</module>
     </modules>
 
     <properties>
@@ -76,11 +78,21 @@
                 <artifactId>skillmatrix-service-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>by.skillmatrix</groupId>
+                <artifactId>skillmatrix-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>by.skillmatrix</groupId>
+                <artifactId>skillmatrix-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-core</artifactId>
-                <version>3.8.2</version>
+                <version>4.3.1</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -118,6 +130,11 @@
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.javafaker</groupId>
+                <artifactId>javafaker</artifactId>
+                <version>1.0.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -147,5 +164,6 @@
             </plugins>
         </pluginManagement>
     </build>
+
 
 </project>

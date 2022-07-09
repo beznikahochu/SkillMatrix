@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 
 @Data
 @Entity
-@Table(name = "users")
+@Table(name = "employees")
 public class EmployeeEntity {
 
     @Id

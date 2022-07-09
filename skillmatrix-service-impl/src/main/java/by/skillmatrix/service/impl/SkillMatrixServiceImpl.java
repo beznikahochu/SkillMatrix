@@ -11,20 +11,28 @@ import by.skillmatrix.entity.EmployeeEntity;
 import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillAssessmentEntity;
 import by.skillmatrix.entity.SkillCategoryEntity;
+import by.skillmatrix.excel.SkillMatrixExcelBuilder;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMatrixMapper;
+import by.skillmatrix.param.MatrixSearchParams;
 import by.skillmatrix.repository.SkillCategoryRepository;
 import by.skillmatrix.repository.SkillMatrixRepository;
 import by.skillmatrix.repository.SkillMatrixSchemeRepository;
 import by.skillmatrix.repository.EmployeeRepository;
+import by.skillmatrix.repository.criteria.SkillMatrixCriteria;
+import by.skillmatrix.repository.page.PageOptions;
+import by.skillmatrix.repository.sorttype.SkillMatrixSortType;
 import by.skillmatrix.service.SkillMatrixService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +47,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     private final SkillCategoryRepository categoryRepository;
     private final EmployeeRepository employeeRepository;
     private final SkillMatrixMapper skillMatrixMapper;
+    private final SkillMatrixExcelBuilder excelBuilder;
 
     @Override
     @Transactional
@@ -55,10 +64,9 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
         SkillMatrixSchemeEntity matrixScheme = schemeRepository.findById(schemeId)
                 .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
 
-        skillMatrixEntity.setUser(employeeEntity);
+        skillMatrixEntity.setEmployee(employeeEntity);
         skillMatrixEntity.setSkillMatrixScheme(matrixScheme);
-        skillMatrixEntity.setCreationDate(LocalDate.now());
-        skillMatrixEntity.setCreationTime(LocalTime.now());
+        skillMatrixEntity.setCreationDate(LocalDateTime.now());
 
         SkillMatrixEntity createdMatrix = skillMatrixRepository.save(skillMatrixEntity);
 
@@ -70,10 +78,11 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
 
     @Override
     @Transactional
-    public SkillMatrixDto update(SkillMatrixModificationDto modificationDto) {
-        log.debug("Trying to update SkillMatrix: {}", modificationDto);
+    public SkillMatrixDto update(Long id, SkillMatrixModificationDto modificationDto) {
+        log.debug("Trying to update SkillMatrix with id: {}", id);
 
         SkillMatrixEntity skillMatrixEntity = skillMatrixMapper.toSkillMatrixEntity(modificationDto);
+        skillMatrixEntity.setId(id);
         SkillMatrixEntity updatedSkillMatrix = skillMatrixRepository.save(skillMatrixEntity);
         SkillMatrixDto createdSchemeDto = skillMatrixMapper.toSkillMatrixDto(updatedSkillMatrix);
 
@@ -92,10 +101,18 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     }
 
     @Override
-    public List<SkillMatrixDto> findAll() {
+    public List<SkillMatrixDto> findByParams(MatrixSearchParams params) {
         log.debug("Trying to get all SkillMatrix");
 
-        List<SkillMatrixEntity> skillMatrixEntities = skillMatrixRepository.findAll();
+        PageOptions pageOptions = new PageOptions(params.getPage(), params.getPageSize());
+        SkillMatrixSortType sortType = SkillMatrixSortType.getTypeByString(params.getSort());
+        SkillMatrixCriteria criteria = SkillMatrixCriteria.builder()
+                .schemeId(params.getSchemeId())
+                .userId(params.getUserId())
+                .build();
+
+        List<SkillMatrixEntity> skillMatrixEntities = skillMatrixRepository
+                .findByCriteria(criteria, pageOptions, sortType);
         List<SkillMatrixDto> result = skillMatrixEntities.stream()
                 .map(skillMatrixMapper::toSkillMatrixDto)
                 .collect(Collectors.toList());
@@ -120,6 +137,28 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     public SkillMatrixFullInfoDto findFullInfoById(Long id) {
         log.debug("Find full SkillMatrix by id: {}", id);
 
+        SkillMatrixEntity skillMatrix = findEntityWithFullInfoById(id);
+        SkillMatrixFullInfoDto result = skillMatrixMapper.toFullSkillMatrixEntity(skillMatrix);
+
+        log.debug("Return SkillMatrix: {}", result);
+        return result;
+    }
+    @Override
+    public ResponseEntity<byte[]> exportMatrixToExcelById(Long id) throws IOException {
+        log.debug("Export SkillMatrix by id: {}", id);
+
+        SkillMatrixEntity skillMatrix = findEntityWithFullInfoById(id);
+        byte[] excel = excelBuilder.build(skillMatrix);
+
+        String fileName = skillMatrix.getName() + ".xlsx";
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
+        ResponseEntity<byte[]> response = new ResponseEntity(excel, headers, HttpStatus.OK);
+
+        return response;
+    }
+
+    private SkillMatrixEntity findEntityWithFullInfoById(Long id) {
         SkillMatrixEntity skillMatrix = skillMatrixRepository.findWithAssessmentsById(id)
                 .orElseThrow(() -> new NotFoundException("SkillMatrix not found by id"));
 
@@ -132,10 +171,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
                 .stream()).collect(Collectors.toList());
         setSkillAssessments(skills,assessments);
 
-        SkillMatrixFullInfoDto result = skillMatrixMapper.toFullSkillMatrixEntity(skillMatrix);
-
-        log.debug("Return SkillMatrix: {}", result);
-        return result;
+        return skillMatrix;
     }
 
     private void setSkillAssessments(List<SkillEntity> skills, List<SkillAssessmentEntity> assessments) {

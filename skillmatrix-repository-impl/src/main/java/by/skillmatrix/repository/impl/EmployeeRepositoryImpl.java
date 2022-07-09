@@ -2,7 +2,7 @@ package by.skillmatrix.repository.impl;
 
 import by.skillmatrix.entity.EmployeeEntity;
 import by.skillmatrix.repository.EmployeeRepository;
-import by.skillmatrix.repository.impl.springdata.UserSpringDataRepository;
+import by.skillmatrix.repository.impl.springdata.EmployeeSpringDataRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
-    private final UserSpringDataRepository userRepository;
+    private final EmployeeSpringDataRepository userRepository;
 
     @Override
     public EmployeeEntity save(EmployeeEntity user) {

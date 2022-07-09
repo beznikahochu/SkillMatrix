@@ -10,11 +10,6 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "SkillMatrixModificationDto")
 public class SkillMatrixModificationDto {
-
-    @Schema(description = "Skill matrix id", example = "1", defaultValue = "1")//TODO
-    @JsonProperty("id")
-    private Long id;
-
     @Schema(description = "Skill matrix name", example = "Spring", defaultValue = "Spring")
     @JsonProperty("name")
     private String name;

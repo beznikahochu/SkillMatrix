@@ -2,6 +2,7 @@ package by.skillmatrix.service;
 
 import by.skillmatrix.dto.category.SkillCategoryCreationDto;
 import by.skillmatrix.dto.category.SkillCategoryDto;
+import by.skillmatrix.dto.category.SkillCategoryModificationDto;
 
 /**
  * Service for working with SkillCategories.
@@ -17,12 +18,12 @@ public interface SkillCategoryService {
     SkillCategoryDto create(SkillCategoryCreationDto skillCategoryCreationDto);
 
     /**
-     * Update SkillMatrixScheme.
-     *
-     * @param skillCategoryDto SkillMatrixScheme to update
-     * @return updating SkillMatrixScheme
+     * Update SkillCategory.
+     * @param id Id of Skill
+     * @param modificationDto SkillCategory data for update
+     * @return updating SkillCategory
      */
-    SkillCategoryDto update(SkillCategoryDto skillCategoryDto);
+    SkillCategoryDto update(Long id, SkillCategoryModificationDto modificationDto);
 
     /**
      * Delete SkillCategory.

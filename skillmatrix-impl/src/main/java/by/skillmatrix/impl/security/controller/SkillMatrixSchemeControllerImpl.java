@@ -1,12 +1,15 @@
-package by.skillmatrix.impl.controller;
+package by.skillmatrix.impl.security.controller;
 
 import by.skillmatrix.controller.SkillMatrixSchemeController;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeCreationDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeFullInfoDto;
+import by.skillmatrix.dto.scheme.SkillMatrixSchemeModificationDto;
 import by.skillmatrix.service.SkillMatrixSchemeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -32,10 +35,10 @@ public class SkillMatrixSchemeControllerImpl implements SkillMatrixSchemeControl
     }
 
     @Override
-    public void update(SkillMatrixSchemeDto matrixSchemeDto) {
-        log.info("Try to update SkillMatrixScheme: {}", matrixSchemeDto);
+    public void update(Long id, SkillMatrixSchemeModificationDto modificationDto) {
+        log.info("Try to update SkillMatrixScheme with id: {}", id);
 
-        SkillMatrixSchemeDto updatedScheme = skillMatrixSchemeService.update(matrixSchemeDto);
+        SkillMatrixSchemeDto updatedScheme = skillMatrixSchemeService.update(id,modificationDto);
 
         log.info("Updated SkillMatrixScheme: {}", updatedScheme);
     }

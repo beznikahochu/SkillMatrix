@@ -13,9 +13,4 @@ public interface SkillSpringDataRepository extends JpaRepository<SkillEntity, Lo
 
     @Query("SELECT s FROM SkillEntity s WHERE s.skillCategory in :skillCategoryEntities")
     List<SkillEntity> findByCategories(List<SkillCategoryEntity> skillCategoryEntities);
-
-//    select distinct p " +
-//            "from Post p " +
-//            "left join fetch p.tags t " +
-//            "where p in :posts
 }

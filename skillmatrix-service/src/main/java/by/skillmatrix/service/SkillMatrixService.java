@@ -4,7 +4,10 @@ import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
+import by.skillmatrix.param.MatrixSearchParams;
+import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface SkillMatrixService {
@@ -20,10 +23,11 @@ public interface SkillMatrixService {
     /**
      * Update SkillMatrix.
      *
+     * @param id id of SkillMatrix
      * @param modificationDto SkillMatrix to update
      * @return updating SkillMatrix
      */
-    SkillMatrixDto update(SkillMatrixModificationDto modificationDto);
+    SkillMatrixDto update(Long id,SkillMatrixModificationDto modificationDto);
 
     /**
      * Delete SkillMatrix.
@@ -33,11 +37,11 @@ public interface SkillMatrixService {
     void delete(Long id);
 
     /**
-     * Find all SkillMatrix.
+     * Find SkillMatrix by params.
      *
      * @return List of SkillMatrix
      */
-    List<SkillMatrixDto> findAll();
+    List<SkillMatrixDto> findByParams(MatrixSearchParams params);
 
     /**
      * Find SkillMatrix by id.
@@ -54,4 +58,12 @@ public interface SkillMatrixService {
      * @return updating SkillMatrix
      */
     SkillMatrixFullInfoDto findFullInfoById(Long id);
+
+    /**
+     * Export matrix to excel table by id
+     *
+     * @param id id of SkillMatrix
+     * @return updating SkillMatrix
+     */
+    ResponseEntity<byte[]> exportMatrixToExcelById(Long id) throws IOException;
 }

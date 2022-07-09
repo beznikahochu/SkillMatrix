@@ -17,16 +17,22 @@ import javax.persistence.NamedAttributeNode;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
 @NamedEntityGraph(
         name = "skill-matrix-with-assessments",
         attributeNodes = {
-                @NamedAttributeNode("user"),
+                @NamedAttributeNode("employee"),
                 @NamedAttributeNode("skillAssessments"),
+                @NamedAttributeNode("skillMatrixScheme")
+        }
+)
+@NamedEntityGraph(
+        name = "skill-matrix-with-scheme-and-user",
+        attributeNodes = {
+                @NamedAttributeNode("employee"),
                 @NamedAttributeNode("skillMatrixScheme")
         }
 )
@@ -54,15 +60,12 @@ public class SkillMatrixEntity {
     @OneToMany (cascade={CascadeType.REMOVE, CascadeType.DETACH}, mappedBy = "skillMatrix")
     private List<SkillAssessmentEntity> skillAssessments;
 
-    @Column(name = "creation_date", nullable = false)
-    private LocalDate creationDate;
-
-    @Column(name = "creation_time", nullable = false)
-    private LocalTime creationTime;
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    private LocalDateTime creationDate;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinColumn (name="user_id", updatable = false)
-    private EmployeeEntity user;
+    @JoinColumn (name="employee_id", updatable = false)
+    private EmployeeEntity employee;
 }

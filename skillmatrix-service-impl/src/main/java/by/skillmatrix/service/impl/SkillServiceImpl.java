@@ -2,6 +2,7 @@ package by.skillmatrix.service.impl;
 
 import by.skillmatrix.dto.skill.SkillCreationDto;
 import by.skillmatrix.dto.skill.SkillDto;
+import by.skillmatrix.dto.skill.SkillModificationDto;
 import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
@@ -49,10 +50,11 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     @Transactional
-    public SkillDto update(SkillDto skillDto) {
-        log.debug("Trying to update Skill: {}", skillDto);
+    public SkillDto update(Long id, SkillModificationDto skillDto) {
+        log.debug("Trying to update Skill with id: {}", id);
 
         SkillEntity skillEntity = skillMapper.toSkillEntity(skillDto);
+        skillEntity.setId(id);
         SkillEntity updatedSkill = skillRepository.save(skillEntity);
         SkillDto updatedSkillDto = skillMapper.toSkillDto(updatedSkill);
 

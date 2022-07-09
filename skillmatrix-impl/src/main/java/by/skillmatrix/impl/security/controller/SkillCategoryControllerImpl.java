@@ -1,8 +1,9 @@
-package by.skillmatrix.impl.controller;
+package by.skillmatrix.impl.security.controller;
 
 import by.skillmatrix.controller.SkillCategoryController;
 import by.skillmatrix.dto.category.SkillCategoryCreationDto;
 import by.skillmatrix.dto.category.SkillCategoryDto;
+import by.skillmatrix.dto.category.SkillCategoryModificationDto;
 import by.skillmatrix.service.SkillCategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +30,10 @@ public class SkillCategoryControllerImpl implements SkillCategoryController {
     }
 
     @Override
-    public void update(SkillCategoryDto skillCategoryDto) {
-        log.info("Try to update SkillCategory: {}", skillCategoryDto);
+    public void update(Long id, SkillCategoryModificationDto modificationDto) {
+        log.info("Try to update SkillCategory with id: {}", id);
 
-        SkillCategoryDto updatedScheme = skillCategoryService.update(skillCategoryDto);
+        SkillCategoryDto updatedScheme = skillCategoryService.update(id, modificationDto);
 
         log.info("Updated SkillCategory: {}", updatedScheme);
     }

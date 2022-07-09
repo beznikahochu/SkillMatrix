@@ -26,7 +26,7 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
 
     @Override
     @Transactional
-    public SkillAssessmentDto createOrUpdate(SkillAssessmentFullInfoDto creationDto) {
+    public SkillAssessmentFullInfoDto createOrUpdate(SkillAssessmentFullInfoDto creationDto) {
         log.debug("Trying to save SkillAssessment: {}", creationDto);
 
         skillRepository.findById(creationDto.getSkillId())
@@ -37,7 +37,7 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
         SkillAssessmentEntity skillAssessmentEntity = skillAssessmentMapper.toSkillAssessmentEntity(creationDto);
 
         SkillAssessmentEntity createdAssessment = skillAssessmentRepository.save(skillAssessmentEntity);
-        SkillAssessmentDto createdAssessmentDto = skillAssessmentMapper.toSkillAssessmentDto(createdAssessment);
+        SkillAssessmentFullInfoDto createdAssessmentDto = skillAssessmentMapper.toSkillAssessmentFullInfoDto(createdAssessment);
 
         log.debug("Return saved SkillAssessment: {}", createdAssessmentDto);
         return createdAssessmentDto;

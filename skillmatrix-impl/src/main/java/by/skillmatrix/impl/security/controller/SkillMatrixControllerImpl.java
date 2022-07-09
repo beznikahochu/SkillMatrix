@@ -1,18 +1,18 @@
-package by.skillmatrix.impl.controller;
+package by.skillmatrix.impl.security.controller;
 
 import by.skillmatrix.controller.SkillMatrixController;
-import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
-import by.skillmatrix.dto.scheme.SkillMatrixSchemeFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
-import by.skillmatrix.entity.SkillMatrixEntity;
+import by.skillmatrix.param.MatrixSearchParams;
 import by.skillmatrix.service.SkillMatrixService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -36,10 +36,10 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
     }
 
     @Override
-    public void update(SkillMatrixModificationDto modificationDto) {
+    public void update(Long id, SkillMatrixModificationDto modificationDto) {
         log.info("Try to update SkillMatrix: {}", modificationDto);
 
-        SkillMatrixDto updatedSkillMatrix = skillMatrixService.update(modificationDto);
+        SkillMatrixDto updatedSkillMatrix = skillMatrixService.update(id, modificationDto);
 
         log.info("Updated SkillMatrix: {}", updatedSkillMatrix);
     }
@@ -54,10 +54,10 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
     }
 
     @Override
-    public List<SkillMatrixDto> findAll() {
-        log.info("Find all SkillMatrix");
+    public List<SkillMatrixDto> findByParams(MatrixSearchParams params) {
+        log.info("Find SkillMatrix by params: {}", params);
 
-        List<SkillMatrixDto> foundList = skillMatrixService.findAll();
+        List<SkillMatrixDto> foundList = skillMatrixService.findByParams(params);
 
         log.info("Return all SkillMatrixSchemes: {}", foundList);
         return foundList;
@@ -80,6 +80,16 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
         SkillMatrixFullInfoDto skillMatrix = skillMatrixService.findFullInfoById(id);
 
         log.info("Return full SkillMatrix: {}", skillMatrix);
+        return skillMatrix;
+    }
+
+    @Override
+    public ResponseEntity<byte[]> exportMatrixToExcelById(Long id) throws IOException {
+        log.info("Find full SkillMatrix by id:", id);
+
+        ResponseEntity<byte[]> skillMatrix = skillMatrixService.exportMatrixToExcelById(id);
+
+        log.info("Export done");
         return skillMatrix;
     }
 }

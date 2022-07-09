@@ -1,4 +1,4 @@
-package by.skillmatrix.impl.handler;
+package by.skillmatrix.impl.security.handler;
 
 import by.skillmatrix.error.ErrorDto;
 import by.skillmatrix.exception.NotFoundException;

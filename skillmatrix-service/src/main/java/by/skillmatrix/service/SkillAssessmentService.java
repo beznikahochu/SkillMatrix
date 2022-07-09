@@ -14,5 +14,5 @@ public interface SkillAssessmentService {
      * @param creationDto new SkillAssessment
      * @return created SkillAssessment
      */
-    SkillAssessmentDto createOrUpdate(SkillAssessmentFullInfoDto creationDto);
+    SkillAssessmentFullInfoDto createOrUpdate(SkillAssessmentFullInfoDto creationDto);
 }

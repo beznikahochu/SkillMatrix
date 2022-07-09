@@ -2,6 +2,7 @@ package by.skillmatrix.service.impl;
 
 import by.skillmatrix.dto.category.SkillCategoryCreationDto;
 import by.skillmatrix.dto.category.SkillCategoryDto;
+import by.skillmatrix.dto.category.SkillCategoryModificationDto;
 import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.exception.NotFoundException;
@@ -45,10 +46,11 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
 
     @Override
     @Transactional
-    public SkillCategoryDto update(SkillCategoryDto skillCategoryDto) {
-        log.debug("Trying to update SkillCategory: {}", skillCategoryDto);
+    public SkillCategoryDto update(Long id, SkillCategoryModificationDto modificationDto) {
+        log.debug("Trying to update SkillCategory with id: {}", id);
 
-        SkillCategoryEntity schemeEntity = skillCategoryMapper.toSkillCategoryEntity(skillCategoryDto);
+        SkillCategoryEntity schemeEntity = skillCategoryMapper.toSkillCategoryEntity(modificationDto);
+        schemeEntity.setId(id);
         SkillCategoryEntity updatedSkillCategory = skillCategoryRepository.save(schemeEntity);
         SkillCategoryDto updatedSkillCategoryDto = skillCategoryMapper.toSkillCategoryDto(updatedSkillCategory);
 

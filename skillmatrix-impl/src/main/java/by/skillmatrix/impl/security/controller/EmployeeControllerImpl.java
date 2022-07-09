@@ -1,4 +1,4 @@
-package by.skillmatrix.impl.controller;
+package by.skillmatrix.impl.security.controller;
 
 import by.skillmatrix.controller.EmployeeController;
 import by.skillmatrix.dto.employee.EmployeeCreationDto;

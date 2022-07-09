@@ -9,24 +9,21 @@ import by.skillmatrix.entity.SkillMatrixEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(
-        config = MatrixMapperConfig.class
-)
+@Mapper(config = MatrixMapperConfig.class)
 public interface SkillMatrixMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "skillMatrixScheme", ignore = true)
     @Mapping(target = "skillAssessments", ignore = true)
     @Mapping(target = "creationDate", ignore = true)
-    @Mapping(target = "creationTime", ignore = true)
-    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "employee", ignore = true)
     SkillMatrixEntity toSkillMatrixEntity(SkillMatrixCreationDto skillMatrixCreationDto);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "skillMatrixScheme", ignore = true)
     @Mapping(target = "skillAssessments", ignore = true)
     @Mapping(target = "creationDate", ignore = true)
-    @Mapping(target = "creationTime", ignore = true)
-    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "employee", ignore = true)
     SkillMatrixEntity toSkillMatrixEntity(SkillMatrixModificationDto modificationDto);
 
     SkillMatrixDto toSkillMatrixDto(SkillMatrixEntity skillMatrixEntity);

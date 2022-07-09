@@ -1,9 +1,14 @@
+server:
+  port: ${PORT:8080}
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/skillmatrix
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/skillmatrix}
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: 1234
+    username: ${DATASOURCE_USERNAME:postgres}
+    password: ${DATASOURCE_PASSWORD:1234}
+  liquibase:
+    enabled: true
+    change-log: classpath:root-changelog.xml
   jpa:
     show-sql: true
     hibernate:

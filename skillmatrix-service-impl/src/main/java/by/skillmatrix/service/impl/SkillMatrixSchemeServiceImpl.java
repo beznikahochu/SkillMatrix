@@ -3,6 +3,7 @@ package by.skillmatrix.service.impl;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeCreationDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeFullInfoDto;
+import by.skillmatrix.dto.scheme.SkillMatrixSchemeModificationDto;
 import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.exception.NotFoundException;
@@ -42,10 +43,11 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
 
     @Override
     @Transactional
-    public SkillMatrixSchemeDto update(SkillMatrixSchemeDto schemeDto) {
-        log.debug("Trying to update SkillMatrixScheme: {}", schemeDto);
+    public SkillMatrixSchemeDto update(Long id, SkillMatrixSchemeModificationDto modificationDto) {
+        log.debug("Trying to update SkillMatrixScheme with id: {}", id);
 
-        SkillMatrixSchemeEntity schemeEntity = schemeMapper.toSkillMatrixSchemeEntity(schemeDto);
+        SkillMatrixSchemeEntity schemeEntity = schemeMapper.toSkillMatrixSchemeEntity(modificationDto);
+        schemeEntity.setId(id);
         SkillMatrixSchemeEntity updatedScheme = schemeRepository.save(schemeEntity);
         SkillMatrixSchemeDto updatedSchemeDto = schemeMapper.toSkillMatrixSchemeDto(updatedScheme);
 

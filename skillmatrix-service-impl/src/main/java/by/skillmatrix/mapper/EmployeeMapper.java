@@ -7,9 +7,7 @@ import by.skillmatrix.entity.EmployeeEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(
-        config = MatrixMapperConfig.class
-)
+@Mapper(config = MatrixMapperConfig.class)
 public interface EmployeeMapper {
 
     @Mapping(target = "id", ignore = true)

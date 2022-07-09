@@ -1,4 +1,4 @@
-package by.skillmatrix.impl.controller;
+package by.skillmatrix.impl.security.controller;
 
 import by.skillmatrix.controller.SkillAssessmentController;
 import by.skillmatrix.dto.assessment.SkillAssessmentDto;
@@ -19,10 +19,10 @@ public class SkillAssessmentControllerImpl implements SkillAssessmentController 
     private final SkillAssessmentService skillAssessmentService;
 
     @Override
-    public SkillAssessmentDto createOrUpdate(SkillAssessmentFullInfoDto creationDto) {
+    public SkillAssessmentFullInfoDto createOrUpdate(SkillAssessmentFullInfoDto creationDto) {
         log.info("Trying to save SkillAssessment: {}", creationDto);
 
-        SkillAssessmentDto createdSkillCategory = skillAssessmentService.createOrUpdate(creationDto);
+        SkillAssessmentFullInfoDto createdSkillCategory = skillAssessmentService.createOrUpdate(creationDto);
 
         log.info("Return saved SkillAssessment: {}", createdSkillCategory);
         return createdSkillCategory;

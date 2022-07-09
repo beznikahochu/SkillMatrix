@@ -3,6 +3,7 @@ package by.skillmatrix.service;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeCreationDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeFullInfoDto;
+import by.skillmatrix.dto.scheme.SkillMatrixSchemeModificationDto;
 
 import java.util.List;
 
@@ -21,11 +22,11 @@ public interface SkillMatrixSchemeService {
 
     /**
      * Update SkillMatrixScheme.
-     *
-     * @param schemeDto SkillMatrixScheme to update
+     * @param id Id of SkillMatrixScheme
+     * @param modificationDto SkillMatrixScheme data for update
      * @return updating SkillMatrixScheme
      */
-    SkillMatrixSchemeDto update(SkillMatrixSchemeDto schemeDto);
+    SkillMatrixSchemeDto update(Long id, SkillMatrixSchemeModificationDto modificationDto);
 
     /**
      * Delete SkillMatrixScheme.

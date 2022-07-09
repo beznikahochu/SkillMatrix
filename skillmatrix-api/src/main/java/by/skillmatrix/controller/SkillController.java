@@ -2,6 +2,7 @@ package by.skillmatrix.controller;
 
 import by.skillmatrix.dto.skill.SkillCreationDto;
 import by.skillmatrix.dto.skill.SkillDto;
+import by.skillmatrix.dto.skill.SkillModificationDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,12 +23,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface SkillController {
 
     @PostMapping
-    @Operation(summary = "Create skill for category")
+    @Operation(summary = "Create skill")
     SkillDto create(@RequestBody SkillCreationDto creationDto);
 
-    @PutMapping //TODO /{id}
-    @Operation(summary = "Update skill for category")
-    void update(@RequestBody SkillDto skillDto);
+    @PutMapping("/{id}")
+    @Operation(summary = "Update skill")
+    void update(@PathVariable("id") Long id, @RequestBody SkillModificationDto modificationDto);
 
     @Operation(summary = "Delete skill by id")
     @DeleteMapping("/{id}")

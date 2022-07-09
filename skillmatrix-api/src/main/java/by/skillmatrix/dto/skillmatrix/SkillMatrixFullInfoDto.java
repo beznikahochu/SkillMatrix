@@ -1,5 +1,6 @@
 package by.skillmatrix.dto.skillmatrix;
 
+import by.skillmatrix.dto.employee.EmployeeDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeWithAssessmentsDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,6 +24,10 @@ public class SkillMatrixFullInfoDto {
     @JsonProperty("name")
     private String name;
 
+    @Schema(description = "Employee")
+    @JsonProperty("employee")
+    private EmployeeDto employee;
+
     @Schema(description = "Skill category with assessments")
     @JsonProperty("skillMatrixScheme")
     private SkillMatrixSchemeWithAssessmentsDto skillMatrixScheme;
@@ -30,8 +35,4 @@ public class SkillMatrixFullInfoDto {
     @Schema(description = "Creation date of skill matrix")
     @JsonProperty("creationDate")
     private LocalDate creationDate;
-
-    @Schema(description = "Creation time of skill matrix")
-    @JsonProperty("creationTime")
-    private LocalTime creationTime;
 }

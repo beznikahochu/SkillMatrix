@@ -4,11 +4,15 @@ import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
+import by.skillmatrix.param.MatrixSearchParams;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -22,9 +26,9 @@ public interface SkillMatrixController {
     @Operation(summary = "Create new skill matrix")
     SkillMatrixDto create(@RequestBody SkillMatrixCreationDto skillMatrixCreationDto);
 
-    @PutMapping //TODO /{id}
+    @PutMapping("/{id}")
     @Operation(summary = "Update skill matrix")
-    void update(@RequestBody SkillMatrixModificationDto modificationDto);
+    void update(@PathVariable("id") Long id, @RequestBody SkillMatrixModificationDto modificationDto);
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete skill matrix")
@@ -34,8 +38,8 @@ public interface SkillMatrixController {
     );
 
     @GetMapping
-    @Operation(summary = "Get all skill matrices")
-    List<SkillMatrixDto> findAll();
+    @Operation(summary = "Get skill matrices by params")
+    List<SkillMatrixDto> findByParams(@ParameterObject MatrixSearchParams params);
 
     @GetMapping("/{id}")
     @Operation(summary = "Get skill matrix")
@@ -50,4 +54,8 @@ public interface SkillMatrixController {
             @Parameter(description = "Skill matrix id", required = true)
             @PathVariable Long id
     );
+
+    @GetMapping(value = "/{id}.xlsx", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    @Operation(summary = "Export skill matrix scheme by id")
+    ResponseEntity<byte[]> exportMatrixToExcelById(Long id) throws IOException;
 }

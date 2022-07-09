@@ -2,6 +2,7 @@ package by.skillmatrix.controller;
 
 import by.skillmatrix.dto.category.SkillCategoryCreationDto;
 import by.skillmatrix.dto.category.SkillCategoryDto;
+import by.skillmatrix.dto.category.SkillCategoryModificationDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,9 +25,9 @@ public interface SkillCategoryController {
     @Operation(summary = "Create new skill category for skill matrix scheme")
     SkillCategoryDto create(@RequestBody SkillCategoryCreationDto creationDto);
 
-    @PutMapping //TODO /{id}
+    @PutMapping("/{id}")
     @Operation(summary = "Update skill category")
-    void update(@RequestBody SkillCategoryDto skillCategoryDto);
+    void update(@PathVariable("id") Long id, @RequestBody SkillCategoryModificationDto modificationDto);
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete skill category")
