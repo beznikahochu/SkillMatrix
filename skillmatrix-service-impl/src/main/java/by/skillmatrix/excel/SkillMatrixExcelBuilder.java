@@ -3,6 +3,7 @@ package by.skillmatrix.excel;
 import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillMatrixEntity;
+import by.skillmatrix.exception.ExcelBuildException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -16,7 +17,7 @@ import java.util.List;
 @Service
 public class SkillMatrixExcelBuilder {
 
-    public byte[] build(SkillMatrixEntity skillMatrix) throws IOException {
+    public byte[] build(SkillMatrixEntity skillMatrix) {
         Workbook workbook = new XSSFWorkbook();
         SkillMatrixCellStyler styler = new SkillMatrixCellStyler(workbook);
 
@@ -30,7 +31,11 @@ public class SkillMatrixExcelBuilder {
         buildCategoriesAndSkillsRows(sheet, styler,6,skillMatrix);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        workbook.write(outputStream);
+        try {
+            workbook.write(outputStream);
+        } catch (IOException e) {
+            throw new ExcelBuildException(e);
+        }
         byte[] excel = outputStream.toByteArray();
         return excel;
     }

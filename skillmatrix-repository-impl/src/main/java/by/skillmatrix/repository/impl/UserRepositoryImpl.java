@@ -28,4 +28,9 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<UserEntity> findByLogin(String login) {
         return repository.findByLogin(login);
     }
+
+    @Override
+    public Optional<UserEntity> findById(Long id) {
+        return repository.findById(id);
+    }
 }

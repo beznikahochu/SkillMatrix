@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Controller for mapping Users.
  */
-@Tag(name = "Employee Controller", description = "works with employees")
-@RequestMapping(value = "/employees")
+@Tag(name = "4. Employee Controller", description = "works with employees")
+@RequestMapping(value = "api/employees")
 public interface EmployeeController {
 
     @Operation(summary = "Create new employee")

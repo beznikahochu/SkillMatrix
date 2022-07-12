@@ -144,7 +144,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
         return result;
     }
     @Override
-    public ResponseEntity<byte[]> exportMatrixToExcelById(Long id) throws IOException {
+    public ResponseEntity<byte[]> exportMatrixToExcelById(Long id) {
         log.debug("Export SkillMatrix by id: {}", id);
 
         SkillMatrixEntity skillMatrix = findEntityWithFullInfoById(id);
@@ -155,6 +155,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
         ResponseEntity<byte[]> response = new ResponseEntity(excel, headers, HttpStatus.OK);
 
+        log.debug("Export done");
         return response;
     }
 

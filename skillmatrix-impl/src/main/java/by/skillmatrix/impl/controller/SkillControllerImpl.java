@@ -1,4 +1,4 @@
-package by.skillmatrix.impl.security.controller;
+package by.skillmatrix.impl.controller;
 
 import by.skillmatrix.controller.SkillController;
 import by.skillmatrix.dto.skill.SkillCreationDto;
@@ -7,6 +7,7 @@ import by.skillmatrix.dto.skill.SkillModificationDto;
 import by.skillmatrix.service.SkillService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,6 +21,7 @@ public class SkillControllerImpl implements SkillController {
     private final SkillService skillService;
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public SkillDto create(SkillCreationDto creationDto) {
         log.info("Trying to create new Skill: {}", creationDto);
 
@@ -30,6 +32,7 @@ public class SkillControllerImpl implements SkillController {
     }
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public void update(Long id, SkillModificationDto modificationDto) {
         log.info("Try to update Skill with id: {}", id);
 
@@ -39,6 +42,7 @@ public class SkillControllerImpl implements SkillController {
     }
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public void deleteById(Long id) {
         log.info("Try to delete Skill by id: {}", id);
 

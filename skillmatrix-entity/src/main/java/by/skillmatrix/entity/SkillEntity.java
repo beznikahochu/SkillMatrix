@@ -29,6 +29,9 @@ public class SkillEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "position", columnDefinition = "default 0")
+    private Long position;
+
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne (optional=false)

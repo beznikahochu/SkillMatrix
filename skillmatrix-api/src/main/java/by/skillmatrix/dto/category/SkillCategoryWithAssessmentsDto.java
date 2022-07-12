@@ -22,6 +22,9 @@ public class SkillCategoryWithAssessmentsDto {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("position")
+    private Long position;
+
     @JsonProperty("skills")
     private List<SkillWithAssessmentsDto> skills;
 }

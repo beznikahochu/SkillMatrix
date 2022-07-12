@@ -31,7 +31,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     @Override
     @Transactional
     public SkillMatrixSchemeDto create(SkillMatrixSchemeCreationDto schemeCreationDto) {
-        log.debug("Trying to save SkillMatrixScheme: {}", schemeCreationDto);
+        log.debug("Try to save SkillMatrixScheme: {}", schemeCreationDto);
 
         SkillMatrixSchemeEntity schemeEntity = schemeMapper.toSkillMatrixSchemeEntity(schemeCreationDto);
         SkillMatrixSchemeEntity createdScheme = schemeRepository.save(schemeEntity);
@@ -44,7 +44,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     @Override
     @Transactional
     public SkillMatrixSchemeDto update(Long id, SkillMatrixSchemeModificationDto modificationDto) {
-        log.debug("Trying to update SkillMatrixScheme with id: {}", id);
+        log.debug("Try to update SkillMatrixScheme with id: {}", id);
 
         SkillMatrixSchemeEntity schemeEntity = schemeMapper.toSkillMatrixSchemeEntity(modificationDto);
         schemeEntity.setId(id);
@@ -58,7 +58,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     @Override
     @Transactional
     public void delete(Long id) {
-        log.debug("Trying to delete SkillMatrixScheme by id: {}", id);
+        log.debug("Try to delete SkillMatrixScheme by id: {}", id);
 
         schemeRepository.delete(id);
 
@@ -67,7 +67,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
 
     @Override
     public List<SkillMatrixSchemeDto> findAll() {
-        log.debug("Trying to get all SkillMatrixSchemes");
+        log.debug("Try to get all SkillMatrixSchemes");
 
         List<SkillMatrixSchemeEntity> skillMatrixSchemeEntities = schemeRepository.findAll();
         List<SkillMatrixSchemeDto> result = skillMatrixSchemeEntities.stream()
@@ -83,7 +83,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
         log.debug("Find SkillMatrixScheme by id: {}", id);
 
         SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
+                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found"));
         SkillMatrixSchemeDto result = schemeMapper.toSkillMatrixSchemeDto(skillMatrixScheme);
 
         log.debug("Return SkillMatrixScheme: {}", result);
@@ -95,7 +95,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
         log.debug("Find full SkillMatrixScheme by id: {}", id);
 
         SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));;
+                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found"));;
 
         List<SkillCategoryEntity> categories = categoryRepository.findFullSkillCategoryBySchemeId(id);
         skillMatrixScheme.setSkillCategories(categories);

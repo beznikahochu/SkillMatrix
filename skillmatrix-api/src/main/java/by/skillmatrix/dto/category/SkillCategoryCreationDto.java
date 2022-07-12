@@ -16,6 +16,9 @@ public class SkillCategoryCreationDto {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("position")
+    private Long position;
+
     @JsonProperty("skillMatrixSchemeId")
     private Long skillMatrixSchemeId;
 }

@@ -11,4 +11,7 @@ import lombok.Data;
 public class SkillModificationDto {
     @JsonProperty("name")
     private String name;
+
+    @JsonProperty("position")
+    private Long position;
 }

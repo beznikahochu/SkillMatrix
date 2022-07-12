@@ -15,16 +15,13 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenUtil {
 
-    //@Value("${jwt.secret}")
+    @Value("${security.jwt.secret}")
     private String secretKey;
 
-    //@Value("${jwt.minutes}")
-    private int authMinutes;
+    @Value("${security.jwt.hours}")
+    private int authHours;
 
-    //@Value("${jwt.refreshMinutes}")
-    private int refreshMinutes;
-
-    //@Value("roles")
+    @Value("roles")
     private String roles;
 
     public String generateAuthToken(UserDetails userDetails) {
@@ -36,7 +33,7 @@ public class JwtTokenUtil {
 
         claims.put(roles, roleList);
 
-        return generateToken(claims, userDetails.getUsername(), authMinutes);
+        return generateToken(claims, userDetails.getUsername(), authHours);
     }
 
     public String getSubjectFromToken(String token) {
@@ -48,9 +45,9 @@ public class JwtTokenUtil {
         return getClaimFromToken(token, (Function<Claims, List<String>>) claims -> claims.get(roles, List.class));
     }
 
-    private String generateToken(Map<String, Object> claims, String userName, int minutes) {
+    private String generateToken(Map<String, Object> claims, String userName, int hours) {
         Date issueDate = new Date();
-        Date expireDate = new Date(issueDate.getTime() + 1000L * 60 * minutes);
+        Date expireDate = new Date(issueDate.getTime() + 1000L * 60 * 60 * hours);
 
         return Jwts.builder()
                 .setClaims(claims)

@@ -1,4 +1,4 @@
-package by.skillmatrix.impl.security.controller;
+package by.skillmatrix.impl.controller;
 
 import by.skillmatrix.controller.SkillCategoryController;
 import by.skillmatrix.dto.category.SkillCategoryCreationDto;
@@ -7,6 +7,7 @@ import by.skillmatrix.dto.category.SkillCategoryModificationDto;
 import by.skillmatrix.service.SkillCategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,6 +21,7 @@ public class SkillCategoryControllerImpl implements SkillCategoryController {
     private final SkillCategoryService skillCategoryService;
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public SkillCategoryDto create(SkillCategoryCreationDto creationDto) {
         log.info("Trying to create new SkillCategory: {}", creationDto);
 
@@ -30,6 +32,7 @@ public class SkillCategoryControllerImpl implements SkillCategoryController {
     }
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public void update(Long id, SkillCategoryModificationDto modificationDto) {
         log.info("Try to update SkillCategory with id: {}", id);
 
@@ -39,6 +42,7 @@ public class SkillCategoryControllerImpl implements SkillCategoryController {
     }
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public void delete(Long id) {
         log.info("Try to delete SkillCategory by id: {}", id);
 

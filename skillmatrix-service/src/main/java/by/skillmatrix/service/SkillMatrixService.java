@@ -65,5 +65,5 @@ public interface SkillMatrixService {
      * @param id id of SkillMatrix
      * @return updating SkillMatrix
      */
-    ResponseEntity<byte[]> exportMatrixToExcelById(Long id) throws IOException;
+    ResponseEntity<byte[]> exportMatrixToExcelById(Long id);
 }

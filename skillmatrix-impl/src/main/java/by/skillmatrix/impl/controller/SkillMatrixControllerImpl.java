@@ -1,4 +1,4 @@
-package by.skillmatrix.impl.security.controller;
+package by.skillmatrix.impl.controller;
 
 import by.skillmatrix.controller.SkillMatrixController;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
@@ -10,6 +10,7 @@ import by.skillmatrix.service.SkillMatrixService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
     private final SkillMatrixService skillMatrixService;
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public SkillMatrixDto create(SkillMatrixCreationDto skillMatrixCreationDto) {
         log.info("Trying to create new SkillMatrix: {}", skillMatrixCreationDto);
 
@@ -36,6 +38,7 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
     }
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public void update(Long id, SkillMatrixModificationDto modificationDto) {
         log.info("Try to update SkillMatrix: {}", modificationDto);
 
@@ -45,6 +48,7 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
     }
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public void delete(Long id) {
         log.info("Try to delete SkillMatrix by id: {}", id);
 
@@ -59,7 +63,7 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
 
         List<SkillMatrixDto> foundList = skillMatrixService.findByParams(params);
 
-        log.info("Return all SkillMatrixSchemes: {}", foundList);
+        log.info("Return SkillMatrixSchemes: {}", foundList);
         return foundList;
     }
 
@@ -84,7 +88,7 @@ public class SkillMatrixControllerImpl implements SkillMatrixController {
     }
 
     @Override
-    public ResponseEntity<byte[]> exportMatrixToExcelById(Long id) throws IOException {
+    public ResponseEntity<byte[]> exportMatrixToExcelById(Long id) {
         log.info("Find full SkillMatrix by id:", id);
 
         ResponseEntity<byte[]> skillMatrix = skillMatrixService.exportMatrixToExcelById(id);

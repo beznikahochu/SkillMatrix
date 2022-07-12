@@ -1,4 +1,4 @@
-package by.skillmatrix.impl.security.controller;
+package by.skillmatrix.impl.controller;
 
 import by.skillmatrix.controller.SkillMatrixSchemeController;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeCreationDto;
@@ -8,6 +8,7 @@ import by.skillmatrix.dto.scheme.SkillMatrixSchemeModificationDto;
 import by.skillmatrix.service.SkillMatrixSchemeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ public class SkillMatrixSchemeControllerImpl implements SkillMatrixSchemeControl
     private final SkillMatrixSchemeService skillMatrixSchemeService;
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public SkillMatrixSchemeDto create(SkillMatrixSchemeCreationDto schemeCreationDto) {
         log.info("Trying to create new SkillMatrixScheme: {}", schemeCreationDto);
 
@@ -35,6 +37,7 @@ public class SkillMatrixSchemeControllerImpl implements SkillMatrixSchemeControl
     }
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public void update(Long id, SkillMatrixSchemeModificationDto modificationDto) {
         log.info("Try to update SkillMatrixScheme with id: {}", id);
 
@@ -44,6 +47,7 @@ public class SkillMatrixSchemeControllerImpl implements SkillMatrixSchemeControl
     }
 
     @Override
+    @PreAuthorize("hasRole('MANAGER')")
     public void deleteById(Long id) {
         log.info("Try to delete SkillMatrixScheme by id: {}", id);
 

@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(config = MatrixMapperConfig.class)
 public interface RoleMapper {
+
     RoleDto toRoleDto(RoleEntity roleEntity);
 
     @Mapping(target = "id", ignore = true)

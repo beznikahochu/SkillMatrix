@@ -17,4 +17,7 @@ public class SkillCategoryDto {
 
     @JsonProperty("name")
     private String name;
+
+    @JsonProperty("position")
+    private Long position;
 }

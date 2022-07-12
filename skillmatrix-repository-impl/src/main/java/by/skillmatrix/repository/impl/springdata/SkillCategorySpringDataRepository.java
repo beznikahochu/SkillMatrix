@@ -11,7 +11,8 @@ public interface SkillCategorySpringDataRepository extends JpaRepository<SkillCa
             "SELECT DISTINCT category FROM SkillCategoryEntity category " +
             "LEFT JOIN FETCH category.skillMatrixScheme scheme " +
             "LEFT JOIN FETCH category.skills skill " +
-            "WHERE scheme.id = :id"
+            "WHERE scheme.id = :id " +
+            "ORDER BY category.position ASC, skill.position ASC"
     )
     List<SkillCategoryEntity> findFullSkillCategoryBySchemeId(Long id);
 }

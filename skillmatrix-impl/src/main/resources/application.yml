@@ -16,3 +16,14 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+  swagger-ui:
+    tagsSorter: alpha
+    operationsSorter: alpha
+
+security:
+  jwt:
+    secret: ${JWT_SECRET_KEY:secret}
+    hours: ${JWT_HOURS:24}
+

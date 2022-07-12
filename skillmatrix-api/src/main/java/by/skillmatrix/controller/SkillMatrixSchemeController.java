@@ -15,11 +15,10 @@ import java.util.List;
 /**
  * Controller for mapping SkillMatrixSchemes.
  */
-@Tag(name = "Skill Matrix Scheme Controller", description = "works with skill matrix schemes")
-@RequestMapping(value = "/skill-matrix-schemes")
+@Tag(name = "5. Skill Matrix Scheme Controller", description = "works with skill matrix schemes")
+@RequestMapping(value = "api/skill-matrix-schemes")
 public interface SkillMatrixSchemeController {
 
-    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create new skill matrix scheme")
     @PostMapping
     SkillMatrixSchemeDto create(@RequestBody SkillMatrixSchemeCreationDto schemeCreationDto);

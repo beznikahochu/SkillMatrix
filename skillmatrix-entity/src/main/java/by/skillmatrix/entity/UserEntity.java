@@ -17,7 +17,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "login", nullable = false)
+    @Column(name = "login", nullable = false, unique = true)
     private String login;
 
     @Column(name = "password", nullable = false)
@@ -25,7 +25,7 @@ public class UserEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -34,7 +34,10 @@ public class UserEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name="employee_id", updatable = false, unique = true)
+    @OneToOne
+    @JoinColumn (name="employee_id", unique = true, updatable = false, insertable = false)
     private EmployeeEntity employee;
+
+    @Column(name="employee_id", unique = true)
+    private Long employeeId;
 }

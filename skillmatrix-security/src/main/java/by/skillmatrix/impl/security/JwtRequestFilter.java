@@ -33,11 +33,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         String authHeader = httpServletRequest.getHeader("Authorization");
 
-        String userName = null;
         String jwt = null;
-        if (authHeader != null) {
-            jwt = authHeader.substring(7);
+        String userName = null;
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
             try {
+                jwt = authHeader.substring(7);
                 userName = jwtTokenUtil.getSubjectFromToken(jwt);
             } catch (JwtException exception) {
                 new ResponseEntity<>(exception.getMessage(), HttpStatus.UNAUTHORIZED);

@@ -21,6 +21,9 @@ public class SkillCategoryFullInfoDto {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("position")
+    private Long position;
+
     @JsonProperty("skills")
     private List<SkillDto> skills;
 }

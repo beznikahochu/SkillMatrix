@@ -1,6 +1,9 @@
 package by.skillmatrix.entity;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +21,8 @@ public class RoleEntity {
     @Column(name = "name", unique = true)
     private String name;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany
     @JoinTable(
             name = "users_roles",

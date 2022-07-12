@@ -12,8 +12,8 @@ import javax.validation.Valid;
 /**
  * Controller for mapping SkillCategory.
  */
-@Tag(name = "Skill Assessment Controller", description = "works with skill assessment")
-@RequestMapping(value = "/skill-assessments")
+@Tag(name = "9. Skill Assessment Controller", description = "works with skill assessment")
+@RequestMapping(value = "api/skill-assessments")
 public interface SkillAssessmentController {
 
     @PostMapping

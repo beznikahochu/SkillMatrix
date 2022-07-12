@@ -6,19 +6,14 @@ import by.skillmatrix.dto.category.SkillCategoryModificationDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
  * Controller for work with skill categories.
  */
-@Tag(name = "Skill Category Controller", description = "works with skill categories")
-@RequestMapping(value = "/skill-categories")
+@Tag(name = "6. Skill Category Controller", description = "works with skill categories")
+@RequestMapping(value = "api/skill-categories")
 public interface SkillCategoryController {
 
     @PostMapping

@@ -1,4 +1,4 @@
-package by.skillmatrix.impl.security;
+package by.skillmatrix.impl;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

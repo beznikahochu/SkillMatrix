@@ -18,8 +18,8 @@ import java.util.List;
 /**
  * Controller for work with SkillMatrices.
  */
-@Tag(name = "Skill Matrix Controller", description = "works with skill matrix ")
-@RequestMapping(value = "/skill-matrices")
+@Tag(name = "8. Skill Matrix Controller", description = "works with skill matrix ")
+@RequestMapping(value = "api/skill-matrices")
 public interface SkillMatrixController {
 
     @PostMapping
@@ -49,13 +49,13 @@ public interface SkillMatrixController {
     );
 
     @GetMapping("/{id}/full-info")
-    @Operation(summary = "Get full skill matrix scheme by id")
+    @Operation(summary = "Get full skill matrix by id")
     SkillMatrixFullInfoDto findFullInfoById(
             @Parameter(description = "Skill matrix id", required = true)
             @PathVariable Long id
     );
 
-    @GetMapping(value = "/{id}.xlsx", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    @Operation(summary = "Export skill matrix scheme by id")
-    ResponseEntity<byte[]> exportMatrixToExcelById(Long id) throws IOException;
+    @GetMapping(value = "/{id}/export", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    @Operation(summary = "Export skill matrix by id")
+    ResponseEntity<byte[]> exportMatrixToExcelById(@PathVariable Long id);
 }

@@ -27,15 +27,14 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
     @Override
     @Transactional
     public SkillAssessmentFullInfoDto createOrUpdate(SkillAssessmentFullInfoDto creationDto) {
-        log.debug("Trying to save SkillAssessment: {}", creationDto);
+        log.debug("Try to save SkillAssessment: {}", creationDto);
 
         skillRepository.findById(creationDto.getSkillId())
-                .orElseThrow(() -> new NotFoundException("Skill not found by id"));
+                .orElseThrow(() -> new NotFoundException("Skill not found"));
         skillMatrixRepository.findById(creationDto.getSkillMatrixId())
-                .orElseThrow(() -> new NotFoundException("SkillMatrix not found by id"));
+                .orElseThrow(() -> new NotFoundException("SkillMatrix not found"));
 
         SkillAssessmentEntity skillAssessmentEntity = skillAssessmentMapper.toSkillAssessmentEntity(creationDto);
-
         SkillAssessmentEntity createdAssessment = skillAssessmentRepository.save(skillAssessmentEntity);
         SkillAssessmentFullInfoDto createdAssessmentDto = skillAssessmentMapper.toSkillAssessmentFullInfoDto(createdAssessment);
 

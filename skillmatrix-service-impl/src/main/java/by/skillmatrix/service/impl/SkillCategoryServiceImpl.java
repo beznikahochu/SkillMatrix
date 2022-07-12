@@ -28,12 +28,12 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     @Override
     @Transactional
     public SkillCategoryDto create(SkillCategoryCreationDto skillCategoryCreationDto) {
-        log.debug("Trying to save SkillCategory: {}", skillCategoryCreationDto);
+        log.debug("Try to save SkillCategory: {}", skillCategoryCreationDto);
 
         SkillCategoryEntity schemeEntity = skillCategoryMapper.toSkillCategoryEntity(skillCategoryCreationDto);
         SkillMatrixSchemeEntity skillMatrixSchemeEntity = skillMatrixSchemeRepository
                 .findById(skillCategoryCreationDto.getSkillMatrixSchemeId())
-                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
+                .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found"));
         schemeEntity.setSkillMatrixScheme(skillMatrixSchemeEntity);
 
         SkillCategoryEntity createdScheme = skillCategoryRepository.save(schemeEntity);
@@ -47,7 +47,7 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     @Override
     @Transactional
     public SkillCategoryDto update(Long id, SkillCategoryModificationDto modificationDto) {
-        log.debug("Trying to update SkillCategory with id: {}", id);
+        log.debug("Try to update SkillCategory with id: {}", id);
 
         SkillCategoryEntity schemeEntity = skillCategoryMapper.toSkillCategoryEntity(modificationDto);
         schemeEntity.setId(id);
@@ -61,7 +61,7 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     @Override
     @Transactional
     public void delete(Long id) {
-        log.debug("Trying to delete SkillCategory by id: {}", id);
+        log.debug("Try to delete SkillCategory by id: {}", id);
 
         skillCategoryRepository.delete(id);
 

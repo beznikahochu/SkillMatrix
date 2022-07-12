@@ -40,10 +40,18 @@
             <column name="name" type="varchar(100)">
                 <constraints nullable="false" />
             </column>
+            <column name="position" type="bigint">
+                <constraints  nullable="false"/>
+
+            </column>
             <column name="skill_matrix_scheme_id" type="bigint">
                 <constraints  nullable="false"/>
             </column>
         </createTable>
+
+        <addDefaultValue columnName="position"
+                         defaultValue="0"
+                         tableName="skill_categories" columnDataType="bigint"/>
 
         <createTable tableName="skills">
             <column name="id" type="bigint" autoIncrement="true">
@@ -54,10 +62,17 @@
             <column name="name" type="varchar(100)">
                 <constraints nullable="false" />
             </column>
+            <column name="position" type="bigint">
+                <constraints  nullable="false"/>
+            </column>
             <column name="skill_category_id" type="bigint">
                 <constraints  nullable="false"/>
             </column>
         </createTable>
+
+        <addDefaultValue columnName="position"
+                         defaultValue="0"
+                         tableName="skills" columnDataType="bigint"/>
 
         <createTable tableName="skill_matrices">
             <column name="id" type="bigint" autoIncrement="true">
@@ -75,7 +90,7 @@
                 <constraints nullable="false" />
             </column>
             <column name="employee_id" type="bigint">
-                <constraints  nullable="false"/>
+                <constraints  unique="true"/>
             </column>
         </createTable>
 
@@ -109,7 +124,6 @@
                 <constraints nullable="false" />
             </column>
             <column name="employee_id" type="bigint">
-                <constraints  nullable="false"/>
             </column>
         </createTable>
 
