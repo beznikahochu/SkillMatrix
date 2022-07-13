@@ -17,7 +17,7 @@
     </parent>
 
     <modules>
-        <module>skillmatrix-api</module>
+        <module>skillmatrix-dto</module>
         <module>skillmatrix-entity</module>
         <module>skillmatrix-repository</module>
         <module>skillmatrix-repository-impl</module>
@@ -45,7 +45,7 @@
         <dependencies>
             <dependency>
                 <groupId>by.skillmatrix</groupId>
-                <artifactId>skillmatrix-api</artifactId>
+                <artifactId>skillmatrix-dto</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

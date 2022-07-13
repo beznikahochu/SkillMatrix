@@ -3,12 +3,16 @@ package by.skillmatrix.service.impl;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
+import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
 import by.skillmatrix.entity.EmployeeEntity;
 import by.skillmatrix.entity.SkillMatrixEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.excel.SkillMatrixExcelBuilder;
 import by.skillmatrix.exception.NotFoundException;
+import by.skillmatrix.mapper.EmployeeMapperImpl;
+import by.skillmatrix.mapper.FullSkillMatrixMapper;
+import by.skillmatrix.mapper.FullSkillMatrixMapperImpl;
 import by.skillmatrix.mapper.SkillMatrixMapperImpl;
 import by.skillmatrix.repository.EmployeeRepository;
 import by.skillmatrix.repository.SkillCategoryRepository;
@@ -61,6 +65,7 @@ public class SkillMatrixServiceImplTest {
                 categoryRepository,
                 employeeRepository,
                 new SkillMatrixMapperImpl(),
+                new FullSkillMatrixMapperImpl(new EmployeeMapperImpl()),
                 excelBuilder
         );
     }

@@ -3,7 +3,7 @@ package by.skillmatrix.service.impl;
 import by.skillmatrix.dto.auth.JwtRequest;
 import by.skillmatrix.dto.auth.JwtResponse;
 import by.skillmatrix.exception.AuthenticationException;
-import by.skillmatrix.impl.security.JwtTokenUtil;
+import by.skillmatrix.security.JwtTokenUtil;
 import by.skillmatrix.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

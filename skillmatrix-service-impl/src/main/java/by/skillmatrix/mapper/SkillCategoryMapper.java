@@ -21,9 +21,5 @@ public interface SkillCategoryMapper {
     @Mapping(target = "skillMatrixScheme", ignore = true)
     SkillCategoryEntity toSkillCategoryEntity(SkillCategoryModificationDto modificationDto);
 
-    @Mapping(target = "skills", ignore = true)
-    @Mapping(target = "skillMatrixScheme", ignore = true)
-    SkillCategoryEntity toSkillCategoryEntity(SkillCategoryDto skillCategoryDto);
-
     SkillCategoryDto toSkillCategoryDto(SkillCategoryEntity skillCategoryEntity);
 }

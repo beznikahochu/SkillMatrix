@@ -7,6 +7,8 @@ import by.skillmatrix.entity.SkillAssessmentEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(config = MatrixMapperConfig.class)
 public interface SkillAssessmentMapper {
 
@@ -14,7 +16,6 @@ public interface SkillAssessmentMapper {
     @Mapping(target = "skill", ignore = true)
     SkillAssessmentEntity toSkillAssessmentEntity(SkillAssessmentFullInfoDto skillAssessmentFullInfoDto);
 
-    SkillAssessmentDto toSkillAssessmentDto(SkillAssessmentEntity skillAssessmentEntity);
-
     SkillAssessmentFullInfoDto toSkillAssessmentFullInfoDto(SkillAssessmentEntity skillAssessmentEntity);
+
 }

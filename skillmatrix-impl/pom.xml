@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>by.skillmatrix</groupId>
-			<artifactId>skillmatrix-api</artifactId>
+			<artifactId>skillmatrix-dto</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>by.skillmatrix</groupId>

@@ -13,6 +13,7 @@ import by.skillmatrix.entity.SkillAssessmentEntity;
 import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.excel.SkillMatrixExcelBuilder;
 import by.skillmatrix.exception.NotFoundException;
+import by.skillmatrix.mapper.FullSkillMatrixMapper;
 import by.skillmatrix.mapper.SkillMatrixMapper;
 import by.skillmatrix.param.MatrixSearchParams;
 import by.skillmatrix.repository.SkillCategoryRepository;
@@ -47,6 +48,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     private final SkillCategoryRepository categoryRepository;
     private final EmployeeRepository employeeRepository;
     private final SkillMatrixMapper skillMatrixMapper;
+    private final FullSkillMatrixMapper fullSkillMatrixMapper;
     private final SkillMatrixExcelBuilder excelBuilder;
 
     @Override
@@ -138,7 +140,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
         log.debug("Find full SkillMatrix by id: {}", id);
 
         SkillMatrixEntity skillMatrix = findEntityWithFullInfoById(id);
-        SkillMatrixFullInfoDto result = skillMatrixMapper.toFullSkillMatrixEntity(skillMatrix);
+        SkillMatrixFullInfoDto result = fullSkillMatrixMapper.toFullSkillMatrixEntity(skillMatrix);
 
         log.debug("Return SkillMatrix: {}", result);
         return result;

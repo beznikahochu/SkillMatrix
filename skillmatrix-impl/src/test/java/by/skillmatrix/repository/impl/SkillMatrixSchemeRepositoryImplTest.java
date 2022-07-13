@@ -1,7 +1,7 @@
 package by.skillmatrix.repository.impl;
 
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
-import by.skillmatrix.impl.SkillMatrixApplication;
+import by.skillmatrix.SkillMatrixApplication;
 import by.skillmatrix.inittestdata.InitTestDataController;
 import by.skillmatrix.repository.SkillMatrixSchemeRepository;
 import by.skillmatrix.testcontainer.PostgresContainerInitializer;
