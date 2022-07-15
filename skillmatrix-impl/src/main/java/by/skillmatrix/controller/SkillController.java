@@ -23,7 +23,7 @@ public class SkillController {
     @PostMapping
     @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Create skill")
-    public SkillDto create(SkillCreationDto creationDto) {
+    public SkillDto create(@RequestBody SkillCreationDto creationDto) {
         log.info("Trying to create new Skill: {}", creationDto);
 
         SkillDto createdSkill = skillService.create(creationDto);
@@ -35,7 +35,7 @@ public class SkillController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Update skill")
-    public void update(Long id, SkillModificationDto modificationDto) {
+    public void update(@PathVariable Long id, @RequestBody SkillModificationDto modificationDto) {
         log.info("Try to update Skill with id: {}", id);
 
         SkillDto updatedSkill = skillService.update(id,modificationDto);
@@ -46,7 +46,7 @@ public class SkillController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Delete skill by id")
-    public void deleteById(Long id) {
+    public void deleteById(@PathVariable Long id) {
         log.info("Try to delete Skill by id: {}", id);
 
         skillService.delete(id);

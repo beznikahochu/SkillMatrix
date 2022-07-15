@@ -2,7 +2,7 @@ package by.skillmatrix.service.impl;
 
 import by.skillmatrix.entity.RoleEntity;
 import by.skillmatrix.entity.UserEntity;
-import by.skillmatrix.repository.UserRepository;
+import by.skillmatrix.dao.UserDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,13 +20,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
-
+    private final UserDao userDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity entity = userRepository.findByLogin(username)
+        UserEntity entity = userDao.findByLogin(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new User(
                 entity.getLogin(),

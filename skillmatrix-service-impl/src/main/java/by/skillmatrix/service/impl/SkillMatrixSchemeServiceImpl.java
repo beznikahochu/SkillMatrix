@@ -8,8 +8,8 @@ import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMatrixSchemeMapper;
-import by.skillmatrix.repository.SkillCategoryRepository;
-import by.skillmatrix.repository.SkillMatrixSchemeRepository;
+import by.skillmatrix.dao.SkillCategoryDao;
+import by.skillmatrix.dao.SkillMatrixSchemeDao;
 import by.skillmatrix.service.SkillMatrixSchemeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
 
-    private final SkillMatrixSchemeRepository schemeRepository;
-    private final SkillCategoryRepository categoryRepository;
+    private final SkillMatrixSchemeDao schemeDao;
+    private final SkillCategoryDao categoryDao;
     private final SkillMatrixSchemeMapper schemeMapper;
 
     @Override
@@ -34,7 +34,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
         log.debug("Try to save SkillMatrixScheme: {}", schemeCreationDto);
 
         SkillMatrixSchemeEntity schemeEntity = schemeMapper.toSkillMatrixSchemeEntity(schemeCreationDto);
-        SkillMatrixSchemeEntity createdScheme = schemeRepository.save(schemeEntity);
+        SkillMatrixSchemeEntity createdScheme = schemeDao.save(schemeEntity);
         SkillMatrixSchemeDto createdSchemeDto = schemeMapper.toSkillMatrixSchemeDto(createdScheme);
 
         log.debug("Return saved SkillMatrixScheme: {}", createdSchemeDto);
@@ -48,7 +48,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
 
         SkillMatrixSchemeEntity schemeEntity = schemeMapper.toSkillMatrixSchemeEntity(modificationDto);
         schemeEntity.setId(id);
-        SkillMatrixSchemeEntity updatedScheme = schemeRepository.save(schemeEntity);
+        SkillMatrixSchemeEntity updatedScheme = schemeDao.save(schemeEntity);
         SkillMatrixSchemeDto updatedSchemeDto = schemeMapper.toSkillMatrixSchemeDto(updatedScheme);
 
         log.debug("Return updated SkillMatrixScheme: {}", updatedSchemeDto);
@@ -60,7 +60,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     public void delete(Long id) {
         log.debug("Try to delete SkillMatrixScheme by id: {}", id);
 
-        schemeRepository.delete(id);
+        schemeDao.delete(id);
 
         log.debug("SkillMatrixSchema with ID {} has been removed", id);
     }
@@ -69,7 +69,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     public List<SkillMatrixSchemeDto> findAll() {
         log.debug("Try to get all SkillMatrixSchemes");
 
-        List<SkillMatrixSchemeEntity> skillMatrixSchemeEntities = schemeRepository.findAll();
+        List<SkillMatrixSchemeEntity> skillMatrixSchemeEntities = schemeDao.findAll();
         List<SkillMatrixSchemeDto> result = skillMatrixSchemeEntities.stream()
                 .map(schemeMapper::toSkillMatrixSchemeDto)
                 .collect(Collectors.toList());
@@ -82,7 +82,7 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     public SkillMatrixSchemeDto findById(Long id) {
         log.debug("Find SkillMatrixScheme by id: {}", id);
 
-        SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findById(id)
+        SkillMatrixSchemeEntity skillMatrixScheme = schemeDao.findById(id)
                 .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found"));
         SkillMatrixSchemeDto result = schemeMapper.toSkillMatrixSchemeDto(skillMatrixScheme);
 
@@ -94,10 +94,10 @@ public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
     public SkillMatrixSchemeFullInfoDto findFullInfoById(Long id) {
         log.debug("Find full SkillMatrixScheme by id: {}", id);
 
-        SkillMatrixSchemeEntity skillMatrixScheme = schemeRepository.findById(id)
+        SkillMatrixSchemeEntity skillMatrixScheme = schemeDao.findById(id)
                 .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found"));;
 
-        List<SkillCategoryEntity> categories = categoryRepository.findFullSkillCategoryBySchemeId(id);
+        List<SkillCategoryEntity> categories = categoryDao.findFullSkillCategoryBySchemeId(id);
         skillMatrixScheme.setSkillCategories(categories);
         SkillMatrixSchemeFullInfoDto result = schemeMapper.toSkillMatrixSchemeFullInfoDto(skillMatrixScheme);
 

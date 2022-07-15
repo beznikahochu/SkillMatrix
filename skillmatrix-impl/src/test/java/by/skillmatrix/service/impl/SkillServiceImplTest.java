@@ -6,10 +6,9 @@ import by.skillmatrix.dto.skill.SkillModificationDto;
 import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.exception.NotFoundException;
-import by.skillmatrix.mapper.SkillMapper;
 import by.skillmatrix.mapper.SkillMapperImpl;
-import by.skillmatrix.repository.SkillCategoryRepository;
-import by.skillmatrix.repository.SkillRepository;
+import by.skillmatrix.dao.SkillCategoryDao;
+import by.skillmatrix.dao.SkillDao;
 import by.skillmatrix.service.SkillService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,23 +23,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SkillServiceImplTest {
 
-    private SkillRepository skillRepository;
-    private SkillCategoryRepository skillCategoryRepository;
+    private SkillDao skillDao;
+    private SkillCategoryDao skillCategoryDao;
     private SkillService skillService;
 
     @BeforeEach
     void beforeEach() {
-        skillRepository = Mockito.mock(SkillRepository.class);
-        skillCategoryRepository = Mockito.mock(SkillCategoryRepository.class);
+        skillDao = Mockito.mock(SkillDao.class);
+        skillCategoryDao = Mockito.mock(SkillCategoryDao.class);
         skillService = new SkillServiceImpl(
-                skillRepository,
-                skillCategoryRepository,
+                skillDao,
+                skillCategoryDao,
                 new SkillMapperImpl()
         );
     }
 
     @Test
-    void create() {
+    void createTest() {
         SkillCreationDto skillCreationDto = new SkillCreationDto();
         skillCreationDto.setName("skill");
         skillCreationDto.setSkillCategoryId(1l);
@@ -49,7 +48,7 @@ public class SkillServiceImplTest {
         skillCategory.setId(1l);
         skillCategory.setName("category");
 
-        Mockito.when(skillCategoryRepository.findById(skillCategory.getId()))
+        Mockito.when(skillCategoryDao.findById(skillCategory.getId()))
                 .thenReturn(Optional.of(skillCategory));
 
         SkillEntity skillEntity = new SkillEntity();
@@ -61,7 +60,7 @@ public class SkillServiceImplTest {
         createdSkill.setName(skillEntity.getName());
         createdSkill.setSkillCategory(skillCategory);
 
-        Mockito.when(skillRepository.save(skillEntity)).thenReturn(createdSkill);
+        Mockito.when(skillDao.save(skillEntity)).thenReturn(createdSkill);
 
         SkillDto extendedResult = new SkillDto();
         extendedResult.setId(createdSkill.getId());
@@ -73,18 +72,18 @@ public class SkillServiceImplTest {
     }
 
     @Test
-    void whenCreateThrowsNotFoundExceptionIfCategoryNotFound() {
+    void whenCreateThrowsNotFoundExceptionIfCategoryNotFoundTest() {
         SkillCreationDto creationDto = new SkillCreationDto();
         creationDto.setName("skill");
         creationDto.setSkillCategoryId(1l);
 
-        Mockito.when(skillCategoryRepository.findById(creationDto.getSkillCategoryId()))
+        Mockito.when(skillCategoryDao.findById(creationDto.getSkillCategoryId()))
                 .thenReturn(Optional.empty());
         assertThrows(NotFoundException.class, () -> skillService.create(creationDto));
     }
 
     @Test
-    void update() {
+    void updateTest() {
         Long id = 1l;
         SkillModificationDto modificationDto = new SkillModificationDto();
         modificationDto.setName("Name");
@@ -97,7 +96,7 @@ public class SkillServiceImplTest {
         updatedSkill.setId(id);
         updatedSkill.setName(modificationDto.getName());
 
-        Mockito.when(skillRepository.save(skillEntity)).thenReturn(updatedSkill);
+        Mockito.when(skillDao.save(skillEntity)).thenReturn(updatedSkill);
 
         SkillDto extendedResult = new SkillDto();
         extendedResult.setId(updatedSkill.getId());
@@ -109,13 +108,13 @@ public class SkillServiceImplTest {
     }
 
     @Test
-    void delete() {
+    void deleteTest() {
         ArgumentCaptor<Long> longCaptor = ArgumentCaptor.forClass(Long.class);
 
         Long id = 1l;
         skillService.delete(id);
 
-        Mockito.verify(skillRepository).delete(longCaptor.capture());
+        Mockito.verify(skillDao).delete(longCaptor.capture());
 
         Long capturedId = longCaptor.getValue();
         assertEquals(id, capturedId);

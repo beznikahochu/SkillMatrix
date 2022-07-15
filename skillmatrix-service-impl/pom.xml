@@ -23,11 +23,11 @@
         </dependency>
         <dependency>
             <groupId>by.skillmatrix</groupId>
-            <artifactId>skillmatrix-repository</artifactId>
+            <artifactId>skillmatrix-dao</artifactId>
         </dependency>
         <dependency>
             <groupId>by.skillmatrix</groupId>
-            <artifactId>skillmatrix-repository-impl</artifactId>
+            <artifactId>skillmatrix-dao-spring-data-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -40,12 +40,10 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>5.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>5.2.0</version>
         </dependency>
     </dependencies>
 

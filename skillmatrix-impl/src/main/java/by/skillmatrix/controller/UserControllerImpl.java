@@ -21,7 +21,7 @@ public class UserControllerImpl {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Register a new users")
-    public UserDto registerNewUser(UserCreationDto creationDto) {
+    public UserDto registerNewUser(@RequestBody UserCreationDto creationDto) {
         log.info("Try to create new user: {}", creationDto.getLogin());
 
         UserDto createdUser = userService.create(creationDto);
@@ -33,7 +33,7 @@ public class UserControllerImpl {
     @PutMapping("/{id}/roles")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Add role for user")
-    public UserFullInfoDto addRole(Long id, UserRoleSettingDto settingDto) {
+    public UserFullInfoDto addRole(@PathVariable Long id, @RequestBody UserRoleSettingDto settingDto) {
         log.info("Try to add role for user : {}", id);
 
         UserFullInfoDto userFullInfoDto = userService.addRole(id, settingDto);
@@ -45,7 +45,7 @@ public class UserControllerImpl {
     @DeleteMapping("/{id}/roles")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Remove role from user")
-    public UserFullInfoDto removeRole(Long id, UserRoleSettingDto settingDto) {
+    public UserFullInfoDto removeRole(@PathVariable Long id, @RequestBody UserRoleSettingDto settingDto) {
         log.info("Try to remove role from user : {}", id);
 
         UserFullInfoDto userFullInfoDto = userService.removeRole(id, settingDto);
@@ -57,7 +57,7 @@ public class UserControllerImpl {
     @PutMapping("/{id}/employee")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Set employee for user")
-    public UserFullInfoDto setEmployee(Long id, UserEmployeeSettingDto settingDto) {
+    public UserFullInfoDto setEmployee(@PathVariable Long id, @RequestBody UserEmployeeSettingDto settingDto) {
         log.info("Try to set employee for user : {}", id);
 
         UserFullInfoDto userFullInfoDto = userService.setEmployee(id, settingDto);
@@ -69,7 +69,7 @@ public class UserControllerImpl {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete user")
-    public void delete(Long id) {
+    public void delete(@PathVariable Long id) {
         log.info("Try to delete user : {}", id);
 
         userService.delete(id);

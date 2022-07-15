@@ -1,13 +1,16 @@
 package by.skillmatrix.param;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MatrixSearchParams {
-    private Integer page = 0;
-    private Integer pageSize = 10;
-    private String test;
-    private Long userId;
+    private Long employeeId;
     private Long schemeId;
     private String sort = "date.d";
 }

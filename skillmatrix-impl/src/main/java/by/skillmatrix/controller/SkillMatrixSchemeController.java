@@ -26,7 +26,7 @@ public class SkillMatrixSchemeController {
     @PostMapping
     @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Create new skill matrix scheme")
-    public SkillMatrixSchemeDto create(SkillMatrixSchemeCreationDto schemeCreationDto) {
+    public SkillMatrixSchemeDto create(@RequestBody SkillMatrixSchemeCreationDto schemeCreationDto) {
         log.info("Trying to create new SkillMatrixScheme: {}", schemeCreationDto);
 
         SkillMatrixSchemeDto createdScheme = skillMatrixSchemeService.create(schemeCreationDto);
@@ -38,7 +38,10 @@ public class SkillMatrixSchemeController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Update skill matrix scheme")
-    public void update(Long id, SkillMatrixSchemeModificationDto modificationDto) {
+    public void update(
+            @PathVariable Long id,
+            @RequestBody SkillMatrixSchemeModificationDto modificationDto
+    ) {
         log.info("Try to update SkillMatrixScheme with id: {}", id);
 
         SkillMatrixSchemeDto updatedScheme = skillMatrixSchemeService.update(id,modificationDto);
@@ -49,7 +52,7 @@ public class SkillMatrixSchemeController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Delete skill matrix scheme by id")
-    public void deleteById(Long id) {
+    public void deleteById(@PathVariable Long id) {
         log.info("Try to delete SkillMatrixScheme by id: {}", id);
 
         skillMatrixSchemeService.delete(id);
@@ -58,6 +61,7 @@ public class SkillMatrixSchemeController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get all skill matrix schemes")
     public List<SkillMatrixSchemeDto> findAll() {
         log.info("Find all SkillMatrixSchemes");
@@ -69,8 +73,9 @@ public class SkillMatrixSchemeController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get skill matrix scheme by id")
-    public SkillMatrixSchemeDto findById(Long id) {
+    public SkillMatrixSchemeDto findById(@PathVariable Long id) {
         log.info("Find SkillMatrixScheme by id: {}", id);
 
         SkillMatrixSchemeDto skillMatrixScheme = skillMatrixSchemeService.findById(id);
@@ -80,8 +85,9 @@ public class SkillMatrixSchemeController {
     }
 
     @GetMapping("/{id}/full-info")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get full skill matrix scheme by id")
-    public SkillMatrixSchemeFullInfoDto findFullInfoById(Long id) {
+    public SkillMatrixSchemeFullInfoDto findFullInfoById(@PathVariable Long id) {
         log.info("Find full SkillMatrixScheme by: id");
 
         SkillMatrixSchemeFullInfoDto skillMatrixScheme = skillMatrixSchemeService.findFullInfoById(id);

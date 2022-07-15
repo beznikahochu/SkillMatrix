@@ -6,14 +6,13 @@ import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeFullInfoDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeModificationDto;
 import by.skillmatrix.dto.skill.SkillDto;
-import by.skillmatrix.dto.skill.SkillModificationDto;
 import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMatrixSchemeMapperImpl;
-import by.skillmatrix.repository.SkillCategoryRepository;
-import by.skillmatrix.repository.SkillMatrixSchemeRepository;
+import by.skillmatrix.dao.SkillCategoryDao;
+import by.skillmatrix.dao.SkillMatrixSchemeDao;
 import by.skillmatrix.service.SkillMatrixSchemeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,13 +30,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class SkillMatrixSchemeServiceImplTest {
 
     private SkillMatrixSchemeService skillMatrixSchemeService;
-    private SkillMatrixSchemeRepository schemeRepository;
-    private SkillCategoryRepository categoryRepository;
+    private SkillMatrixSchemeDao schemeRepository;
+    private SkillCategoryDao categoryRepository;
 
     @BeforeEach
     void beforeEach() {
-        categoryRepository = Mockito.mock(SkillCategoryRepository.class);
-        schemeRepository = Mockito.mock(SkillMatrixSchemeRepository.class);
+        categoryRepository = Mockito.mock(SkillCategoryDao.class);
+        schemeRepository = Mockito.mock(SkillMatrixSchemeDao.class);
         skillMatrixSchemeService = new SkillMatrixSchemeServiceImpl(
                 schemeRepository,
                 categoryRepository,
@@ -46,7 +45,7 @@ public class SkillMatrixSchemeServiceImplTest {
     }
 
     @Test
-    void create() {
+    void createTest() {
         SkillMatrixSchemeCreationDto creationDto = new SkillMatrixSchemeCreationDto();
         creationDto.setName("Schema");
 
@@ -69,7 +68,7 @@ public class SkillMatrixSchemeServiceImplTest {
     }
 
     @Test
-    void update() {
+    void updateTest() {
         Long id = 1L;
         SkillMatrixSchemeModificationDto modificationDto = new SkillMatrixSchemeModificationDto();
         modificationDto.setName("Name");
@@ -90,7 +89,7 @@ public class SkillMatrixSchemeServiceImplTest {
     }
 
     @Test
-    void delete() {
+    void deleteTest() {
         ArgumentCaptor<Long> longCaptor = ArgumentCaptor.forClass(Long.class);
 
         Long id = 1l;
@@ -103,7 +102,7 @@ public class SkillMatrixSchemeServiceImplTest {
     }
 
     @Test
-    void findAll() {
+    void findAllTest() {
         List<SkillMatrixSchemeEntity> schemeEntities = new ArrayList<>();
 
         SkillMatrixSchemeEntity scheme1 = new SkillMatrixSchemeEntity();
@@ -137,7 +136,7 @@ public class SkillMatrixSchemeServiceImplTest {
     }
 
     @Test
-    void findById() {
+    void findByIdTest() {
         Long id = 1L;
         SkillMatrixSchemeEntity scheme = new SkillMatrixSchemeEntity();
         scheme.setId(id);
@@ -155,14 +154,14 @@ public class SkillMatrixSchemeServiceImplTest {
     }
 
     @Test
-    void whenFindByIdThrowsNotFoundException() {
+    void whenFindByIdThrowsNotFoundExceptionTest() {
         Long id = 1L;
         Mockito.when(schemeRepository.findById(id)).thenReturn(Optional.empty());
         assertThrows(NotFoundException.class, () -> skillMatrixSchemeService.findById(1l));
     }
 
     @Test
-    void findFullInfoById() {
+    void findFullInfoByIdTest() {
         Long id = 1L;
         SkillMatrixSchemeEntity scheme = new SkillMatrixSchemeEntity();
         scheme.setId(id);

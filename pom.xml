@@ -19,27 +19,25 @@
     <modules>
         <module>skillmatrix-dto</module>
         <module>skillmatrix-entity</module>
-        <module>skillmatrix-repository</module>
-        <module>skillmatrix-repository-impl</module>
+        <module>skillmatrix-dao</module>
         <module>skillmatrix-service</module>
         <module>skillmatrix-service-impl</module>
         <module>skillmatrix-impl</module>
         <module>skillmatrix-test</module>
         <module>skillmatrix-security</module>
+        <module>skillmatrix-dao-spring-data-impl</module>
     </modules>
 
     <properties>
         <revision>1.0</revision>
-
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-
         <lombok.version>1.18.24</lombok.version>
         <jjwt.version>0.9.1</jjwt.version>
         <swagger-annotations.version>2.1.11</swagger-annotations.version>
         <springdoc-openapi.version>1.6.2</springdoc-openapi.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
-
+        <org.apache.poi.poi.version>5.2.2</org.apache.poi.poi.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -60,12 +58,12 @@
             </dependency>
             <dependency>
                 <groupId>by.skillmatrix</groupId>
-                <artifactId>skillmatrix-repository</artifactId>
+                <artifactId>skillmatrix-dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>by.skillmatrix</groupId>
-                <artifactId>skillmatrix-repository-impl</artifactId>
+                <artifactId>skillmatrix-dao-spring-data-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -88,11 +86,10 @@
                 <artifactId>skillmatrix-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-core</artifactId>
-                <version>4.3.1</version>
+                <version>4.13.0</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -131,9 +128,14 @@
                 <version>${jjwt.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.javafaker</groupId>
-                <artifactId>javafaker</artifactId>
-                <version>1.0.2</version>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${org.apache.poi.poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${org.apache.poi.poi.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

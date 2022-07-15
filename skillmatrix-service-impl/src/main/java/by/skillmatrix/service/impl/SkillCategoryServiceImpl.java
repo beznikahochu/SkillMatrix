@@ -7,13 +7,12 @@ import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillCategoryMapper;
-import by.skillmatrix.repository.SkillCategoryRepository;
-import by.skillmatrix.repository.SkillMatrixSchemeRepository;
+import by.skillmatrix.dao.SkillCategoryDao;
+import by.skillmatrix.dao.SkillMatrixSchemeDao;
 import by.skillmatrix.service.SkillCategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
@@ -21,8 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SkillCategoryServiceImpl implements SkillCategoryService {
 
-    private final SkillCategoryRepository skillCategoryRepository;
-    private final SkillMatrixSchemeRepository skillMatrixSchemeRepository;
+    private final SkillCategoryDao skillCategoryDao;
+    private final SkillMatrixSchemeDao skillMatrixSchemeDao;
     private final SkillCategoryMapper skillCategoryMapper;
 
     @Override
@@ -31,12 +30,12 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
         log.debug("Try to save SkillCategory: {}", skillCategoryCreationDto);
 
         SkillCategoryEntity schemeEntity = skillCategoryMapper.toSkillCategoryEntity(skillCategoryCreationDto);
-        SkillMatrixSchemeEntity skillMatrixSchemeEntity = skillMatrixSchemeRepository
+        SkillMatrixSchemeEntity skillMatrixSchemeEntity = skillMatrixSchemeDao
                 .findById(skillCategoryCreationDto.getSkillMatrixSchemeId())
                 .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found"));
         schemeEntity.setSkillMatrixScheme(skillMatrixSchemeEntity);
 
-        SkillCategoryEntity createdScheme = skillCategoryRepository.save(schemeEntity);
+        SkillCategoryEntity createdScheme = skillCategoryDao.save(schemeEntity);
 
         SkillCategoryDto createdSchemeDto = skillCategoryMapper.toSkillCategoryDto(createdScheme);
 
@@ -51,7 +50,7 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
 
         SkillCategoryEntity schemeEntity = skillCategoryMapper.toSkillCategoryEntity(modificationDto);
         schemeEntity.setId(id);
-        SkillCategoryEntity updatedSkillCategory = skillCategoryRepository.save(schemeEntity);
+        SkillCategoryEntity updatedSkillCategory = skillCategoryDao.save(schemeEntity);
         SkillCategoryDto updatedSkillCategoryDto = skillCategoryMapper.toSkillCategoryDto(updatedSkillCategory);
 
         log.debug("Return updated SkillMatrixScheme: {}", updatedSkillCategoryDto);
@@ -63,7 +62,7 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     public void delete(Long id) {
         log.debug("Try to delete SkillCategory by id: {}", id);
 
-        skillCategoryRepository.delete(id);
+        skillCategoryDao.delete(id);
 
         log.debug("SkillCategory with ID {} has been removed", id);
     }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class SkillAssessmentController {
     @PostMapping
     @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Create or update skill assessment for matrix")
-    public SkillAssessmentFullInfoDto createOrUpdate(SkillAssessmentFullInfoDto creationDto) {
+    public SkillAssessmentFullInfoDto createOrUpdate(@RequestBody SkillAssessmentFullInfoDto creationDto) {
         log.info("Trying to save SkillAssessment: {}", creationDto);
 
         SkillAssessmentFullInfoDto createdSkillCategory = skillAssessmentService.createOrUpdate(creationDto);

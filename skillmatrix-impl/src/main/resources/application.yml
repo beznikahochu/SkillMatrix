@@ -8,11 +8,12 @@ spring:
     password: ${DATASOURCE_PASSWORD:1234}
   liquibase:
     enabled: true
-    change-log: classpath:root-changelog.xml
+    change-log: classpath:db/root-changelog.xml
+    contexts: test
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @ComponentScan("by.skillmatrix")
 @EntityScan("by.skillmatrix.entity")
-@EnableJpaRepositories("by.skillmatrix.repository.impl.springdata")
+@EnableJpaRepositories("by.skillmatrix.dao.impl.springdata")
 @SpringBootApplication
 public class SkillMatrixApplication {
 	public static void main(String[] args) {

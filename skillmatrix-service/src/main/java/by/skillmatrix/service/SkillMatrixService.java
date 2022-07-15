@@ -5,6 +5,7 @@ import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
 import by.skillmatrix.param.MatrixSearchParams;
+import by.skillmatrix.param.PageParams;
 import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
@@ -41,7 +42,7 @@ public interface SkillMatrixService {
      *
      * @return List of SkillMatrix
      */
-    List<SkillMatrixDto> findByParams(MatrixSearchParams params);
+    List<SkillMatrixDto> findByParams(PageParams pageParams, MatrixSearchParams params);
 
     /**
      * Find SkillMatrix by id.

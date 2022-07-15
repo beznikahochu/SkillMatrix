@@ -32,7 +32,7 @@
         </dependency>
         <dependency>
             <groupId>by.skillmatrix</groupId>
-            <artifactId>skillmatrix-repository</artifactId>
+            <artifactId>skillmatrix-dao</artifactId>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

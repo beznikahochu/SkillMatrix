@@ -1,7 +1,5 @@
 package by.skillmatrix.security;
 
-import by.skillmatrix.entity.UserEntity;
-import by.skillmatrix.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,11 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtRequestFilter jwtRequestFilter;
-    private final UserRepository userRepository;
-
-    private static void accept(UserEntity user) {
-        throw new RuntimeException();
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

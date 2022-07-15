@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class EmployeeController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create new employee")
-    public EmployeeDto create(EmployeeCreationDto employeeDto) {
+    public EmployeeDto create(@RequestBody EmployeeCreationDto employeeDto) {
         log.info("Try to create new employee with login: {}", employeeDto);
 
         EmployeeDto createdEmployee = employeeService.create(employeeDto);
