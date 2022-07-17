@@ -19,7 +19,7 @@ public class SkillMatrixCreationDto {
     @JsonProperty("schemeId")
     private Long schemeId;
 
-    @Schema(description = "User id", example = "1", defaultValue = "1")
-    @JsonProperty("userId")
-    private Long userId;
+    @Schema(description = "Employee id", example = "1", defaultValue = "1")
+    @JsonProperty("employeeId")
+    private Long employeeId;
 }

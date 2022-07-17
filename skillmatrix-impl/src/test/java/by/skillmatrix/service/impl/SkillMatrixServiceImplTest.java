@@ -1,14 +1,17 @@
 package by.skillmatrix.service.impl;
 
-import by.skillmatrix.dao.criteria.SkillMatrixCriteria;
-import by.skillmatrix.dao.page.PageOptions;
-import by.skillmatrix.dao.sorttype.SkillMatrixSortType;
+import by.skillmatrix.repository.EmployeeRepository;
+import by.skillmatrix.repository.SkillCategoryRepository;
+import by.skillmatrix.repository.SkillMatrixRepository;
+import by.skillmatrix.repository.SkillMatrixSchemeRepository;
+import by.skillmatrix.repository.criteria.SkillMatrixCriteria;
+import by.skillmatrix.repository.page.PageOptions;
+import by.skillmatrix.repository.sorttype.SkillMatrixSortType;
 import by.skillmatrix.dto.employee.EmployeeDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
-import by.skillmatrix.dto.user.UserDto;
 import by.skillmatrix.entity.EmployeeEntity;
 import by.skillmatrix.entity.SkillMatrixEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
@@ -17,10 +20,6 @@ import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.EmployeeMapperImpl;
 import by.skillmatrix.mapper.FullSkillMatrixMapperImpl;
 import by.skillmatrix.mapper.SkillMatrixMapperImpl;
-import by.skillmatrix.dao.EmployeeDao;
-import by.skillmatrix.dao.SkillCategoryDao;
-import by.skillmatrix.dao.SkillMatrixDao;
-import by.skillmatrix.dao.SkillMatrixSchemeDao;
 import by.skillmatrix.param.MatrixSearchParams;
 import by.skillmatrix.param.PageParams;
 import by.skillmatrix.service.SkillMatrixService;
@@ -42,10 +41,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class SkillMatrixServiceImplTest {
 
     private static MockedStatic<LocalDateTime> localDateTimeMockedStatic;
-    private SkillMatrixDao skillMatrixDao;
-    private SkillMatrixSchemeDao schemeRepository;
-    private SkillCategoryDao categoryRepository;
-    private EmployeeDao employeeDao;
+    private SkillMatrixRepository skillMatrixRepository;
+    private SkillMatrixSchemeRepository schemeRepository;
+    private SkillCategoryRepository categoryRepository;
+    private EmployeeRepository employeeRepository;
     private SkillMatrixExcelBuilder excelBuilder;
     private SkillMatrixService skillMatrixService;
 
@@ -59,16 +58,16 @@ public class SkillMatrixServiceImplTest {
 
     @BeforeEach
     void beforeEach() {
-        employeeDao = Mockito.mock(EmployeeDao.class);
-        categoryRepository = Mockito.mock(SkillCategoryDao.class);
-        schemeRepository = Mockito.mock(SkillMatrixSchemeDao.class);
-        skillMatrixDao = Mockito.mock(SkillMatrixDao.class);
+        employeeRepository = Mockito.mock(EmployeeRepository.class);
+        categoryRepository = Mockito.mock(SkillCategoryRepository.class);
+        schemeRepository = Mockito.mock(SkillMatrixSchemeRepository.class);
+        skillMatrixRepository = Mockito.mock(SkillMatrixRepository.class);
         excelBuilder = Mockito.mock(SkillMatrixExcelBuilder.class);
         skillMatrixService = new SkillMatrixServiceImpl(
-                skillMatrixDao,
+                skillMatrixRepository,
                 schemeRepository,
                 categoryRepository,
-                employeeDao,
+                employeeRepository,
                 new SkillMatrixMapperImpl(),
                 new FullSkillMatrixMapperImpl(new EmployeeMapperImpl()),
                 excelBuilder
@@ -78,7 +77,7 @@ public class SkillMatrixServiceImplTest {
     @Test
     void createTest() {
         SkillMatrixCreationDto creationDto = new SkillMatrixCreationDto();
-        creationDto.setUserId(1L);
+        creationDto.setEmployeeId(1L);
         creationDto.setName("matrix");
         creationDto.setSchemeId(1L);
 
@@ -91,7 +90,7 @@ public class SkillMatrixServiceImplTest {
         scheme.setId(1L);
         scheme.setName("scheme");
 
-        Mockito.when(employeeDao.findById(creationDto.getUserId())).thenReturn(Optional.of(employee));
+        Mockito.when(employeeRepository.findById(creationDto.getEmployeeId())).thenReturn(Optional.of(employee));
         Mockito.when(schemeRepository.findById(creationDto.getSchemeId())).thenReturn(Optional.of(scheme));
 
         SkillMatrixEntity matrix = new SkillMatrixEntity();
@@ -107,7 +106,7 @@ public class SkillMatrixServiceImplTest {
         createdMatrix.setSkillMatrixScheme(matrix.getSkillMatrixScheme());
         createdMatrix.setCreationDate(matrix.getCreationDate());
 
-        Mockito.when(skillMatrixDao.save(matrix)).thenReturn(createdMatrix);
+        Mockito.when(skillMatrixRepository.save(matrix)).thenReturn(createdMatrix);
 
         SkillMatrixSchemeDto schemeDto = new SkillMatrixSchemeDto();
         schemeDto.setId(scheme.getId());
@@ -133,7 +132,7 @@ public class SkillMatrixServiceImplTest {
     @Test
     void whenCreateThrowsNotFoundExceptionIfEmployeeNotFoundTest() {
         SkillMatrixCreationDto creationDto = new SkillMatrixCreationDto();
-        creationDto.setUserId(1L);
+        creationDto.setEmployeeId(1L);
         creationDto.setName("matrix");
         creationDto.setSchemeId(1l);
 
@@ -149,7 +148,7 @@ public class SkillMatrixServiceImplTest {
     @Test
     void whenCreateThrowsNotFoundExceptionIfSchemeNotFoundTest() {
         SkillMatrixCreationDto creationDto = new SkillMatrixCreationDto();
-        creationDto.setUserId(1L);
+        creationDto.setEmployeeId(1L);
         creationDto.setName("matrix");
         creationDto.setSchemeId(1L);
 
@@ -158,7 +157,7 @@ public class SkillMatrixServiceImplTest {
         employee.setFirstName("firstName");
         employee.setLastName("lastName");
 
-        Mockito.when(employeeDao.findById(creationDto.getUserId())).thenReturn(Optional.of(employee));
+        Mockito.when(employeeRepository.findById(creationDto.getEmployeeId())).thenReturn(Optional.of(employee));
 
         assertThrows(NotFoundException.class, () -> skillMatrixService.create(creationDto));
     }
@@ -175,7 +174,7 @@ public class SkillMatrixServiceImplTest {
         matrix.setId(id);
         matrix.setName(name);
 
-        Mockito.when(skillMatrixDao.save(matrix)).thenReturn(matrix);
+        Mockito.when(skillMatrixRepository.save(matrix)).thenReturn(matrix);
 
         SkillMatrixDto extendedResult = new SkillMatrixDto();
         extendedResult.setId(id);
@@ -193,7 +192,7 @@ public class SkillMatrixServiceImplTest {
         Long id = 1L;
         skillMatrixService.delete(id);
 
-        Mockito.verify(skillMatrixDao).delete(longCaptor.capture());
+        Mockito.verify(skillMatrixRepository).delete(longCaptor.capture());
 
         Long capturedId = longCaptor.getValue();
         assertEquals(id, capturedId);
@@ -235,7 +234,7 @@ public class SkillMatrixServiceImplTest {
         matrices.add(matrix1);
         matrices.add(matrix2);
 
-        Mockito.when(skillMatrixDao.findByCriteria(criteria,pageOptions, SkillMatrixSortType.CREATION_DATE_ASC))
+        Mockito.when(skillMatrixRepository.findByCriteria(criteria,pageOptions, SkillMatrixSortType.CREATION_DATE_ASC))
                 .thenReturn(matrices);
 
         SkillMatrixSchemeDto schemeDto = new SkillMatrixSchemeDto();
@@ -282,7 +281,7 @@ public class SkillMatrixServiceImplTest {
         matrix.setCreationDate(LocalDateTime.now());
         matrix.setSkillMatrixScheme(scheme);
 
-        Mockito.when(skillMatrixDao.findById(id)).thenReturn(Optional.of(matrix));
+        Mockito.when(skillMatrixRepository.findById(id)).thenReturn(Optional.of(matrix));
 
         SkillMatrixSchemeDto schemeDto = new SkillMatrixSchemeDto();
         schemeDto.setId(scheme.getId());

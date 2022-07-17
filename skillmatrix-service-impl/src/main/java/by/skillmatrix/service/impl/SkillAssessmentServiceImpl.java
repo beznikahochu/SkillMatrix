@@ -4,9 +4,9 @@ import by.skillmatrix.dto.assessment.SkillAssessmentFullInfoDto;
 import by.skillmatrix.entity.*;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillAssessmentMapper;
-import by.skillmatrix.dao.SkillAssessmentDao;
-import by.skillmatrix.dao.SkillMatrixDao;
-import by.skillmatrix.dao.SkillDao;
+import by.skillmatrix.repository.SkillAssessmentRepository;
+import by.skillmatrix.repository.SkillMatrixRepository;
+import by.skillmatrix.repository.SkillRepository;
 import by.skillmatrix.service.SkillAssessmentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SkillAssessmentServiceImpl implements SkillAssessmentService {
 
-    private final SkillAssessmentDao skillAssessmentDao;
-    private final SkillMatrixDao skillMatrixDao;
-    private final SkillDao skillDao;
+    private final SkillAssessmentRepository skillAssessmentDao;
+    private final SkillMatrixRepository skillMatrixRepository;
+    private final SkillRepository skillRepository;
     private final SkillAssessmentMapper skillAssessmentMapper;
 
     @Override
@@ -28,9 +28,9 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
     public SkillAssessmentFullInfoDto createOrUpdate(SkillAssessmentFullInfoDto creationDto) {
         log.debug("Try to save SkillAssessment: {}", creationDto);
 
-        skillDao.findById(creationDto.getSkillId())
+        skillRepository.findById(creationDto.getSkillId())
                 .orElseThrow(() -> new NotFoundException("Skill not found"));
-        skillMatrixDao.findById(creationDto.getSkillMatrixId())
+        skillMatrixRepository.findById(creationDto.getSkillMatrixId())
                 .orElseThrow(() -> new NotFoundException("SkillMatrix not found"));
 
         SkillAssessmentEntity skillAssessmentEntity = skillAssessmentMapper.toSkillAssessmentEntity(creationDto);

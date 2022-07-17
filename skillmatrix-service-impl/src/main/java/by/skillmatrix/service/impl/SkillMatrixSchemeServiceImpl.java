@@ -8,8 +8,8 @@ import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMatrixSchemeMapper;
-import by.skillmatrix.dao.SkillCategoryDao;
-import by.skillmatrix.dao.SkillMatrixSchemeDao;
+import by.skillmatrix.repository.SkillCategoryRepository;
+import by.skillmatrix.repository.SkillMatrixSchemeRepository;
 import by.skillmatrix.service.SkillMatrixSchemeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SkillMatrixSchemeServiceImpl implements SkillMatrixSchemeService {
 
-    private final SkillMatrixSchemeDao schemeDao;
-    private final SkillCategoryDao categoryDao;
+    private final SkillMatrixSchemeRepository schemeDao;
+    private final SkillCategoryRepository categoryDao;
     private final SkillMatrixSchemeMapper schemeMapper;
 
     @Override

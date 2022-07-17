@@ -5,13 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -29,13 +23,13 @@ public class SkillAssessmentEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "skill_matrix_id", insertable = false, updatable = false)
     private SkillMatrixEntity skillMatrix;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "skill_id", insertable = false, updatable = false)
     private SkillEntity skill;
 

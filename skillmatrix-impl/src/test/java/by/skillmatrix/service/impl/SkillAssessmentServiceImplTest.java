@@ -6,9 +6,9 @@ import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillMatrixEntity;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillAssessmentMapperImpl;
-import by.skillmatrix.dao.SkillAssessmentDao;
-import by.skillmatrix.dao.SkillMatrixDao;
-import by.skillmatrix.dao.SkillDao;
+import by.skillmatrix.repository.SkillAssessmentRepository;
+import by.skillmatrix.repository.SkillMatrixRepository;
+import by.skillmatrix.repository.SkillRepository;
 import by.skillmatrix.service.SkillAssessmentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,19 +22,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class SkillAssessmentServiceImplTest {
 
     private SkillAssessmentService skillAssessmentService;
-    private SkillAssessmentDao skillAssessmentDao;
-    private SkillMatrixDao skillMatrixDao;
-    private SkillDao skillDao;
+    private SkillAssessmentRepository assessmentRepository;
+    private SkillMatrixRepository skillMatrixRepository;
+    private SkillRepository skillRepository;
 
     @BeforeEach
     void beforeEach() {
-        skillDao = Mockito.mock(SkillDao.class);
-        skillMatrixDao = Mockito.mock(SkillMatrixDao.class);
-        skillAssessmentDao = Mockito.mock(SkillAssessmentDao.class);
+        skillRepository = Mockito.mock(SkillRepository.class);
+        skillMatrixRepository = Mockito.mock(SkillMatrixRepository.class);
+        assessmentRepository = Mockito.mock(SkillAssessmentRepository.class);
         skillAssessmentService = new SkillAssessmentServiceImpl(
-                skillAssessmentDao,
-                skillMatrixDao,
-                skillDao,
+                assessmentRepository,
+                skillMatrixRepository,
+                skillRepository,
                 new SkillAssessmentMapperImpl()
         );
     }
@@ -47,8 +47,8 @@ public class SkillAssessmentServiceImplTest {
         creationDto.setAssessment(4l);
         creationDto.setComment("comment");
 
-        Mockito.when(skillDao.findById(1l)).thenReturn(Optional.of(new SkillEntity()));
-        Mockito.when(skillMatrixDao.findById(1l)).thenReturn(Optional.of(new SkillMatrixEntity()));
+        Mockito.when(skillRepository.findById(1l)).thenReturn(Optional.of(new SkillEntity()));
+        Mockito.when(skillMatrixRepository.findById(1l)).thenReturn(Optional.of(new SkillMatrixEntity()));
 
         SkillAssessmentEntity assessment = new SkillAssessmentEntity();
         assessment.setSkillId(1l);
@@ -56,7 +56,7 @@ public class SkillAssessmentServiceImplTest {
         assessment.setAssessment(4l);
         assessment.setComment("comment");
 
-        Mockito.when(skillAssessmentDao.save(assessment)).thenReturn(assessment);
+        Mockito.when(assessmentRepository.save(assessment)).thenReturn(assessment);
 
         SkillAssessmentFullInfoDto result = skillAssessmentService.createOrUpdate(creationDto);
 
@@ -71,8 +71,8 @@ public class SkillAssessmentServiceImplTest {
         creationDto.setAssessment(4l);
         creationDto.setComment("comment");
 
-        Mockito.when(skillDao.findById(creationDto.getSkillId())).thenReturn(Optional.empty());
-        Mockito.when(skillMatrixDao.findById(creationDto.getSkillId()))
+        Mockito.when(skillRepository.findById(creationDto.getSkillId())).thenReturn(Optional.empty());
+        Mockito.when(skillMatrixRepository.findById(creationDto.getSkillId()))
                 .thenReturn(Optional.of(new SkillMatrixEntity()));
         assertThrows(NotFoundException.class, () -> skillAssessmentService.createOrUpdate(creationDto));
     }
@@ -85,8 +85,8 @@ public class SkillAssessmentServiceImplTest {
         creationDto.setAssessment(4l);
         creationDto.setComment("comment");
 
-        Mockito.when(skillDao.findById(creationDto.getSkillId())).thenReturn(Optional.of(new SkillEntity()));
-        Mockito.when(skillMatrixDao.findById(creationDto.getSkillId()))
+        Mockito.when(skillRepository.findById(creationDto.getSkillId())).thenReturn(Optional.of(new SkillEntity()));
+        Mockito.when(skillMatrixRepository.findById(creationDto.getSkillId()))
                 .thenReturn(Optional.empty());
         assertThrows(NotFoundException.class, () -> skillAssessmentService.createOrUpdate(creationDto));
     }

@@ -7,8 +7,8 @@ import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMapper;
-import by.skillmatrix.dao.SkillCategoryDao;
-import by.skillmatrix.dao.SkillDao;
+import by.skillmatrix.repository.SkillCategoryRepository;
+import by.skillmatrix.repository.SkillRepository;
 import by.skillmatrix.service.SkillService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,25 +20,25 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SkillServiceImpl implements SkillService {
 
-    private final SkillDao skillDao;
-    private final SkillCategoryDao skillCategoryDao;
+    private final SkillRepository skillRepository;
+    private final SkillCategoryRepository skillCategoryRepository;
     private final SkillMapper skillMapper;
 
     @Override
     @Transactional
     public SkillDto create(SkillCreationDto skillCreationDto) {
-        log.debug("Trying to save Skill: {}", skillCreationDto);
+        log.debug("Try to save Skill: {}", skillCreationDto);
 
         SkillEntity skillEntity = skillMapper.toSkillEntity(skillCreationDto);
 
         Long categoryId = skillCreationDto.getSkillCategoryId();
 
-        SkillCategoryEntity skillCategory = skillCategoryDao.findById(categoryId)
+        SkillCategoryEntity skillCategory = skillCategoryRepository.findById(categoryId)
                 .orElseThrow(() -> new NotFoundException("SkillCategory not found by id"));
 
         skillEntity.setSkillCategory(skillCategory);
 
-        SkillEntity createdSkill = skillDao.save(skillEntity);
+        SkillEntity createdSkill = skillRepository.save(skillEntity);
         SkillDto createdSkillDto = skillMapper.toSkillDto(createdSkill);
 
         log.debug("Return saved Skill: {}", createdSkillDto);
@@ -48,11 +48,11 @@ public class SkillServiceImpl implements SkillService {
     @Override
     @Transactional
     public SkillDto update(Long id, SkillModificationDto skillDto) {
-        log.debug("Trying to update Skill with id: {}", id);
+        log.debug("Try to update Skill with id: {}", id);
 
         SkillEntity skillEntity = skillMapper.toSkillEntity(skillDto);
         skillEntity.setId(id);
-        SkillEntity updatedSkill = skillDao.save(skillEntity);
+        SkillEntity updatedSkill = skillRepository.save(skillEntity);
         SkillDto updatedSkillDto = skillMapper.toSkillDto(updatedSkill);
 
         log.debug("Return updated Skill: {}", updatedSkillDto);
@@ -62,9 +62,9 @@ public class SkillServiceImpl implements SkillService {
     @Override
     @Transactional
     public void delete(Long id) {
-        log.debug("Trying to delete Skill by id: {}", id);
+        log.debug("Try to delete Skill by id: {}", id);
 
-        skillDao.delete(id);
+        skillRepository.delete(id);
 
         log.debug("Skill with ID {} has been removed", id);
     }

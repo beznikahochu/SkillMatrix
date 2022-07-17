@@ -23,11 +23,11 @@
         </dependency>
         <dependency>
             <groupId>by.skillmatrix</groupId>
-            <artifactId>skillmatrix-dao</artifactId>
+            <artifactId>skillmatrix-repository</artifactId>
         </dependency>
         <dependency>
             <groupId>by.skillmatrix</groupId>
-            <artifactId>skillmatrix-dao-spring-data-impl</artifactId>
+            <artifactId>skillmatrix-repository-jpa-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>

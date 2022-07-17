@@ -34,12 +34,12 @@ public class SkillEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne (optional=false)
+    @ManyToOne (optional=false, cascade = CascadeType.DETACH)
     @JoinColumn(name = "skill_category_id", updatable = false, nullable = false)
     private SkillCategoryEntity skillCategory;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany (cascade=CascadeType.REMOVE, mappedBy = "skill")
+    @OneToMany (cascade= {CascadeType.REMOVE, CascadeType.DETACH}, mappedBy = "skill")
     private List<SkillAssessmentEntity> skillAssessments;
 }

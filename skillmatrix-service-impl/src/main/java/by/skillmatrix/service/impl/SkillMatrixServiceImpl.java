@@ -17,13 +17,13 @@ import by.skillmatrix.mapper.FullSkillMatrixMapper;
 import by.skillmatrix.mapper.SkillMatrixMapper;
 import by.skillmatrix.param.MatrixSearchParams;
 import by.skillmatrix.param.PageParams;
-import by.skillmatrix.dao.SkillCategoryDao;
-import by.skillmatrix.dao.SkillMatrixDao;
-import by.skillmatrix.dao.SkillMatrixSchemeDao;
-import by.skillmatrix.dao.EmployeeDao;
-import by.skillmatrix.dao.criteria.SkillMatrixCriteria;
-import by.skillmatrix.dao.page.PageOptions;
-import by.skillmatrix.dao.sorttype.SkillMatrixSortType;
+import by.skillmatrix.repository.SkillCategoryRepository;
+import by.skillmatrix.repository.SkillMatrixRepository;
+import by.skillmatrix.repository.SkillMatrixSchemeRepository;
+import by.skillmatrix.repository.EmployeeRepository;
+import by.skillmatrix.repository.criteria.SkillMatrixCriteria;
+import by.skillmatrix.repository.page.PageOptions;
+import by.skillmatrix.repository.sorttype.SkillMatrixSortType;
 import by.skillmatrix.service.SkillMatrixService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,10 +43,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SkillMatrixServiceImpl implements SkillMatrixService {
 
-    private final SkillMatrixDao skillMatrixDao;
-    private final SkillMatrixSchemeDao schemeDao;
-    private final SkillCategoryDao categoryDao;
-    private final EmployeeDao employeeDao;
+    private final SkillMatrixRepository skillMatrixRepository;
+    private final SkillMatrixSchemeRepository schemeDao;
+    private final SkillCategoryRepository categoryDao;
+    private final EmployeeRepository employeeRepository;
     private final SkillMatrixMapper skillMatrixMapper;
     private final FullSkillMatrixMapper fullSkillMatrixMapper;
     private final SkillMatrixExcelBuilder excelBuilder;
@@ -54,14 +54,14 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     @Override
     @Transactional
     public SkillMatrixDto create(SkillMatrixCreationDto skillMatrixCreationDto) {
-        log.debug("Trying to save SkillMatrix: {}", skillMatrixCreationDto);
+        log.debug("Try to save SkillMatrix: {}", skillMatrixCreationDto);
 
         SkillMatrixEntity skillMatrixEntity = skillMatrixMapper.toSkillMatrixEntity(skillMatrixCreationDto);
 
-        Long userId = skillMatrixCreationDto.getUserId();
+        Long userId = skillMatrixCreationDto.getEmployeeId();
         Long schemeId = skillMatrixCreationDto.getSchemeId();
 
-        EmployeeEntity employeeEntity = employeeDao.findById(userId)
+        EmployeeEntity employeeEntity = employeeRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found by id"));
         SkillMatrixSchemeEntity matrixScheme = schemeDao.findById(schemeId)
                 .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
@@ -70,7 +70,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
         skillMatrixEntity.setSkillMatrixScheme(matrixScheme);
         skillMatrixEntity.setCreationDate(LocalDateTime.now());
 
-        SkillMatrixEntity createdMatrix = skillMatrixDao.save(skillMatrixEntity);
+        SkillMatrixEntity createdMatrix = skillMatrixRepository.save(skillMatrixEntity);
 
         SkillMatrixDto skillMatrixDto = skillMatrixMapper.toSkillMatrixDto(createdMatrix);
 
@@ -81,11 +81,11 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     @Override
     @Transactional
     public SkillMatrixDto update(Long id, SkillMatrixModificationDto modificationDto) {
-        log.debug("Trying to update SkillMatrix with id: {}", id);
+        log.debug("Try to update SkillMatrix with id: {}", id);
 
         SkillMatrixEntity skillMatrixEntity = skillMatrixMapper.toSkillMatrixEntity(modificationDto);
         skillMatrixEntity.setId(id);
-        SkillMatrixEntity updatedSkillMatrix = skillMatrixDao.save(skillMatrixEntity);
+        SkillMatrixEntity updatedSkillMatrix = skillMatrixRepository.save(skillMatrixEntity);
         SkillMatrixDto createdSchemeDto = skillMatrixMapper.toSkillMatrixDto(updatedSkillMatrix);
 
         log.debug("Return updated SkillMatrix: {}", createdSchemeDto);
@@ -95,16 +95,16 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     @Override
     @Transactional
     public void delete(Long id) {
-        log.debug("Trying to delete SkillMatrix by id: {}", id);
+        log.debug("Try to delete SkillMatrix by id: {}", id);
 
-        skillMatrixDao.delete(id);
+        skillMatrixRepository.delete(id);
 
         log.debug("SkillMatrix with ID {} has been removed", id);
     }
 
     @Override
     public List<SkillMatrixDto> findByParams(PageParams pageParams, MatrixSearchParams params) {
-        log.debug("Trying to get all SkillMatrix");
+        log.debug("Try to get all SkillMatrix");
 
         PageOptions pageOptions = new PageOptions(pageParams.getPage(), pageParams.getPageSize());
         SkillMatrixSortType sortType = SkillMatrixSortType.getTypeByString(params.getSort());
@@ -113,7 +113,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
                 .employeeId(params.getEmployeeId())
                 .build();
 
-        List<SkillMatrixEntity> skillMatrixEntities = skillMatrixDao
+        List<SkillMatrixEntity> skillMatrixEntities = skillMatrixRepository
                 .findByCriteria(criteria, pageOptions, sortType);
         List<SkillMatrixDto> result = skillMatrixEntities.stream()
                 .map(skillMatrixMapper::toSkillMatrixDto)
@@ -127,7 +127,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     public SkillMatrixDto findById(Long id) {
         log.debug("Find SkillMatrix by id: {}", id);
 
-        SkillMatrixEntity skillMatrix = skillMatrixDao.findById(id)
+        SkillMatrixEntity skillMatrix = skillMatrixRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("SkillMatrix not found by id"));
         SkillMatrixDto result = skillMatrixMapper.toSkillMatrixDto(skillMatrix);
 
@@ -162,7 +162,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     }
 
     private SkillMatrixEntity findEntityWithFullInfoById(Long id) {
-        SkillMatrixEntity skillMatrix = skillMatrixDao.findWithAssessmentsById(id)
+        SkillMatrixEntity skillMatrix = skillMatrixRepository.findWithAssessmentsById(id)
                 .orElseThrow(() -> new NotFoundException("SkillMatrix not found by id"));
 
         List<SkillAssessmentEntity> assessments = skillMatrix.getSkillAssessments();

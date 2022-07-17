@@ -7,6 +7,12 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.List;
 
+@NamedEntityGraph(
+        name = "user-with-roles",
+        attributeNodes = {
+                @NamedAttributeNode("roles")
+        }
+)
 @Data
 @Entity
 @Table(name = "users")
@@ -25,16 +31,17 @@ public class UserEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private List<RoleEntity> roles;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn (name="employee_id", unique = true, updatable = false, insertable = false)
     private EmployeeEntity employee;
 

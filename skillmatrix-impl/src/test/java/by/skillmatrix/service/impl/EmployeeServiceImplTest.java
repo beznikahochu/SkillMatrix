@@ -4,7 +4,7 @@ import by.skillmatrix.dto.employee.EmployeeCreationDto;
 import by.skillmatrix.dto.employee.EmployeeDto;
 import by.skillmatrix.entity.EmployeeEntity;
 import by.skillmatrix.mapper.EmployeeMapperImpl;
-import by.skillmatrix.dao.EmployeeDao;
+import by.skillmatrix.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,13 +12,13 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmployeeServiceImplTest {
-    private EmployeeDao employeeDao;
+    private EmployeeRepository employeeRepository;
     private EmployeeServiceImpl employeeService;
 
     @BeforeEach
     void beforeEach() {
-        employeeDao = Mockito.mock(EmployeeDao.class);
-        employeeService = new EmployeeServiceImpl(new EmployeeMapperImpl(), employeeDao);
+        employeeRepository = Mockito.mock(EmployeeRepository.class);
+        employeeService = new EmployeeServiceImpl(new EmployeeMapperImpl(), employeeRepository);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class EmployeeServiceImplTest {
         createdEmployee.setFirstName("Ivan");
         createdEmployee.setLastName("Czarevicn");
 
-        Mockito.when(employeeDao.save(employee)).thenReturn(createdEmployee);
+        Mockito.when(employeeRepository.save(employee)).thenReturn(createdEmployee);
 
         EmployeeDto createdEmployeeDto = new EmployeeDto();
         createdEmployeeDto.setId(1l);

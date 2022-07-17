@@ -30,11 +30,11 @@ public class SkillMatrixSchemeEntity {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany (cascade=CascadeType.REMOVE, mappedBy = "skillMatrixScheme")
+    @OneToMany (cascade= {CascadeType.REMOVE, CascadeType.DETACH}, mappedBy = "skillMatrixScheme")
     private List<SkillCategoryEntity> skillCategories;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany (cascade=CascadeType.REMOVE, mappedBy = "skillMatrixScheme")
+    @OneToMany (cascade= {CascadeType.REMOVE, CascadeType.DETACH}, mappedBy = "skillMatrixScheme")
     private List<SkillMatrixEntity> skillMatrixEntities;
 }

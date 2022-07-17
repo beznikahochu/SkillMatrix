@@ -7,8 +7,8 @@ import by.skillmatrix.entity.SkillCategoryEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillCategoryMapperImpl;
-import by.skillmatrix.dao.SkillCategoryDao;
-import by.skillmatrix.dao.SkillMatrixSchemeDao;
+import by.skillmatrix.repository.SkillCategoryRepository;
+import by.skillmatrix.repository.SkillMatrixSchemeRepository;
 import by.skillmatrix.service.SkillCategoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,19 +23,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SkillCategoryServiceImplTest {
 
-    private SkillCategoryDao skillCategoryDao;
+    private SkillCategoryRepository categoryRepository;
 
-    private SkillMatrixSchemeDao skillMatrixSchemeDao;
+    private SkillMatrixSchemeRepository skillMatrixSchemeRepository;
 
     private SkillCategoryService skillCategoryService;
 
     @BeforeEach
     void beforeEach() {
-        skillCategoryDao = Mockito.mock(SkillCategoryDao.class);
-        skillMatrixSchemeDao = Mockito.mock(SkillMatrixSchemeDao.class);
+        categoryRepository = Mockito.mock(SkillCategoryRepository.class);
+        skillMatrixSchemeRepository = Mockito.mock(SkillMatrixSchemeRepository.class);
         skillCategoryService = new SkillCategoryServiceImpl(
-                skillCategoryDao,
-                skillMatrixSchemeDao,
+                categoryRepository,
+                skillMatrixSchemeRepository,
                 new SkillCategoryMapperImpl()
         );
     }
@@ -50,7 +50,7 @@ public class SkillCategoryServiceImplTest {
         scheme.setId(1l);
         scheme.setName("scheme");
 
-        Mockito.when(skillMatrixSchemeDao.findById(creationDto.getSkillMatrixSchemeId()))
+        Mockito.when(skillMatrixSchemeRepository.findById(creationDto.getSkillMatrixSchemeId()))
                 .thenReturn(Optional.of(scheme));
 
         SkillCategoryEntity category = new SkillCategoryEntity();
@@ -62,7 +62,7 @@ public class SkillCategoryServiceImplTest {
         createdCategory.setName(category.getName());
         createdCategory.setSkillMatrixScheme(category.getSkillMatrixScheme());
 
-        Mockito.when(skillCategoryDao.save(category)).thenReturn(createdCategory);
+        Mockito.when(categoryRepository.save(category)).thenReturn(createdCategory);
 
         SkillCategoryDto extendedResult = new SkillCategoryDto();
         extendedResult.setId(createdCategory.getId());
@@ -79,7 +79,7 @@ public class SkillCategoryServiceImplTest {
         creationDto.setName("category");
         creationDto.setSkillMatrixSchemeId(1l);
 
-        Mockito.when(skillMatrixSchemeDao.findById(1l)).thenReturn(Optional.empty());
+        Mockito.when(skillMatrixSchemeRepository.findById(1l)).thenReturn(Optional.empty());
         assertThrows(NotFoundException.class, () -> skillCategoryService.create(creationDto));
     }
 
@@ -95,7 +95,7 @@ public class SkillCategoryServiceImplTest {
         skillCategory.setId(id);
         skillCategory.setName(name);
 
-        Mockito.when(skillCategoryDao.save(skillCategory)).thenReturn(skillCategory);
+        Mockito.when(categoryRepository.save(skillCategory)).thenReturn(skillCategory);
 
         SkillCategoryDto extendedResult = new SkillCategoryDto();
         extendedResult.setId(id);
@@ -106,13 +106,14 @@ public class SkillCategoryServiceImplTest {
         assertEquals(extendedResult, result);
     }
 
+    @Test
     void deleteTest() {
         ArgumentCaptor<Long> longCaptor = ArgumentCaptor.forClass(Long.class);
 
         Long id = 1l;
         skillCategoryService.delete(id);
 
-        Mockito.verify(skillCategoryDao).delete(longCaptor.capture());
+        Mockito.verify(categoryRepository).delete(longCaptor.capture());
 
         Long capturedId = longCaptor.getValue();
         assertEquals(id, capturedId);

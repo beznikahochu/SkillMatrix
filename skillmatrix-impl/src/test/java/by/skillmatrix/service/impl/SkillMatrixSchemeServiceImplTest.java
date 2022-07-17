@@ -11,8 +11,8 @@ import by.skillmatrix.entity.SkillEntity;
 import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMatrixSchemeMapperImpl;
-import by.skillmatrix.dao.SkillCategoryDao;
-import by.skillmatrix.dao.SkillMatrixSchemeDao;
+import by.skillmatrix.repository.SkillCategoryRepository;
+import by.skillmatrix.repository.SkillMatrixSchemeRepository;
 import by.skillmatrix.service.SkillMatrixSchemeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,13 +30,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class SkillMatrixSchemeServiceImplTest {
 
     private SkillMatrixSchemeService skillMatrixSchemeService;
-    private SkillMatrixSchemeDao schemeRepository;
-    private SkillCategoryDao categoryRepository;
+    private SkillMatrixSchemeRepository schemeRepository;
+    private SkillCategoryRepository categoryRepository;
 
     @BeforeEach
     void beforeEach() {
-        categoryRepository = Mockito.mock(SkillCategoryDao.class);
-        schemeRepository = Mockito.mock(SkillMatrixSchemeDao.class);
+        categoryRepository = Mockito.mock(SkillCategoryRepository.class);
+        schemeRepository = Mockito.mock(SkillMatrixSchemeRepository.class);
         skillMatrixSchemeService = new SkillMatrixSchemeServiceImpl(
                 schemeRepository,
                 categoryRepository,
