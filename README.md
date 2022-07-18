@@ -3,7 +3,7 @@
 В матрице компетенции указывается имя и фамилия сотрудника, категории скилов, скилы и их оценка.
 
 ## Технологии и инструменты
-Технологии: Spring(Web,Data,Boot), JPA, Maven, PostgreSQL, Swagger, JUnit, Mockito, 
+Spring(Web,Data,Boot), JPA, Maven, PostgreSQL, Swagger, JUnit, Mockito, 
 Docker, Docker Compose, Liquibase, Test Container, Apache POI
 
 
