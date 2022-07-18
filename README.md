@@ -4,7 +4,7 @@
 
 ## Технологии и инструменты
 Технологии: Spring(Web,Data,Boot), JPA, Maven, PostgreSQL, Swagger, JUnit, Mockito, 
-Docker, Docker Compose, Liquibase, Test Container, Apache PO
+Docker, Docker Compose, Liquibase, Test Container, Apache POI
 
 
 
