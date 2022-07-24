@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users_roles")
 @IdClass(UserAndRoleId.class)
-public class UserAndRoleEntity {
+public class UserAndRole {
 
     @Id
     @Column(name = "user_id", updatable = false)

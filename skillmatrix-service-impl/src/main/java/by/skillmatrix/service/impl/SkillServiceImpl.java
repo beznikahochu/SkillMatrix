@@ -3,8 +3,8 @@ package by.skillmatrix.service.impl;
 import by.skillmatrix.dto.skill.SkillCreationDto;
 import by.skillmatrix.dto.skill.SkillDto;
 import by.skillmatrix.dto.skill.SkillModificationDto;
-import by.skillmatrix.entity.SkillCategoryEntity;
-import by.skillmatrix.entity.SkillEntity;
+import by.skillmatrix.entity.Skill;
+import by.skillmatrix.entity.SkillCategory;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMapper;
 import by.skillmatrix.repository.SkillCategoryRepository;
@@ -29,16 +29,16 @@ public class SkillServiceImpl implements SkillService {
     public SkillDto create(SkillCreationDto skillCreationDto) {
         log.debug("Try to save Skill: {}", skillCreationDto);
 
-        SkillEntity skillEntity = skillMapper.toSkillEntity(skillCreationDto);
+        Skill skill = skillMapper.toSkillEntity(skillCreationDto);
 
         Long categoryId = skillCreationDto.getSkillCategoryId();
 
-        SkillCategoryEntity skillCategory = skillCategoryRepository.findById(categoryId)
+        SkillCategory skillCategory = skillCategoryRepository.findById(categoryId)
                 .orElseThrow(() -> new NotFoundException("SkillCategory not found by id"));
 
-        skillEntity.setSkillCategory(skillCategory);
+        skill.setSkillCategory(skillCategory);
 
-        SkillEntity createdSkill = skillRepository.save(skillEntity);
+        Skill createdSkill = skillRepository.save(skill);
         SkillDto createdSkillDto = skillMapper.toSkillDto(createdSkill);
 
         log.debug("Return saved Skill: {}", createdSkillDto);
@@ -50,9 +50,9 @@ public class SkillServiceImpl implements SkillService {
     public SkillDto update(Long id, SkillModificationDto skillDto) {
         log.debug("Try to update Skill with id: {}", id);
 
-        SkillEntity skillEntity = skillMapper.toSkillEntity(skillDto);
-        skillEntity.setId(id);
-        SkillEntity updatedSkill = skillRepository.save(skillEntity);
+        Skill skill = skillMapper.toSkillEntity(skillDto);
+        skill.setId(id);
+        Skill updatedSkill = skillRepository.save(skill);
         SkillDto updatedSkillDto = skillMapper.toSkillDto(updatedSkill);
 
         log.debug("Return updated Skill: {}", updatedSkillDto);

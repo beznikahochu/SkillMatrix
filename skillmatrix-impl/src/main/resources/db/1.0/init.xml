@@ -83,13 +83,18 @@
             <column name="name" type="varchar(100)">
                 <constraints nullable="false" />
             </column>
+            <column name="avg_assessment" type="float" />
             <column name="skill_matrix_scheme_id" type="bigint">
                 <constraints  nullable="false"/>
             </column>
-            <column name="creation_date" type="datetime">
+            <column name="creation_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="creation_time" type="time">
                 <constraints nullable="false" />
             </column>
             <column name="employee_id" type="bigint">
+                <constraints nullable="false" />
             </column>
         </createTable>
 

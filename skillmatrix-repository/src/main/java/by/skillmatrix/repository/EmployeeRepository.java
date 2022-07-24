@@ -1,10 +1,10 @@
 package by.skillmatrix.repository;
 
-import by.skillmatrix.entity.EmployeeEntity;
+import by.skillmatrix.entity.Employee;
 
 import java.util.Optional;
 
 public interface EmployeeRepository {
-    EmployeeEntity save(EmployeeEntity employee);
-    Optional<EmployeeEntity> findById(Long id);
+    Employee save(Employee employee);
+    Optional<Employee> findById(Long id);
 }

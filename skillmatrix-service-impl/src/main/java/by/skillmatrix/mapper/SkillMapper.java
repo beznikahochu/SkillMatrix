@@ -4,8 +4,7 @@ import by.skillmatrix.config.MatrixMapperConfig;
 import by.skillmatrix.dto.skill.SkillCreationDto;
 import by.skillmatrix.dto.skill.SkillDto;
 import by.skillmatrix.dto.skill.SkillModificationDto;
-import by.skillmatrix.dto.skill.SkillWithAssessmentDto;
-import by.skillmatrix.entity.SkillEntity;
+import by.skillmatrix.entity.Skill;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -15,16 +14,16 @@ public interface SkillMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "skillCategory", ignore = true)
     @Mapping(target = "skillAssessments", ignore = true)
-    SkillEntity toSkillEntity(SkillCreationDto skillCreationDto);
+    Skill toSkillEntity(SkillCreationDto skillCreationDto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "skillCategory", ignore = true)
     @Mapping(target = "skillAssessments", ignore = true)
-    SkillEntity toSkillEntity(SkillModificationDto modificationDto);
+    Skill toSkillEntity(SkillModificationDto modificationDto);
 
     @Mapping(target = "skillCategory", ignore = true)
     @Mapping(target = "skillAssessments", ignore = true)
-    SkillEntity toSkillEntity(SkillDto skillDto);
+    Skill toSkillEntity(SkillDto skillDto);
 
-    SkillDto toSkillDto(SkillEntity skillEntity);
+    SkillDto toSkillDto(Skill skill);
 }

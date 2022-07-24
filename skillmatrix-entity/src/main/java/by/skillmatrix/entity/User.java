@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class User {
 
     @Id
     @Column(name = "id")
@@ -37,13 +37,13 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<RoleEntity> roles;
+    private List<Role> roles;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn (name="employee_id", unique = true, updatable = false, insertable = false)
-    private EmployeeEntity employee;
+    private Employee employee;
 
     @Column(name="employee_id", unique = true)
     private Long employeeId;

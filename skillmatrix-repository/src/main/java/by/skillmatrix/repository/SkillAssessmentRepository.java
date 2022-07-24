@@ -1,7 +1,7 @@
 package by.skillmatrix.repository;
 
-import by.skillmatrix.entity.SkillAssessmentEntity;
+import by.skillmatrix.entity.SkillAssessment;
 
 public interface SkillAssessmentRepository {
-    SkillAssessmentEntity save(SkillAssessmentEntity skillAssessment);
+    SkillAssessment save(SkillAssessment skillAssessment);
 }

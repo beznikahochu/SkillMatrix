@@ -1,8 +1,8 @@
 package by.skillmatrix.excel;
 
-import by.skillmatrix.entity.SkillCategoryEntity;
-import by.skillmatrix.entity.SkillEntity;
-import by.skillmatrix.entity.SkillMatrixEntity;
+import by.skillmatrix.entity.Skill;
+import by.skillmatrix.entity.SkillCategory;
+import by.skillmatrix.entity.SkillMatrix;
 import by.skillmatrix.exception.ExcelBuildException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class SkillMatrixExcelBuilder {
 
-    public byte[] build(SkillMatrixEntity skillMatrix) {
+    public byte[] build(SkillMatrix skillMatrix) {
         Workbook workbook = new XSSFWorkbook();
         SkillMatrixCellStyler styler = new SkillMatrixCellStyler(workbook);
 
@@ -41,7 +41,7 @@ public class SkillMatrixExcelBuilder {
     }
 
     private void buildHeader(Sheet sheet, SkillMatrixCellStyler styler,
-                             int startRowNum, SkillMatrixEntity skillMatrix) {
+                             int startRowNum, SkillMatrix skillMatrix) {
         String firstName = skillMatrix.getEmployee().getFirstName();
         String lastName = skillMatrix.getEmployee().getLastName();
         String matrixName = skillMatrix.getName();
@@ -89,15 +89,15 @@ public class SkillMatrixExcelBuilder {
     }
 
     private void buildCategoriesAndSkillsRows(Sheet sheet, SkillMatrixCellStyler styler,
-                                int startRowNum, SkillMatrixEntity skillMatrix) {
-        List<SkillCategoryEntity> categories = skillMatrix.getSkillMatrixScheme().getSkillCategories();
+                                int startRowNum, SkillMatrix skillMatrix) {
+        List<SkillCategory> categories = skillMatrix.getSkillMatrixScheme().getSkillCategories();
         CellStyle categoryStyle = styler.getCategorySellStyle();
         CellStyle simpleStyle = styler.getSimpleCellStyle();
         CellStyle assessmentStyle = styler.getAssessmentCellStyle();
 
         int rowNum = startRowNum;
 
-        for (SkillCategoryEntity category: categories) {
+        for (SkillCategory category: categories) {
             sheet.addMergedRegion(new CellRangeAddress(rowNum,rowNum,0,2));
             Row row = sheet.createRow(rowNum);
             Cell cell1 = row.createCell(0);
@@ -106,7 +106,7 @@ public class SkillMatrixExcelBuilder {
             cell3.setCellStyle(categoryStyle);
             cell1.setCellValue(category.getName());
             rowNum++;
-            for (SkillEntity skill: category.getSkills()) {
+            for (Skill skill: category.getSkills()) {
                 Row skillRow = sheet.createRow(rowNum);
                 Cell skillCell1 = skillRow.createCell(0);
                 Cell skillCell2 = skillRow.createCell(1);

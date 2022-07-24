@@ -3,7 +3,7 @@ package by.skillmatrix.mapper;
 import by.skillmatrix.config.MatrixMapperConfig;
 import by.skillmatrix.dto.employee.EmployeeCreationDto;
 import by.skillmatrix.dto.employee.EmployeeDto;
-import by.skillmatrix.entity.EmployeeEntity;
+import by.skillmatrix.entity.Employee;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 public interface EmployeeMapper {
 
     @Mapping(target = "id", ignore = true)
-    EmployeeEntity toEmployeeEntity(EmployeeCreationDto user);
+    Employee toEmployeeEntity(EmployeeCreationDto user);
 
-    EmployeeDto toEmployeeDto(EmployeeEntity user);
+    EmployeeDto toEmployeeDto(Employee user);
 }

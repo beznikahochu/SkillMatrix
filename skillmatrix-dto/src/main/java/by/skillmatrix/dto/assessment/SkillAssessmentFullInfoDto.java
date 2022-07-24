@@ -7,7 +7,6 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 @Data
-@Validated //TODO ВАЛИДАЦИЯ ДЕТКА
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "SkillAssessmentCreationDto")
 public class SkillAssessmentFullInfoDto {

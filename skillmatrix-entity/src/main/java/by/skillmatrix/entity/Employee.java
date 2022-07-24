@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 @Data
 @Entity
 @Table(name = "employees")
-public class EmployeeEntity {
+public class Employee {
 
     @Id
     @Column(name = "id")

@@ -1,6 +1,6 @@
 package by.skillmatrix.repository.impl;
 
-import by.skillmatrix.entity.UserEntity;
+import by.skillmatrix.entity.User;
 import by.skillmatrix.repository.UserRepository;
 import by.skillmatrix.repository.impl.springdata.UserSpringDataRepository;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
     private EntityManager entityManager;
 
     @Override
-    public UserEntity save(UserEntity user) {
+    public User save(User user) {
         return repository.save(user);
     }
 
@@ -29,12 +29,17 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<UserEntity> findUserWithRolesByLogin(String login) {
+    public Optional<User> findByLogin(String login) {
+        return repository.findByLogin(login);
+    }
+
+    @Override
+    public Optional<User> findUserWithRolesByLogin(String login) {
         return repository.findUserWithRolesByLogin(login);
     }
 
     @Override
-    public Optional<UserEntity> findUserWithRolesById(Long id) {
+    public Optional<User> findUserWithRolesById(Long id) {
         return repository.findUserWithRolesById(id);
     }
 }

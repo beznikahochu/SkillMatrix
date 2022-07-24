@@ -1,8 +1,8 @@
 package by.skillmatrix.mapper;
 
 import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
-import by.skillmatrix.entity.SkillMatrixEntity;
+import by.skillmatrix.entity.SkillMatrix;
 
 public interface FullSkillMatrixMapper {
-    SkillMatrixFullInfoDto toFullSkillMatrixEntity(SkillMatrixEntity skillMatrixEntity);
+    SkillMatrixFullInfoDto toFullSkillMatrixEntity(SkillMatrix skillMatrix);
 }

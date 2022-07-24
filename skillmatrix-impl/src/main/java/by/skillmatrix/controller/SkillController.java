@@ -24,7 +24,7 @@ public class SkillController {
     @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Create skill")
     public SkillDto create(@RequestBody SkillCreationDto creationDto) {
-        log.info("Trying to create new Skill: {}", creationDto);
+        log.info("Try to create new Skill: {}", creationDto);
 
         SkillDto createdSkill = skillService.create(creationDto);
 

@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class UserControllerImpl {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Register a new users")
-    public UserDto registerNewUser(@RequestBody UserCreationDto creationDto) {
+    public UserDto registerNewUser(@RequestBody @Valid UserCreationDto creationDto) {
         log.info("Try to create new user: {}", creationDto.getLogin());
 
         UserDto createdUser = userService.create(creationDto);

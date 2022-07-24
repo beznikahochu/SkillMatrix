@@ -17,7 +17,8 @@ import javax.persistence.NamedAttributeNode;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -39,7 +40,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "skill_matrices")
-public class SkillMatrixEntity {
+public class SkillMatrix {
 
     @Id
     @Column(name = "id")
@@ -49,23 +50,29 @@ public class SkillMatrixEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "avg_assessment", updatable = false, insertable = false)
+    private Float avgAssessment;
+
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn (name="skill_matrix_scheme_id", updatable = false, nullable = false)
-    private SkillMatrixSchemeEntity skillMatrixScheme;
+    private SkillMatrixScheme skillMatrixScheme;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany (cascade={CascadeType.REMOVE, CascadeType.DETACH}, mappedBy = "skillMatrix")
-    private List<SkillAssessmentEntity> skillAssessments;
+    private List<SkillAssessment> skillAssessments;
 
     @Column(name = "creation_date", nullable = false, updatable = false)
-    private LocalDateTime creationDate;
+    private LocalDate creationDate;
+
+    @Column(name = "creation_time", nullable = false, updatable = false)
+    private LocalTime creationTime;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinColumn (name="employee_id", updatable = false)
-    private EmployeeEntity employee;
+    @JoinColumn (name="employee_id", updatable = false, nullable = false)
+    private Employee employee;
 }

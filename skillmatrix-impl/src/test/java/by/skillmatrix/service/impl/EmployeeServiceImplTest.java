@@ -2,7 +2,7 @@ package by.skillmatrix.service.impl;
 
 import by.skillmatrix.dto.employee.EmployeeCreationDto;
 import by.skillmatrix.dto.employee.EmployeeDto;
-import by.skillmatrix.entity.EmployeeEntity;
+import by.skillmatrix.entity.Employee;
 import by.skillmatrix.mapper.EmployeeMapperImpl;
 import by.skillmatrix.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,11 +27,11 @@ public class EmployeeServiceImplTest {
         creationDto.setFirstName("Ivan");
         creationDto.setLastName("Czarevicn");
 
-        EmployeeEntity employee = new EmployeeEntity();
+        Employee employee = new Employee();
         employee.setFirstName("Ivan");
         employee.setLastName("Czarevicn");
 
-        EmployeeEntity createdEmployee = new EmployeeEntity();
+        Employee createdEmployee = new Employee();
         createdEmployee.setId(1l);
         createdEmployee.setFirstName("Ivan");
         createdEmployee.setLastName("Czarevicn");
@@ -45,7 +45,7 @@ public class EmployeeServiceImplTest {
 
         EmployeeDto result = employeeService.create(creationDto);
 
-        assertEquals(result,createdEmployeeDto);
+        assertEquals(createdEmployeeDto, result);
     }
 
 }

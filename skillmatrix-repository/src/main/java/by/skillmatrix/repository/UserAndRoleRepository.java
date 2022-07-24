@@ -1,13 +1,12 @@
 package by.skillmatrix.repository;
 
-import by.skillmatrix.entity.UserAndRoleEntity;
+import by.skillmatrix.entity.UserAndRole;
 import by.skillmatrix.entity.id.UserAndRoleId;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UserAndRoleRepository {
-    Optional<UserAndRoleEntity> findById(UserAndRoleId id);
-    UserAndRoleEntity save(UserAndRoleEntity entity);
+    Optional<UserAndRole> findById(UserAndRoleId id);
+    UserAndRole save(UserAndRole entity);
     void delete(UserAndRoleId id);
 }

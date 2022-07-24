@@ -1,7 +1,7 @@
 package by.skillmatrix.service.impl;
 
 import by.skillmatrix.dto.user.RoleDto;
-import by.skillmatrix.entity.RoleEntity;
+import by.skillmatrix.entity.Role;
 import by.skillmatrix.mapper.RoleMapper;
 import by.skillmatrix.repository.RoleRepository;
 import by.skillmatrix.service.RoleService;
@@ -24,7 +24,7 @@ public class RoleServiceImpl implements RoleService {
     public List<RoleDto> findAll() {
         log.debug("Find all Roles");
 
-        List<RoleEntity> roles = roleRepository.findAll();
+        List<Role> roles = roleRepository.findAll();
         List<RoleDto> result = roles.stream().map(roleMapper::toRoleDto).collect(Collectors.toList());
 
         log.debug("Return all Roles");

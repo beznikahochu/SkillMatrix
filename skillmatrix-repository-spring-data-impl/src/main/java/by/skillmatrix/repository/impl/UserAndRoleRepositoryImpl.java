@@ -1,6 +1,6 @@
 package by.skillmatrix.repository.impl;
 
-import by.skillmatrix.entity.UserAndRoleEntity;
+import by.skillmatrix.entity.UserAndRole;
 import by.skillmatrix.entity.id.UserAndRoleId;
 import by.skillmatrix.repository.UserAndRoleRepository;
 import by.skillmatrix.repository.impl.springdata.UserAndRoleSpringDataRepository;
@@ -16,12 +16,12 @@ public class UserAndRoleRepositoryImpl implements UserAndRoleRepository {
     private final UserAndRoleSpringDataRepository repository;
 
     @Override
-    public Optional<UserAndRoleEntity> findById(UserAndRoleId id) {
+    public Optional<UserAndRole> findById(UserAndRoleId id) {
         return repository.findById(id);
     }
 
     @Override
-    public UserAndRoleEntity save(UserAndRoleEntity entity) {
+    public UserAndRole save(UserAndRole entity) {
         return repository.save(entity);
     }
 

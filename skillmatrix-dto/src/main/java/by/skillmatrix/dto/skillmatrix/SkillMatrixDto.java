@@ -26,6 +26,10 @@ public class SkillMatrixDto {
     @JsonProperty("name")
     private String name;
 
+    @Schema(description = "AVG Assessment")
+    @JsonProperty("avgAssessment")
+    private Float avgAssessment;
+
     @Schema(description = "Employee")
     @JsonProperty("employee")
     private EmployeeDto employee;

@@ -2,7 +2,7 @@ package by.skillmatrix.service.impl;
 
 import by.skillmatrix.dto.employee.EmployeeCreationDto;
 import by.skillmatrix.dto.employee.EmployeeDto;
-import by.skillmatrix.entity.EmployeeEntity;
+import by.skillmatrix.entity.Employee;
 import by.skillmatrix.mapper.EmployeeMapper;
 import by.skillmatrix.repository.EmployeeRepository;
 import by.skillmatrix.service.EmployeeService;
@@ -24,8 +24,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto create(EmployeeCreationDto employeeDto) {
         log.debug("Admit new employee: {}", employeeDto);
 
-        EmployeeEntity employee = employeeMapper.toEmployeeEntity(employeeDto);
-        EmployeeEntity createdEmployee = employeeRepository.save(employee);
+        Employee employee = employeeMapper.toEmployeeEntity(employeeDto);
+        Employee createdEmployee = employeeRepository.save(employee);
         EmployeeDto createdEmployeeDto = employeeMapper.toEmployeeDto(createdEmployee);
 
         log.debug("Admitted employee: {}", createdEmployeeDto);

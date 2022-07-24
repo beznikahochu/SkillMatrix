@@ -1,8 +1,8 @@
 package by.skillmatrix.entitygenerator;
 
-import by.skillmatrix.entity.EmployeeEntity;
-import by.skillmatrix.entity.SkillMatrixEntity;
-import by.skillmatrix.entity.SkillMatrixSchemeEntity;
+import by.skillmatrix.entity.Employee;
+import by.skillmatrix.entity.SkillMatrix;
+import by.skillmatrix.entity.SkillMatrixScheme;
 import com.github.javafaker.Faker;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +20,8 @@ public class SkillMatrixGenerator {
         faker = new Faker();
     }
 
-    public SkillMatrixEntity generateSkillMatrix(EmployeeEntity employee, SkillMatrixSchemeEntity scheme) {
-        SkillMatrixEntity skillMatrix = new SkillMatrixEntity();
+    public SkillMatrix generateSkillMatrix(Employee employee, SkillMatrixScheme scheme) {
+        SkillMatrix skillMatrix = new SkillMatrix();
         skillMatrix.setName(faker.funnyName().name());
         skillMatrix.setEmployee(employee);
         skillMatrix.setSkillMatrixScheme(scheme);
@@ -29,7 +29,8 @@ public class SkillMatrixGenerator {
         Date creationDate = faker.date().past(5, TimeUnit.DAYS);
         LocalDateTime creationLocalDateTime = LocalDateTime.ofInstant(creationDate.toInstant(), ZoneId.systemDefault());
 
-        skillMatrix.setCreationDate(creationLocalDateTime);
+        skillMatrix.setCreationDate(creationLocalDateTime.toLocalDate());
+        skillMatrix.setCreationTime(creationLocalDateTime.toLocalTime());
 
         return skillMatrix;
     }

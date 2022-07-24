@@ -4,7 +4,7 @@ import by.skillmatrix.config.MatrixMapperConfig;
 import by.skillmatrix.dto.category.SkillCategoryCreationDto;
 import by.skillmatrix.dto.category.SkillCategoryDto;
 import by.skillmatrix.dto.category.SkillCategoryModificationDto;
-import by.skillmatrix.entity.SkillCategoryEntity;
+import by.skillmatrix.entity.SkillCategory;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -14,12 +14,12 @@ public interface SkillCategoryMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "skills", ignore = true)
     @Mapping(target = "skillMatrixScheme", ignore = true)
-    SkillCategoryEntity toSkillCategoryEntity(SkillCategoryCreationDto schemeCreationDto);
+    SkillCategory toSkillCategoryEntity(SkillCategoryCreationDto schemeCreationDto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "skills", ignore = true)
     @Mapping(target = "skillMatrixScheme", ignore = true)
-    SkillCategoryEntity toSkillCategoryEntity(SkillCategoryModificationDto modificationDto);
+    SkillCategory toSkillCategoryEntity(SkillCategoryModificationDto modificationDto);
 
-    SkillCategoryDto toSkillCategoryDto(SkillCategoryEntity skillCategoryEntity);
+    SkillCategoryDto toSkillCategoryDto(SkillCategory skillCategory);
 }

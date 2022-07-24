@@ -24,7 +24,7 @@ public class SkillCategoryController {
     @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Create new skill category for skill matrix scheme")
     public SkillCategoryDto create(@RequestBody SkillCategoryCreationDto creationDto) {
-        log.info("Trying to create new SkillCategory: {}", creationDto);
+        log.info("Try to create new SkillCategory: {}", creationDto);
 
         SkillCategoryDto createdSkillCategory = skillCategoryService.create(creationDto);
 

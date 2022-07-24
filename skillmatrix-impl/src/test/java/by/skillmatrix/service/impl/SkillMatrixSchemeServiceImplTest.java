@@ -6,9 +6,9 @@ import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeFullInfoDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeModificationDto;
 import by.skillmatrix.dto.skill.SkillDto;
-import by.skillmatrix.entity.SkillCategoryEntity;
-import by.skillmatrix.entity.SkillEntity;
-import by.skillmatrix.entity.SkillMatrixSchemeEntity;
+import by.skillmatrix.entity.Skill;
+import by.skillmatrix.entity.SkillCategory;
+import by.skillmatrix.entity.SkillMatrixScheme;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMatrixSchemeMapperImpl;
 import by.skillmatrix.repository.SkillCategoryRepository;
@@ -49,22 +49,22 @@ public class SkillMatrixSchemeServiceImplTest {
         SkillMatrixSchemeCreationDto creationDto = new SkillMatrixSchemeCreationDto();
         creationDto.setName("Schema");
 
-        SkillMatrixSchemeEntity scheme = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme scheme = new SkillMatrixScheme();
         scheme.setName(creationDto.getName());
 
-        SkillMatrixSchemeEntity createdScheme = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme createdScheme = new SkillMatrixScheme();
         createdScheme.setId(1l);
         createdScheme.setName(scheme.getName());
 
         Mockito.when(schemeRepository.save(scheme)).thenReturn(createdScheme);
 
-        SkillMatrixSchemeDto extended = new SkillMatrixSchemeDto();
-        extended.setId(createdScheme.getId());
-        extended.setName(createdScheme.getName());
+        SkillMatrixSchemeDto expectedResult = new SkillMatrixSchemeDto();
+        expectedResult.setId(createdScheme.getId());
+        expectedResult.setName(createdScheme.getName());
 
         SkillMatrixSchemeDto result = skillMatrixSchemeService.create(creationDto);
 
-        assertEquals(extended, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -73,19 +73,19 @@ public class SkillMatrixSchemeServiceImplTest {
         SkillMatrixSchemeModificationDto modificationDto = new SkillMatrixSchemeModificationDto();
         modificationDto.setName("Name");
 
-        SkillMatrixSchemeEntity scheme = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme scheme = new SkillMatrixScheme();
         scheme.setId(id);
         scheme.setName(modificationDto.getName());
 
         Mockito.when(schemeRepository.save(scheme)).thenReturn(scheme);
 
-        SkillMatrixSchemeDto extended = new SkillMatrixSchemeDto();
-        extended.setId(id);
-        extended.setName(scheme.getName());
+        SkillMatrixSchemeDto expectedResult = new SkillMatrixSchemeDto();
+        expectedResult.setId(id);
+        expectedResult.setName(scheme.getName());
 
         SkillMatrixSchemeDto result = skillMatrixSchemeService.update(id, modificationDto);
 
-        assertEquals(result, extended);
+        assertEquals(result, expectedResult);
     }
 
     @Test
@@ -103,13 +103,13 @@ public class SkillMatrixSchemeServiceImplTest {
 
     @Test
     void findAllTest() {
-        List<SkillMatrixSchemeEntity> schemeEntities = new ArrayList<>();
+        List<SkillMatrixScheme> schemeEntities = new ArrayList<>();
 
-        SkillMatrixSchemeEntity scheme1 = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme scheme1 = new SkillMatrixScheme();
         scheme1.setId(1L);
         scheme1.setName("Scheme1");
 
-        SkillMatrixSchemeEntity scheme2 = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme scheme2 = new SkillMatrixScheme();
         scheme2.setId(2L);
         scheme2.setName("Scheme2");
 
@@ -138,19 +138,19 @@ public class SkillMatrixSchemeServiceImplTest {
     @Test
     void findByIdTest() {
         Long id = 1L;
-        SkillMatrixSchemeEntity scheme = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme scheme = new SkillMatrixScheme();
         scheme.setId(id);
         scheme.setName("Scheme1");
 
         Mockito.when(schemeRepository.findById(id)).thenReturn(Optional.of(scheme));
 
-        SkillMatrixSchemeDto extendedResult = new SkillMatrixSchemeDto();
-        extendedResult.setId(id);
-        extendedResult.setName(scheme.getName());
+        SkillMatrixSchemeDto expectedResult = new SkillMatrixSchemeDto();
+        expectedResult.setId(id);
+        expectedResult.setName(scheme.getName());
 
         SkillMatrixSchemeDto result = skillMatrixSchemeService.findById(id);
 
-        assertEquals(extendedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -163,40 +163,40 @@ public class SkillMatrixSchemeServiceImplTest {
     @Test
     void findFullInfoByIdTest() {
         Long id = 1L;
-        SkillMatrixSchemeEntity scheme = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme scheme = new SkillMatrixScheme();
         scheme.setId(id);
         scheme.setName("Scheme1");
 
         Mockito.when(schemeRepository.findById(id)).thenReturn(Optional.of(scheme));
 
-        List<SkillCategoryEntity> categories = new ArrayList<>();
+        List<SkillCategory> categories = new ArrayList<>();
 
-        SkillCategoryEntity skillCategory1 = new SkillCategoryEntity();
+        SkillCategory skillCategory1 = new SkillCategory();
         skillCategory1.setId(1L);
         skillCategory1.setName("Category1");
         skillCategory1.setSkillMatrixScheme(scheme);
 
-        SkillEntity skill1 = new SkillEntity();
+        Skill skill1 = new Skill();
         skill1.setId(1L);
         skill1.setName("Skill1");
 
-        SkillEntity skill2 = new SkillEntity();
+        Skill skill2 = new Skill();
         skill2.setId(2L);
         skill2.setName("Skill2");
 
         skillCategory1.setSkills(List.of(skill1, skill2));
 
 
-        SkillCategoryEntity skillCategory2 = new SkillCategoryEntity();
+        SkillCategory skillCategory2 = new SkillCategory();
         skillCategory2.setId(2L);
         skillCategory2.setName("Category2");
         skillCategory2.setSkillMatrixScheme(scheme);
 
-        SkillEntity skill3 = new SkillEntity();
+        Skill skill3 = new Skill();
         skill3.setId(3L);
         skill3.setName("Skill3");
 
-        SkillEntity skill4 = new SkillEntity();
+        Skill skill4 = new Skill();
         skill4.setId(4L);
         skill4.setName("Skill4");
 
@@ -208,9 +208,9 @@ public class SkillMatrixSchemeServiceImplTest {
         Mockito.when(categoryRepository.findFullSkillCategoryBySchemeId(1L))
                 .thenReturn(categories);
 
-        SkillMatrixSchemeFullInfoDto extendedResult = new SkillMatrixSchemeFullInfoDto();
-        extendedResult.setId(scheme.getId());
-        extendedResult.setName(scheme.getName());
+        SkillMatrixSchemeFullInfoDto expectedResult = new SkillMatrixSchemeFullInfoDto();
+        expectedResult.setId(scheme.getId());
+        expectedResult.setName(scheme.getName());
 
         SkillCategoryFullInfoDto skillCategory1Dto = new SkillCategoryFullInfoDto();
         skillCategory1Dto.setId(skillCategory1.getId());
@@ -240,10 +240,17 @@ public class SkillMatrixSchemeServiceImplTest {
 
         skillCategory2Dto.setSkills(List.of(skill3Dto, skill4Dto));
 
-        extendedResult.setCategories(List.of(skillCategory1Dto, skillCategory2Dto));
+        expectedResult.setCategories(List.of(skillCategory1Dto, skillCategory2Dto));
 
         SkillMatrixSchemeFullInfoDto result = skillMatrixSchemeService.findFullInfoById(1l);
 
-        assertEquals(extendedResult, result);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void whenFindFullInfoByIdThrowsNotFoundExceptionTest() {
+        Long id = 1L;
+        Mockito.when(schemeRepository.findById(id)).thenReturn(Optional.empty());
+        assertThrows(NotFoundException.class, () -> skillMatrixSchemeService.findById(1l));
     }
 }

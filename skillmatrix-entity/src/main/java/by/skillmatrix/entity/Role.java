@@ -1,6 +1,5 @@
 package by.skillmatrix.entity;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -11,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "roles")
-public class RoleEntity {
+public class Role {
 
     @Id
     @Column(name = "id")
@@ -28,5 +27,5 @@ public class RoleEntity {
             name = "users_roles",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<UserEntity> users;
+    private List<User> users;
 }

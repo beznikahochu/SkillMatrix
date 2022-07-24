@@ -1,7 +1,6 @@
 package by.skillmatrix.mapper;
 
 import by.skillmatrix.dto.assessment.SkillAssessmentDto;
-import by.skillmatrix.dto.category.SkillCategoryDto;
 import by.skillmatrix.dto.category.SkillCategoryWithAssessmentsDto;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeWithAssessmentsDto;
 import by.skillmatrix.dto.skill.SkillWithAssessmentDto;
@@ -9,9 +8,8 @@ import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,17 +20,22 @@ public class FullSkillMatrixMapperImpl implements FullSkillMatrixMapper {
     private final EmployeeMapper employeeMapper;
 
     @Override
-    public SkillMatrixFullInfoDto toFullSkillMatrixEntity(SkillMatrixEntity skillMatrixEntity) {
+    public SkillMatrixFullInfoDto toFullSkillMatrixEntity(SkillMatrix skillMatrix) {
         SkillMatrixFullInfoDto result = new SkillMatrixFullInfoDto();
-        result.setId(skillMatrixEntity.getId());
-        result.setName(skillMatrixEntity.getName());
-        result.setEmployee(employeeMapper.toEmployeeDto(skillMatrixEntity.getEmployee()));
-        result.setCreationDate(skillMatrixEntity.getCreationDate());
-        result.setSkillMatrixScheme(toSkillMatrixSchemeWithAssessmentsDto(skillMatrixEntity.getSkillMatrixScheme()));
+        result.setId(skillMatrix.getId());
+        result.setName(skillMatrix.getName());
+        result.setAvgAssessment(skillMatrix.getAvgAssessment());
+        result.setEmployee(employeeMapper.toEmployeeDto(skillMatrix.getEmployee()));
+        LocalDateTime creationDate = LocalDateTime.of(
+                skillMatrix.getCreationDate(),
+                skillMatrix.getCreationTime()
+        );
+        result.setCreationDate(creationDate);
+        result.setSkillMatrixScheme(toSkillMatrixSchemeWithAssessmentsDto(skillMatrix.getSkillMatrixScheme()));
         return result;
     }
 
-    private SkillMatrixSchemeWithAssessmentsDto toSkillMatrixSchemeWithAssessmentsDto(SkillMatrixSchemeEntity scheme) {
+    private SkillMatrixSchemeWithAssessmentsDto toSkillMatrixSchemeWithAssessmentsDto(SkillMatrixScheme scheme) {
         SkillMatrixSchemeWithAssessmentsDto result = new SkillMatrixSchemeWithAssessmentsDto();
         result.setId(scheme.getId());
         result.setName(scheme.getName());
@@ -40,13 +43,13 @@ public class FullSkillMatrixMapperImpl implements FullSkillMatrixMapper {
         return result;
     }
 
-    private List<SkillCategoryWithAssessmentsDto> toSkillCategoryWithAssessmentsDtoList(List<SkillCategoryEntity> categories) {
+    private List<SkillCategoryWithAssessmentsDto> toSkillCategoryWithAssessmentsDtoList(List<SkillCategory> categories) {
         return categories.stream()
                 .map(this::toSkillCategoryWithAssessmentsDto)
                 .collect(Collectors.toList());
     }
 
-    private SkillCategoryWithAssessmentsDto toSkillCategoryWithAssessmentsDto(SkillCategoryEntity category) {
+    private SkillCategoryWithAssessmentsDto toSkillCategoryWithAssessmentsDto(SkillCategory category) {
         SkillCategoryWithAssessmentsDto result = new SkillCategoryWithAssessmentsDto();
         result.setId(category.getId());
         result.setName(category.getName());
@@ -55,22 +58,22 @@ public class FullSkillMatrixMapperImpl implements FullSkillMatrixMapper {
         return result;
     }
 
-    private List<SkillWithAssessmentDto> toSkillWithAssessmentDtoList(List<SkillEntity> skills) {
+    private List<SkillWithAssessmentDto> toSkillWithAssessmentDtoList(List<Skill> skills) {
         return skills.stream()
                 .map(this::toSkillWithAssessmentDto)
                 .collect(Collectors.toList());
     }
 
-    private SkillWithAssessmentDto toSkillWithAssessmentDto(SkillEntity skillEntity) {
+    private SkillWithAssessmentDto toSkillWithAssessmentDto(Skill skill) {
         SkillWithAssessmentDto result = new SkillWithAssessmentDto();
-        result.setId(skillEntity.getId());
-        result.setName(skillEntity.getName());
-        result.setPosition(skillEntity.getPosition());
-        result.setSkillAssessment(toSkillAssessmentDto(skillEntity.getSkillAssessments()));
+        result.setId(skill.getId());
+        result.setName(skill.getName());
+        result.setPosition(skill.getPosition());
+        result.setSkillAssessment(toSkillAssessmentDto(skill.getSkillAssessments()));
         return result;
     }
 
-    private SkillAssessmentDto toSkillAssessmentDto(List<SkillAssessmentEntity> skillAssessments) {
+    private SkillAssessmentDto toSkillAssessmentDto(List<SkillAssessment> skillAssessments) {
         if (skillAssessments.isEmpty()) {
             return null;
         }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "skill_assessments")
 @IdClass(SkillAssessmentId.class)
-public class SkillAssessmentEntity {
+public class SkillAssessment {
 
     @Id
     @Column(name = "skill_matrix_id", updatable = false)
@@ -25,13 +25,13 @@ public class SkillAssessmentEntity {
     @EqualsAndHashCode.Exclude
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "skill_matrix_id", insertable = false, updatable = false)
-    private SkillMatrixEntity skillMatrix;
+    private SkillMatrix skillMatrix;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "skill_id", insertable = false, updatable = false)
-    private SkillEntity skill;
+    private Skill skill;
 
     @Column(name = "assessment", nullable = false)
     private Long assessment;

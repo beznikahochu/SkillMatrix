@@ -28,3 +28,7 @@ security:
     secret: ${JWT_SECRET_KEY:secret}
     hours: ${JWT_HOURS:24}
 
+assessment:
+  min: ${MIN_ASSESSMENT:1}
+  max: ${MAX_ASSESSMENT:4}
+

@@ -31,6 +31,13 @@ public interface SkillMatrixService {
     SkillMatrixDto update(Long id,SkillMatrixModificationDto modificationDto);
 
     /**
+     * Update avg assessment.
+     *
+     * @param id id of SkillMatrix
+     */
+    void calkAvgAssessment(Long id);
+
+    /**
      * Delete SkillMatrix.
      *
      * @param id id of SkillMatrix

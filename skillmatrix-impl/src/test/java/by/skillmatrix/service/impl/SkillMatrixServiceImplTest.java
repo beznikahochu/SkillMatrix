@@ -1,5 +1,8 @@
 package by.skillmatrix.service.impl;
 
+import by.skillmatrix.entity.Employee;
+import by.skillmatrix.entity.SkillMatrix;
+import by.skillmatrix.entity.SkillMatrixScheme;
 import by.skillmatrix.repository.EmployeeRepository;
 import by.skillmatrix.repository.SkillCategoryRepository;
 import by.skillmatrix.repository.SkillMatrixRepository;
@@ -12,9 +15,6 @@ import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
-import by.skillmatrix.entity.EmployeeEntity;
-import by.skillmatrix.entity.SkillMatrixEntity;
-import by.skillmatrix.entity.SkillMatrixSchemeEntity;
 import by.skillmatrix.excel.SkillMatrixExcelBuilder;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.EmployeeMapperImpl;
@@ -81,25 +81,25 @@ public class SkillMatrixServiceImplTest {
         creationDto.setName("matrix");
         creationDto.setSchemeId(1L);
 
-        EmployeeEntity employee = new EmployeeEntity();
+        Employee employee = new Employee();
         employee.setId(1L);
         employee.setFirstName("firstName");
         employee.setLastName("lastName");
 
-        SkillMatrixSchemeEntity scheme = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme scheme = new SkillMatrixScheme();
         scheme.setId(1L);
         scheme.setName("scheme");
 
         Mockito.when(employeeRepository.findById(creationDto.getEmployeeId())).thenReturn(Optional.of(employee));
         Mockito.when(schemeRepository.findById(creationDto.getSchemeId())).thenReturn(Optional.of(scheme));
 
-        SkillMatrixEntity matrix = new SkillMatrixEntity();
+        SkillMatrix matrix = new SkillMatrix();
         matrix.setName(creationDto.getName());
         matrix.setEmployee(employee);
         matrix.setSkillMatrixScheme(scheme);
         matrix.setCreationDate(LocalDateTime.now());
 
-        SkillMatrixEntity createdMatrix = new SkillMatrixEntity();
+        SkillMatrix createdMatrix = new SkillMatrix();
         createdMatrix.setId(matrix.getId());
         createdMatrix.setName(matrix.getName());
         createdMatrix.setEmployee(matrix.getEmployee());
@@ -117,16 +117,16 @@ public class SkillMatrixServiceImplTest {
         employeeDto.setFirstName(employee.getFirstName());
         employeeDto.setLastName(employee.getLastName());
 
-        SkillMatrixDto extendedResult = new SkillMatrixDto();
-        extendedResult.setId(createdMatrix.getId());
-        extendedResult.setName(createdMatrix.getName());
-        extendedResult.setSkillMatrixScheme(schemeDto);
-        extendedResult.setCreationDate(createdMatrix.getCreationDate());
-        extendedResult.setEmployee(employeeDto);
+        SkillMatrixDto expectedResult = new SkillMatrixDto();
+        expectedResult.setId(createdMatrix.getId());
+        expectedResult.setName(createdMatrix.getName());
+        expectedResult.setSkillMatrixScheme(schemeDto);
+        expectedResult.setCreationDate(createdMatrix.getCreationDate());
+        expectedResult.setEmployee(employeeDto);
 
         SkillMatrixDto result = skillMatrixService.create(creationDto);
 
-        assertEquals(extendedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -136,7 +136,7 @@ public class SkillMatrixServiceImplTest {
         creationDto.setName("matrix");
         creationDto.setSchemeId(1l);
 
-        SkillMatrixSchemeEntity scheme = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme scheme = new SkillMatrixScheme();
         scheme.setId(1L);
         scheme.setName("scheme");
 
@@ -152,7 +152,7 @@ public class SkillMatrixServiceImplTest {
         creationDto.setName("matrix");
         creationDto.setSchemeId(1L);
 
-        EmployeeEntity employee = new EmployeeEntity();
+        Employee employee = new Employee();
         employee.setId(1L);
         employee.setFirstName("firstName");
         employee.setLastName("lastName");
@@ -170,19 +170,19 @@ public class SkillMatrixServiceImplTest {
         SkillMatrixModificationDto modificationDto = new SkillMatrixModificationDto();
         modificationDto.setName(name);
 
-        SkillMatrixEntity matrix = new SkillMatrixEntity();
+        SkillMatrix matrix = new SkillMatrix();
         matrix.setId(id);
         matrix.setName(name);
 
         Mockito.when(skillMatrixRepository.save(matrix)).thenReturn(matrix);
 
-        SkillMatrixDto extendedResult = new SkillMatrixDto();
-        extendedResult.setId(id);
-        extendedResult.setName(name);
+        SkillMatrixDto expectedResult = new SkillMatrixDto();
+        expectedResult.setId(id);
+        expectedResult.setName(name);
 
         SkillMatrixDto result = skillMatrixService.update(id, modificationDto);
 
-        assertEquals(extendedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -199,7 +199,7 @@ public class SkillMatrixServiceImplTest {
     }
 
     @Test
-    void findAllTest() {
+    void findByParamsTest() {
         PageParams pageParams = new PageParams(1, 1);
         MatrixSearchParams searchParams = MatrixSearchParams.builder()
                 .employeeId(1L)
@@ -209,28 +209,28 @@ public class SkillMatrixServiceImplTest {
         PageOptions pageOptions = new PageOptions(pageParams.getPage(), pageParams.getPageSize());
         SkillMatrixCriteria criteria = new SkillMatrixCriteria(searchParams.getEmployeeId(),searchParams.getSchemeId());
 
-        SkillMatrixSchemeEntity scheme = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme scheme = new SkillMatrixScheme();
         scheme.setId(criteria.getSchemeId());
         scheme.setName("scheme");
 
-        EmployeeEntity employee = new EmployeeEntity();
+        Employee employee = new Employee();
         employee.setId(criteria.getEmployeeId());
 
-        SkillMatrixEntity matrix1 = new SkillMatrixEntity();
+        SkillMatrix matrix1 = new SkillMatrix();
         matrix1.setId(1L);
         matrix1.setName("matrix1");
         matrix1.setCreationDate(LocalDateTime.now());
         matrix1.setSkillMatrixScheme(scheme);
         matrix1.setEmployee(employee);
 
-        SkillMatrixEntity matrix2 = new SkillMatrixEntity();
+        SkillMatrix matrix2 = new SkillMatrix();
         matrix2.setId(2L);
         matrix2.setName("matrix2");
         matrix2.setCreationDate(LocalDateTime.now());
         matrix2.setSkillMatrixScheme(scheme);
         matrix2.setEmployee(employee);
 
-        List<SkillMatrixEntity> matrices = new ArrayList<>();
+        List<SkillMatrix> matrices = new ArrayList<>();
         matrices.add(matrix1);
         matrices.add(matrix2);
 
@@ -258,24 +258,24 @@ public class SkillMatrixServiceImplTest {
         matrix2Dto.setSkillMatrixScheme(schemeDto);
         matrix2Dto.setEmployee(employeeDto);
 
-        List<SkillMatrixDto> extendedResult = new ArrayList<>();
-        extendedResult.add(matrix1Dto);
-        extendedResult.add(matrix2Dto);
+        List<SkillMatrixDto> expectedResult = new ArrayList<>();
+        expectedResult.add(matrix1Dto);
+        expectedResult.add(matrix2Dto);
 
         List<SkillMatrixDto> result = skillMatrixService.findByParams(pageParams, searchParams);
 
-        assertEquals(extendedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
     void findByIdTest() {
         Long id = 1L;
 
-        SkillMatrixSchemeEntity scheme = new SkillMatrixSchemeEntity();
+        SkillMatrixScheme scheme = new SkillMatrixScheme();
         scheme.setId(1L);
         scheme.setName("scheme");
 
-        SkillMatrixEntity matrix = new SkillMatrixEntity();
+        SkillMatrix matrix = new SkillMatrix();
         matrix.setId(1L);
         matrix.setName("matrix1");
         matrix.setCreationDate(LocalDateTime.now());
@@ -287,16 +287,22 @@ public class SkillMatrixServiceImplTest {
         schemeDto.setId(scheme.getId());
         schemeDto.setName(scheme.getName());
 
-        SkillMatrixDto extendedResult = new SkillMatrixDto();
-        extendedResult.setId(matrix.getId());
-        extendedResult.setName(matrix.getName());
-        extendedResult.setCreationDate(matrix.getCreationDate());
-        extendedResult.setSkillMatrixScheme(schemeDto);
+        SkillMatrixDto expectedResult = new SkillMatrixDto();
+        expectedResult.setId(matrix.getId());
+        expectedResult.setName(matrix.getName());
+        expectedResult.setCreationDate(matrix.getCreationDate());
+        expectedResult.setSkillMatrixScheme(schemeDto);
 
         SkillMatrixDto result = skillMatrixService.findById(id);
 
-        assertEquals(extendedResult, result);
+        assertEquals(expectedResult, result);
     }
 
-    //TODO findFullInfoById
+
+    @Test
+    void findFullInfoByIdTest() {
+        Long id;
+
+        SkillMatrix skillMatrix = new SkillMatrix();
+    }
 }

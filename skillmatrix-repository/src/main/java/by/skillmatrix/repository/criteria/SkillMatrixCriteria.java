@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,4 +14,6 @@ import lombok.NoArgsConstructor;
 public class SkillMatrixCriteria {
     private Long employeeId;
     private Long schemeId;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 }

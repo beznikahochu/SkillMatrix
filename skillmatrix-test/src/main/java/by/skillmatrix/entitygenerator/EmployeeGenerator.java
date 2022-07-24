@@ -1,6 +1,6 @@
 package by.skillmatrix.entitygenerator;
 
-import by.skillmatrix.entity.EmployeeEntity;
+import by.skillmatrix.entity.Employee;
 import com.github.javafaker.Faker;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +13,8 @@ public class EmployeeGenerator {
         faker = new Faker();
     }
 
-    public EmployeeEntity generateEmployee() {
-        EmployeeEntity employee = new EmployeeEntity();
+    public Employee generateEmployee() {
+        Employee employee = new Employee();
         employee.setFirstName(faker.name().firstName());
         employee.setLastName(faker.name().lastName());
         return employee;

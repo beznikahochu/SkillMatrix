@@ -4,7 +4,7 @@ import by.skillmatrix.config.MatrixMapperConfig;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
-import by.skillmatrix.entity.SkillMatrixEntity;
+import by.skillmatrix.entity.SkillMatrix;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -16,15 +16,24 @@ public interface SkillMatrixMapper {
     @Mapping(target = "skillMatrixScheme", ignore = true)
     @Mapping(target = "skillAssessments", ignore = true)
     @Mapping(target = "creationDate", ignore = true)
+    @Mapping(target = "creationTime", ignore = true)
     @Mapping(target = "employee", ignore = true)
-    SkillMatrixEntity toSkillMatrixEntity(SkillMatrixCreationDto skillMatrixCreationDto);
+    @Mapping(target = "avgAssessment", ignore = true)
+    SkillMatrix toSkillMatrixEntity(SkillMatrixCreationDto skillMatrixCreationDto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "skillMatrixScheme", ignore = true)
     @Mapping(target = "skillAssessments", ignore = true)
     @Mapping(target = "creationDate", ignore = true)
+    @Mapping(target = "creationTime", ignore = true)
     @Mapping(target = "employee", ignore = true)
-    SkillMatrixEntity toSkillMatrixEntity(SkillMatrixModificationDto modificationDto);
+    @Mapping(target = "avgAssessment", ignore = true)
+    SkillMatrix toSkillMatrixEntity(SkillMatrixModificationDto modificationDto);
 
-    SkillMatrixDto toSkillMatrixDto(SkillMatrixEntity skillMatrixEntity);
+    @Mapping(target = "creationDate", expression = "java(" +
+            "java.time.LocalDateTime.of(" +
+            "skillMatrixEntity.getCreationDate(), " +
+            "skillMatrixEntity.getCreationTime()" +
+            "))")
+    SkillMatrixDto toSkillMatrixDto(SkillMatrix skillMatrix);
 }

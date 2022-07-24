@@ -1,12 +1,12 @@
 package by.skillmatrix.service.impl;
 
 import by.skillmatrix.dto.user.*;
-import by.skillmatrix.entity.EmployeeEntity;
-import by.skillmatrix.entity.RoleEntity;
-import by.skillmatrix.entity.UserAndRoleEntity;
-import by.skillmatrix.entity.UserEntity;
+import by.skillmatrix.entity.Employee;
+import by.skillmatrix.entity.Role;
+import by.skillmatrix.entity.User;
 import by.skillmatrix.entity.id.UserAndRoleId;
 import by.skillmatrix.exception.NotFoundException;
+import by.skillmatrix.exception.RegistrationException;
 import by.skillmatrix.mapper.UserMapper;
 import by.skillmatrix.repository.EmployeeRepository;
 import by.skillmatrix.repository.RoleRepository;
@@ -19,9 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -33,18 +30,17 @@ public class UserServiceImpl implements UserService {
     private final EmployeeRepository employeeRepository;
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Override
     @Transactional
     public UserDto create(UserCreationDto creationDto) {
         log.debug("Try to create new User: {}", creationDto);
 
-        UserEntity user = new UserEntity();
+        checkLogin(creationDto.getLogin());
+        User user = new User();
         user.setLogin(creationDto.getLogin());
         user.setPassword(passwordEncoder.encode(creationDto.getPassword()));
-        UserEntity createdUser = userRepository.save(user);
+        User createdUser = userRepository.save(user);
         UserDto createdUserFullInfoDto = userMapper.toUserDto(createdUser);
 
         log.debug("Return created User: {}", createdUserFullInfoDto);
@@ -55,24 +51,24 @@ public class UserServiceImpl implements UserService {
     public UserFullInfoDto findById(Long id) {
         log.debug("Find User by id: {}", id);
 
-        UserEntity user = userRepository.findUserWithRolesById(id)
+        User user = userRepository.findUserWithRolesById(id)
                 .orElseThrow(() -> new NotFoundException("User not found by id"));
         UserFullInfoDto result = userMapper.toUserFullInfoDto(user);
 
         log.debug("Return User: {}", result);
-        return null;
+        return result;
     }
 
     @Override
     public UserFullInfoDto findByLogin(String login) {
         log.debug("Find User by login: {}", login);
 
-        UserEntity user = userRepository.findUserWithRolesByLogin(login)
+        User user = userRepository.findUserWithRolesByLogin(login)
                 .orElseThrow(() -> new NotFoundException("User not found by login"));
         UserFullInfoDto result = userMapper.toUserFullInfoDto(user);
 
         log.debug("Return User: {}", result);
-        return null;
+        return result;
     }
 
     @Override
@@ -80,17 +76,11 @@ public class UserServiceImpl implements UserService {
     public UserFullInfoDto addRole(Long id, UserRoleSettingDto settingDto) {
         log.debug("Try to add role for User with id {}", id);
 
-        UserEntity user = userRepository.findUserWithRolesById(id)
+        User user = userRepository.findUserWithRolesById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        RoleEntity role = roleRepository.findById(settingDto.getRoleId())
+        Role role = roleRepository.findById(settingDto.getRoleId())
                 .orElseThrow(() -> new NotFoundException("Role not found"));
 
-        UserAndRoleEntity userAndRole = new UserAndRoleEntity();
-        userAndRole.setUserId(user.getId());
-        userAndRole.setRoleId(role.getId());
-
-        userAndRoleRepository.save(userAndRole);
-        entityManager.detach(user);
         user.getRoles().add(role);
         UserFullInfoDto userFullInfoDto = userMapper.toUserFullInfoDto(user);
 
@@ -108,7 +98,7 @@ public class UserServiceImpl implements UserService {
         userAndRoleId.setRoleId(settingDto.getRoleId());
 
         userAndRoleRepository.delete(userAndRoleId);
-        UserEntity user = userRepository.findUserWithRolesById(id)
+        User user = userRepository.findUserWithRolesById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
         UserFullInfoDto userFullInfoDto = userMapper.toUserFullInfoDto(user);
 
@@ -121,14 +111,13 @@ public class UserServiceImpl implements UserService {
     public UserFullInfoDto setEmployee(Long id, UserEmployeeSettingDto settingDto) {
         log.debug("Set employee for User with id {}", id);
 
-        UserEntity user = userRepository.findUserWithRolesById(id)
+        User user = userRepository.findUserWithRolesById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        EmployeeEntity employee = employeeRepository.findById(settingDto.getEmployeeId())
+        Employee employee = employeeRepository.findById(settingDto.getEmployeeId())
                 .orElseThrow(() -> new NotFoundException("Employee not found"));
 
         user.setEmployeeId(employee.getId());
-        UserEntity updatedUser = userRepository.save(user);
-        UserFullInfoDto userFullInfoDto = userMapper.toUserFullInfoDto(updatedUser);
+        UserFullInfoDto userFullInfoDto = userMapper.toUserFullInfoDto(user);
 
         log.debug("Employee for User was added: {}", userFullInfoDto);
         return userFullInfoDto;
@@ -142,5 +131,11 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(id);
 
         log.debug("User with ID {} has been removed", id);
+    }
+
+    private void checkLogin(String login) {
+        userRepository.findByLogin(login).ifPresent(foundUser -> {
+            throw new RegistrationException("User with login " + login + " already exists");
+        });
     }
 }

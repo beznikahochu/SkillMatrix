@@ -1,6 +1,6 @@
 package by.skillmatrix.repository.impl;
 
-import by.skillmatrix.entity.SkillEntity;
+import by.skillmatrix.entity.Skill;
 import by.skillmatrix.repository.SkillRepository;
 import by.skillmatrix.repository.impl.springdata.SkillSpringDataRepository;
 import lombok.AllArgsConstructor;
@@ -15,8 +15,8 @@ public class SkillRepositoryImpl implements SkillRepository {
     private final SkillSpringDataRepository repository;
 
     @Override
-    public SkillEntity save(SkillEntity skillEntity) {
-        return repository.save(skillEntity);
+    public Skill save(Skill skill) {
+        return repository.save(skill);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class SkillRepositoryImpl implements SkillRepository {
     }
 
     @Override
-    public Optional<SkillEntity> findById(Long id) {
+    public Optional<Skill> findById(Long id) {
         return repository.findById(id);
     }
 }

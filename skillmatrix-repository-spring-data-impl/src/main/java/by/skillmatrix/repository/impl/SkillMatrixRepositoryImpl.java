@@ -2,7 +2,7 @@ package by.skillmatrix.repository.impl;
 
 import by.skillmatrix.entity.SkillMatrixEntity_;
 import by.skillmatrix.repository.criteria.SkillMatrixCriteria;
-import by.skillmatrix.entity.SkillMatrixEntity;
+import by.skillmatrix.entity.SkillMatrix;
 import by.skillmatrix.repository.impl.specificationbuilder.MatrixSpecificationBuilder;
 import by.skillmatrix.repository.page.PageOptions;
 import by.skillmatrix.repository.SkillMatrixRepository;
@@ -27,8 +27,8 @@ public class SkillMatrixRepositoryImpl implements SkillMatrixRepository {
     private final MatrixSpecificationBuilder specificationBuilder;
 
     @Override
-    public SkillMatrixEntity save(SkillMatrixEntity skillMatrixEntity) {
-        return skillMatrixRepository.save(skillMatrixEntity);
+    public SkillMatrix save(SkillMatrix skillMatrix) {
+        return skillMatrixRepository.save(skillMatrix);
     }
 
     @Override
@@ -37,35 +37,47 @@ public class SkillMatrixRepositoryImpl implements SkillMatrixRepository {
     }
 
     @Override
-    public List<SkillMatrixEntity> findByCriteria(
+    public void calkAvgAssessment(Long id) {
+        skillMatrixRepository.calkAvgAssessment(id);
+    }
+
+    @Override
+    public List<SkillMatrix> findByCriteria(
             SkillMatrixCriteria criteria,
             PageOptions pageOptions,
             SkillMatrixSortType sortType
     ) {
-        Specification<SkillMatrixEntity> specification = specificationBuilder.build(criteria);
+        Specification<SkillMatrix> specification = specificationBuilder.build(criteria);
         Sort sort = getSkillMatrixSort(sortType);
-        Pageable pageable = PageRequest.of(pageOptions.getPage(), pageOptions.getPageSize(), sort);
-        Page<SkillMatrixEntity> page = skillMatrixRepository.findAll(specification,pageable);
+        Pageable pageable = PageRequest.of(pageOptions.getPage() - 1, pageOptions.getPageSize(), sort);
+        Page<SkillMatrix> page = skillMatrixRepository.findAll(specification,pageable);
         return page.toList();
     }
 
     @Override
-    public Optional<SkillMatrixEntity> findById(Long id) {
+    public Optional<SkillMatrix> findById(Long id) {
         return skillMatrixRepository.findById(id);
     }
 
     @Override
-    public Optional<SkillMatrixEntity> findWithAssessmentsById(Long id) {
+    public Optional<SkillMatrix> findWithAssessmentsById(Long id) {
         return skillMatrixRepository.findWithAssessmentsById(id);
     }
 
     private Sort getSkillMatrixSort(SkillMatrixSortType sortType) {
         switch (sortType) {
             case CREATION_DATE_ASC:
-                return Sort.by(SkillMatrixEntity_.CREATION_DATE).ascending();
+                return Sort.by(SkillMatrixEntity_.CREATION_DATE).ascending()
+                        .and(Sort.by(SkillMatrixEntity_.CREATION_TIME).ascending());
             case CREATION_DATE_DESC:
-                return Sort.by(SkillMatrixEntity_.CREATION_DATE).descending();
+                return Sort.by(SkillMatrixEntity_.CREATION_DATE).descending()
+                        .and(Sort.by(SkillMatrixEntity_.CREATION_TIME).descending());
+            case AVG_ASSESSMENT_ASC:
+                return Sort.by(SkillMatrixEntity_.AVG_ASSESSMENT).ascending();
+            case AVG_ASSESSMENT_DESC:
+                return Sort.by(SkillMatrixEntity_.AVG_ASSESSMENT).descending();
         }
-        return Sort.by(SkillMatrixEntity_.CREATION_DATE).descending();
+        return Sort.by(SkillMatrixEntity_.CREATION_DATE).descending()
+                .and(Sort.by(SkillMatrixEntity_.CREATION_TIME).descending());
     }
 }

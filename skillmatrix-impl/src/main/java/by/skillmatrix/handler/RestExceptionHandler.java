@@ -1,11 +1,15 @@
 package by.skillmatrix.handler;
 
 import by.skillmatrix.error.ErrorDto;
+import by.skillmatrix.exception.AssessmentException;
 import by.skillmatrix.exception.NotFoundException;
+import by.skillmatrix.exception.RegistrationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -44,6 +48,54 @@ public class RestExceptionHandler {
         errorDto.setErrorCode(HttpStatus.FORBIDDEN.value());
 
         log.info("Handled not found error, message: {}, error code: {}",
+                errorDto.getMessage(),
+                errorDto.getErrorCode());
+
+        return errorDto;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(AssessmentException.class)
+    protected ErrorDto handleAssessmentException(AssessmentException exception) {
+        log.info("Caught not found exception: {}", exception.toString());
+
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setMessage(exception.getMessage());
+        errorDto.setErrorCode(HttpStatus.BAD_REQUEST.value());
+
+        log.info("Handled not found error, message: {}, error code: {}",
+                errorDto.getMessage(),
+                errorDto.getErrorCode());
+
+        return errorDto;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(RegistrationException.class)
+    protected ErrorDto handleRegistrationException(RegistrationException exception) {
+        log.info("Caught not found exception: {}", exception.toString());
+
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setMessage(exception.getMessage());
+        errorDto.setErrorCode(HttpStatus.BAD_REQUEST.value());
+
+        log.info("Handled not found error, message: {}, error code: {}",
+                errorDto.getMessage(),
+                errorDto.getErrorCode());
+
+        return errorDto;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    protected ErrorDto handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        log.trace("Caught method argument not valid exception: {}", exception.toString());
+
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setMessage(exception.getMessage());
+        errorDto.setErrorCode(HttpStatus.BAD_REQUEST.value());
+
+        log.trace("Handled bad request error from handleMethodArgumentNotValid, message: {}, error code: {}",
                 errorDto.getMessage(),
                 errorDto.getErrorCode());
 

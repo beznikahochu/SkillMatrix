@@ -1,6 +1,6 @@
 package by.skillmatrix.repository.impl;
 
-import by.skillmatrix.entity.SkillMatrixSchemeEntity;
+import by.skillmatrix.entity.SkillMatrixScheme;
 import by.skillmatrix.repository.SkillMatrixSchemeRepository;
 import by.skillmatrix.repository.impl.springdata.SkillMatrixSchemeSpringDataRepository;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ public class SkillMatrixSchemeRepositoryImpl implements SkillMatrixSchemeReposit
     private final SkillMatrixSchemeSpringDataRepository schemeRepository;
 
     @Override
-    public SkillMatrixSchemeEntity save(SkillMatrixSchemeEntity schemeEntity) {
+    public SkillMatrixScheme save(SkillMatrixScheme schemeEntity) {
         return schemeRepository.save(schemeEntity);
     }
 
@@ -26,12 +26,12 @@ public class SkillMatrixSchemeRepositoryImpl implements SkillMatrixSchemeReposit
     }
 
     @Override
-    public List<SkillMatrixSchemeEntity> findAll() {
+    public List<SkillMatrixScheme> findAll() {
         return schemeRepository.findAll();
     }
 
     @Override
-    public Optional<SkillMatrixSchemeEntity> findById(Long id) {
+    public Optional<SkillMatrixScheme> findById(Long id) {
         return schemeRepository.findById(id);
     }
 }

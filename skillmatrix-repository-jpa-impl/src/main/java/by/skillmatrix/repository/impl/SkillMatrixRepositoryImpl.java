@@ -53,7 +53,7 @@ public class SkillMatrixRepositoryImpl
         cq.where(predicate);
         cq.orderBy(getSkillMatrixOrder(cb, root, sortType));
         TypedQuery<SkillMatrixEntity> typedQuery = entityManager.createQuery(cq);
-        typedQuery.setFirstResult(pageOptions.getPage() * pageOptions.getPageSize());
+        typedQuery.setFirstResult((pageOptions.getPage() - 1) * pageOptions.getPageSize());
         typedQuery.setMaxResults(pageOptions.getPageSize());
         return typedQuery.getResultList();
     }

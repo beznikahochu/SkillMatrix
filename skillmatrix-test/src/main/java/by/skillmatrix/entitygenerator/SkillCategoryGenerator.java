@@ -1,7 +1,7 @@
 package by.skillmatrix.entitygenerator;
 
-import by.skillmatrix.entity.SkillCategoryEntity;
-import by.skillmatrix.entity.SkillMatrixSchemeEntity;
+import by.skillmatrix.entity.SkillCategory;
+import by.skillmatrix.entity.SkillMatrixScheme;
 import com.github.javafaker.Faker;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +18,8 @@ public class SkillCategoryGenerator {
         random = new Random();
     }
 
-    public SkillCategoryEntity generateSkillCategory(SkillMatrixSchemeEntity scheme) {
-        SkillCategoryEntity skillCategory = new SkillCategoryEntity();
+    public SkillCategory generateSkillCategory(SkillMatrixScheme scheme) {
+        SkillCategory skillCategory = new SkillCategory();
         skillCategory.setName(faker.funnyName().name());
         skillCategory.setSkillMatrixScheme(scheme);
         skillCategory.setPosition((long) random.nextInt(4));

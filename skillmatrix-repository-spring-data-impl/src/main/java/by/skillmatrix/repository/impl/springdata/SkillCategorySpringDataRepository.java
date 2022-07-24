@@ -1,12 +1,14 @@
 package by.skillmatrix.repository.impl.springdata;
 
-import by.skillmatrix.entity.SkillCategoryEntity;
+import by.skillmatrix.entity.SkillCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface SkillCategorySpringDataRepository extends JpaRepository<SkillCategoryEntity, Long> {
+@Repository
+public interface SkillCategorySpringDataRepository extends JpaRepository<SkillCategory, Long> {
     @Query(
             "SELECT DISTINCT category FROM SkillCategoryEntity category " +
             "LEFT JOIN FETCH category.skillMatrixScheme scheme " +
@@ -14,5 +16,5 @@ public interface SkillCategorySpringDataRepository extends JpaRepository<SkillCa
             "WHERE scheme.id = :id " +
             "ORDER BY category.position ASC, skill.position ASC"
     )
-    List<SkillCategoryEntity> findFullSkillCategoryBySchemeId(Long id);
+    List<SkillCategory> findFullSkillCategoryBySchemeId(Long id);
 }

@@ -3,8 +3,8 @@ package by.skillmatrix.service.impl;
 import by.skillmatrix.dto.skill.SkillCreationDto;
 import by.skillmatrix.dto.skill.SkillDto;
 import by.skillmatrix.dto.skill.SkillModificationDto;
-import by.skillmatrix.entity.SkillCategoryEntity;
-import by.skillmatrix.entity.SkillEntity;
+import by.skillmatrix.entity.Skill;
+import by.skillmatrix.entity.SkillCategory;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.SkillMapperImpl;
 import by.skillmatrix.repository.SkillCategoryRepository;
@@ -44,31 +44,31 @@ public class SkillServiceImplTest {
         skillCreationDto.setName("skill");
         skillCreationDto.setSkillCategoryId(1l);
 
-        SkillCategoryEntity skillCategory = new SkillCategoryEntity();
+        SkillCategory skillCategory = new SkillCategory();
         skillCategory.setId(1l);
         skillCategory.setName("category");
 
         Mockito.when(categoryRepository.findById(skillCategory.getId()))
                 .thenReturn(Optional.of(skillCategory));
 
-        SkillEntity skillEntity = new SkillEntity();
-        skillEntity.setName(skillCreationDto.getName());
-        skillEntity.setSkillCategory(skillCategory);
+        Skill skill = new Skill();
+        skill.setName(skillCreationDto.getName());
+        skill.setSkillCategory(skillCategory);
 
-        SkillEntity createdSkill = new SkillEntity();
+        Skill createdSkill = new Skill();
         createdSkill.setId(1l);
-        createdSkill.setName(skillEntity.getName());
+        createdSkill.setName(skill.getName());
         createdSkill.setSkillCategory(skillCategory);
 
-        Mockito.when(skillRepository.save(skillEntity)).thenReturn(createdSkill);
+        Mockito.when(skillRepository.save(skill)).thenReturn(createdSkill);
 
-        SkillDto extendedResult = new SkillDto();
-        extendedResult.setId(createdSkill.getId());
-        extendedResult.setName(createdSkill.getName());
+        SkillDto expectedResult = new SkillDto();
+        expectedResult.setId(createdSkill.getId());
+        expectedResult.setName(createdSkill.getName());
 
         SkillDto result = skillService.create(skillCreationDto);
 
-        assertEquals(extendedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -88,23 +88,23 @@ public class SkillServiceImplTest {
         SkillModificationDto modificationDto = new SkillModificationDto();
         modificationDto.setName("Name");
 
-        SkillEntity skillEntity = new SkillEntity();
-        skillEntity.setId(id);
-        skillEntity.setName(modificationDto.getName());
+        Skill skill = new Skill();
+        skill.setId(id);
+        skill.setName(modificationDto.getName());
 
-        SkillEntity updatedSkill = new SkillEntity();
+        Skill updatedSkill = new Skill();
         updatedSkill.setId(id);
         updatedSkill.setName(modificationDto.getName());
 
-        Mockito.when(skillRepository.save(skillEntity)).thenReturn(updatedSkill);
+        Mockito.when(skillRepository.save(skill)).thenReturn(updatedSkill);
 
-        SkillDto extendedResult = new SkillDto();
-        extendedResult.setId(updatedSkill.getId());
-        extendedResult.setName(updatedSkill.getName());
+        SkillDto expectedResult = new SkillDto();
+        expectedResult.setId(updatedSkill.getId());
+        expectedResult.setName(updatedSkill.getName());
 
         SkillDto result = skillService.update(id, modificationDto);
 
-        assertEquals(extendedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test

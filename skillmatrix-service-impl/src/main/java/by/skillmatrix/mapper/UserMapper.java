@@ -1,17 +1,15 @@
 package by.skillmatrix.mapper;
 
 import by.skillmatrix.config.MatrixMapperConfig;
-import by.skillmatrix.dto.user.UserCreationDto;
 import by.skillmatrix.dto.user.UserDto;
 import by.skillmatrix.dto.user.UserFullInfoDto;
-import by.skillmatrix.entity.UserEntity;
+import by.skillmatrix.entity.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(config = MatrixMapperConfig.class)
 public interface UserMapper {
 
-    UserFullInfoDto toUserFullInfoDto(UserEntity entity);
+    UserFullInfoDto toUserFullInfoDto(User entity);
 
-    UserDto toUserDto(UserEntity entity);
+    UserDto toUserDto(User entity);
 }

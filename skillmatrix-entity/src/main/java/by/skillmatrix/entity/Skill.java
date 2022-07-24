@@ -19,7 +19,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "skills")
-public class SkillEntity {
+public class Skill {
 
     @Id
     @Column(name = "id")
@@ -36,10 +36,10 @@ public class SkillEntity {
     @EqualsAndHashCode.Exclude
     @ManyToOne (optional=false, cascade = CascadeType.DETACH)
     @JoinColumn(name = "skill_category_id", updatable = false, nullable = false)
-    private SkillCategoryEntity skillCategory;
+    private SkillCategory skillCategory;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany (cascade= {CascadeType.REMOVE, CascadeType.DETACH}, mappedBy = "skill")
-    private List<SkillAssessmentEntity> skillAssessments;
+    private List<SkillAssessment> skillAssessments;
 }
