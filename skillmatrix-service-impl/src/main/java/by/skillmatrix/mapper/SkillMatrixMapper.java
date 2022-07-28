@@ -17,7 +17,7 @@ public interface SkillMatrixMapper {
     @Mapping(target = "skillAssessments", ignore = true)
     @Mapping(target = "creationDate", ignore = true)
     @Mapping(target = "creationTime", ignore = true)
-    @Mapping(target = "employee", ignore = true)
+    @Mapping(target = "person", ignore = true)
     @Mapping(target = "avgAssessment", ignore = true)
     SkillMatrix toSkillMatrixEntity(SkillMatrixCreationDto skillMatrixCreationDto);
 
@@ -26,14 +26,14 @@ public interface SkillMatrixMapper {
     @Mapping(target = "skillAssessments", ignore = true)
     @Mapping(target = "creationDate", ignore = true)
     @Mapping(target = "creationTime", ignore = true)
-    @Mapping(target = "employee", ignore = true)
+    @Mapping(target = "person", ignore = true)
     @Mapping(target = "avgAssessment", ignore = true)
     SkillMatrix toSkillMatrixEntity(SkillMatrixModificationDto modificationDto);
 
     @Mapping(target = "creationDate", expression = "java(" +
             "java.time.LocalDateTime.of(" +
-            "skillMatrixEntity.getCreationDate(), " +
-            "skillMatrixEntity.getCreationTime()" +
+            "skillMatrix.getCreationDate(), " +
+            "skillMatrix.getCreationTime()" +
             "))")
     SkillMatrixDto toSkillMatrixDto(SkillMatrix skillMatrix);
 }

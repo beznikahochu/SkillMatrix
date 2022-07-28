@@ -42,9 +42,9 @@ public class User {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name="employee_id", unique = true, updatable = false, insertable = false)
-    private Employee employee;
+    @JoinColumn (name="person_id", unique = true, updatable = false, insertable = false)
+    private Person person;
 
-    @Column(name="employee_id", unique = true)
-    private Long employeeId;
+    @Column(name="person_id", unique = true)
+    private Long personId;
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface SkillCategorySpringDataRepository extends JpaRepository<SkillCategory, Long> {
     @Query(
-            "SELECT DISTINCT category FROM SkillCategoryEntity category " +
+            "SELECT DISTINCT category FROM SkillCategory category " +
             "LEFT JOIN FETCH category.skillMatrixScheme scheme " +
             "LEFT JOIN FETCH category.skills skill " +
             "WHERE scheme.id = :id " +

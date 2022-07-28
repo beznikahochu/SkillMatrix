@@ -66,13 +66,14 @@ public class SkillMatrixController {
     @Operation(summary = "Get skill matrices by params")
     public List<SkillMatrixDto> findByParams(
             @ParameterObject PageParams pageParams,
-            @ParameterObject MatrixSearchParams params
+            @ParameterObject MatrixSearchParams params,
+            @RequestParam(required = false) String sort
     ) {
-        log.info("Find SkillMatrix by params: {}", params);
+        log.info("Find SkillMatrices by params: {}", params);
 
-        List<SkillMatrixDto> foundList = skillMatrixService.findByParams(pageParams, params);
+        List<SkillMatrixDto> foundList = skillMatrixService.findByParams(pageParams, params, sort);
 
-        log.info("Return SkillMatrixSchemes: {}", foundList);
+        log.info("Result size: {}", foundList.size());
         return foundList;
     }
 
@@ -109,6 +110,18 @@ public class SkillMatrixController {
         ResponseEntity<byte[]> skillMatrix = skillMatrixService.exportMatrixToExcelById(id);
 
         log.info("Export done");
+        return skillMatrix;
+    }
+
+    @PostMapping("/{id}/calkAvgAssessment")
+    @PreAuthorize("hasRole('MANAGER')")
+    @Operation(summary = "Сalculate avg assessment for skill matrix by id")
+    public SkillMatrixDto calcAvgAssessment(@PathVariable Long id) {
+        log.info("Find SkillMatrix by id {}", id);
+
+        SkillMatrixDto skillMatrix = skillMatrixService.calkAvgAssessment(id);
+
+        log.info("Return SkillMatrix:");
         return skillMatrix;
     }
 }

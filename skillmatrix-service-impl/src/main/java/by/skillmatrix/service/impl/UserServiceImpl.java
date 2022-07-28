@@ -1,23 +1,29 @@
 package by.skillmatrix.service.impl;
 
 import by.skillmatrix.dto.user.*;
-import by.skillmatrix.entity.Employee;
+import by.skillmatrix.entity.Person;
 import by.skillmatrix.entity.Role;
 import by.skillmatrix.entity.User;
 import by.skillmatrix.entity.id.UserAndRoleId;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.exception.RegistrationException;
 import by.skillmatrix.mapper.UserMapper;
-import by.skillmatrix.repository.EmployeeRepository;
+import by.skillmatrix.param.PageParams;
+import by.skillmatrix.repository.PersonRepository;
 import by.skillmatrix.repository.RoleRepository;
 import by.skillmatrix.repository.UserAndRoleRepository;
 import by.skillmatrix.repository.UserRepository;
+import by.skillmatrix.repository.page.PageOptions;
+import by.skillmatrix.repository.sorttype.UserSortType;
 import by.skillmatrix.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -27,7 +33,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserAndRoleRepository userAndRoleRepository;
-    private final EmployeeRepository employeeRepository;
+    private final PersonRepository personRepository;
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -36,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public UserDto create(UserCreationDto creationDto) {
         log.debug("Try to create new User: {}", creationDto);
 
-        checkLogin(creationDto.getLogin());
+        throwExcIfUserWithLoginAlreadyExists(creationDto.getLogin());
         User user = new User();
         user.setLogin(creationDto.getLogin());
         user.setPassword(passwordEncoder.encode(creationDto.getPassword()));
@@ -60,14 +66,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserFullInfoDto findByLogin(String login) {
-        log.debug("Find User by login: {}", login);
+    public List<UserFullInfoDto> findAll(PageParams page, String sort) {
+        log.debug("Find users");
 
-        User user = userRepository.findUserWithRolesByLogin(login)
-                .orElseThrow(() -> new NotFoundException("User not found by login"));
-        UserFullInfoDto result = userMapper.toUserFullInfoDto(user);
+        UserSortType sortType = getUserSortTypeByString(sort);
+        PageOptions pageOptions = new PageOptions(page.getPage(), page.getPageSize());
+        List<User> foundList = userRepository.findAll(pageOptions, sortType);
+        List<UserFullInfoDto> result = foundList.stream().map(userMapper::toUserFullInfoDto)
+                .collect(Collectors.toList());
 
-        log.debug("Return User: {}", result);
+        log.debug("Result size: {}", result.size());
         return result;
     }
 
@@ -108,18 +116,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserFullInfoDto setEmployee(Long id, UserEmployeeSettingDto settingDto) {
+    public UserFullInfoDto setPerson(Long id, UserPeopleSettingDto settingDto) {
         log.debug("Set employee for User with id {}", id);
 
         User user = userRepository.findUserWithRolesById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        Employee employee = employeeRepository.findById(settingDto.getEmployeeId())
-                .orElseThrow(() -> new NotFoundException("Employee not found"));
+        Person person = personRepository.findById(settingDto.getPeopleId())
+                .orElseThrow(() -> new NotFoundException("Person not found"));
 
-        user.setEmployeeId(employee.getId());
+        user.setPersonId(person.getId());
         UserFullInfoDto userFullInfoDto = userMapper.toUserFullInfoDto(user);
 
-        log.debug("Employee for User was added: {}", userFullInfoDto);
+        log.debug("Person for User was added: {}", userFullInfoDto);
         return userFullInfoDto;
     }
 
@@ -133,9 +141,22 @@ public class UserServiceImpl implements UserService {
         log.debug("User with ID {} has been removed", id);
     }
 
-    private void checkLogin(String login) {
+    private void throwExcIfUserWithLoginAlreadyExists(String login) {
         userRepository.findByLogin(login).ifPresent(foundUser -> {
             throw new RegistrationException("User with login " + login + " already exists");
         });
+    }
+
+    private UserSortType getUserSortTypeByString(String type) {
+        if (type == null) {
+            return UserSortType.ID_DESC;
+        }
+        switch (type) {
+            case "id.d":
+                return UserSortType.ID_DESC;
+            case "id.a":
+                return UserSortType.ID_ASC;
+        }
+        return UserSortType.ID_DESC;
     }
 }

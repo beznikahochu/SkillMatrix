@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FullSkillMatrixMapperImpl implements FullSkillMatrixMapper {
 
-    private final EmployeeMapper employeeMapper;
+    private final PersonMapper personMapper;
 
     @Override
     public SkillMatrixFullInfoDto toFullSkillMatrixEntity(SkillMatrix skillMatrix) {
@@ -25,7 +25,7 @@ public class FullSkillMatrixMapperImpl implements FullSkillMatrixMapper {
         result.setId(skillMatrix.getId());
         result.setName(skillMatrix.getName());
         result.setAvgAssessment(skillMatrix.getAvgAssessment());
-        result.setEmployee(employeeMapper.toEmployeeDto(skillMatrix.getEmployee()));
+        result.setPerson(personMapper.toPersonDto(skillMatrix.getPerson()));
         LocalDateTime creationDate = LocalDateTime.of(
                 skillMatrix.getCreationDate(),
                 skillMatrix.getCreationTime()

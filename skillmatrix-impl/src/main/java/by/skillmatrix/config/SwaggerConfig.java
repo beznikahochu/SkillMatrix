@@ -33,7 +33,7 @@ public class SwaggerConfig {
                 .info(
                         new Info()
                                 .title("Skill Matrix")
-                                .version("db/1.0")
+                                .version("1.0")
                                 .contact(
                                         new Contact()
                                                 .name("Vadim Denisik")

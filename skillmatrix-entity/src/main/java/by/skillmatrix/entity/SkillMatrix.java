@@ -25,15 +25,15 @@ import java.util.List;
 @NamedEntityGraph(
         name = "skill-matrix-with-assessments",
         attributeNodes = {
-                @NamedAttributeNode("employee"),
+                @NamedAttributeNode("person"),
                 @NamedAttributeNode("skillAssessments"),
                 @NamedAttributeNode("skillMatrixScheme")
         }
 )
 @NamedEntityGraph(
-        name = "skill-matrix-with-scheme-and-user",
+        name = "skill-matrix-with-scheme-and-person",
         attributeNodes = {
-                @NamedAttributeNode("employee"),
+                @NamedAttributeNode("person"),
                 @NamedAttributeNode("skillMatrixScheme")
         }
 )
@@ -73,6 +73,6 @@ public class SkillMatrix {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinColumn (name="employee_id", updatable = false, nullable = false)
-    private Employee employee;
+    @JoinColumn (name="person_id", updatable = false, nullable = false)
+    private Person person;
 }

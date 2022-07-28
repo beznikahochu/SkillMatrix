@@ -6,7 +6,7 @@
 
     <changeSet id="init_0" author="denisik.vadim@yandex.by">
 
-        <createTable tableName="employees">
+        <createTable tableName="people">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints  nullable="false"
                               primaryKey="true"
@@ -16,6 +16,12 @@
                 <constraints nullable="false" />
             </column>
             <column name="last_name" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="date_of_birth" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="is_employee" type="boolean">
                 <constraints nullable="false" />
             </column>
         </createTable>
@@ -93,7 +99,7 @@
             <column name="creation_time" type="time">
                 <constraints nullable="false" />
             </column>
-            <column name="employee_id" type="bigint">
+            <column name="person_id" type="bigint">
                 <constraints nullable="false" />
             </column>
         </createTable>
@@ -127,7 +133,7 @@
             <column name="password" type="varchar(100)">
                 <constraints nullable="false" />
             </column>
-            <column name="employee_id" type="bigint">
+            <column name="person_id" type="bigint">
             </column>
         </createTable>
 
@@ -156,8 +162,8 @@
 
 
         <addForeignKeyConstraint constraintName="fk_users_employees"
-                                 baseColumnNames="employee_id" baseTableName="users"
-                                 referencedTableName="employees" referencedColumnNames="id"
+                                 baseColumnNames="person_id" baseTableName="users"
+                                 referencedTableName="people" referencedColumnNames="id"
                                  deferrable="false" initiallyDeferred="false"/>
 
         <addForeignKeyConstraint constraintName="fk_categories_schemes"
@@ -176,8 +182,8 @@
                                  deferrable="false" initiallyDeferred="false"/>
 
         <addForeignKeyConstraint constraintName="fk_matrices_employees"
-                                 baseColumnNames="employee_id" baseTableName="skill_matrices"
-                                 referencedTableName="employees" referencedColumnNames="id"
+                                 baseColumnNames="person_id" baseTableName="skill_matrices"
+                                 referencedTableName="people" referencedColumnNames="id"
                                  deferrable="false" initiallyDeferred="false"/>
 
         <addForeignKeyConstraint constraintName="fk_assessments_matrices"

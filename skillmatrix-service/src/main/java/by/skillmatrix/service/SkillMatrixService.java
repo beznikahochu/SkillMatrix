@@ -8,7 +8,6 @@ import by.skillmatrix.param.MatrixSearchParams;
 import by.skillmatrix.param.PageParams;
 import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface SkillMatrixService {
@@ -34,8 +33,9 @@ public interface SkillMatrixService {
      * Update avg assessment.
      *
      * @param id id of SkillMatrix
+     * @return updating SkillMatrix
      */
-    void calkAvgAssessment(Long id);
+    SkillMatrixDto calkAvgAssessment(Long id);
 
     /**
      * Delete SkillMatrix.
@@ -49,7 +49,7 @@ public interface SkillMatrixService {
      *
      * @return List of SkillMatrix
      */
-    List<SkillMatrixDto> findByParams(PageParams pageParams, MatrixSearchParams params);
+    List<SkillMatrixDto> findByParams(PageParams pageParams, MatrixSearchParams params, String sort);
 
     /**
      * Find SkillMatrix by id.

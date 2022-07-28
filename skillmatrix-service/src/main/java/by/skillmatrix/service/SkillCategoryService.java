@@ -19,6 +19,7 @@ public interface SkillCategoryService {
 
     /**
      * Update SkillCategory.
+     *
      * @param id Id of Skill
      * @param modificationDto SkillCategory data for update
      * @return updating SkillCategory

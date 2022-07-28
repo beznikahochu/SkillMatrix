@@ -1,6 +1,6 @@
 package by.skillmatrix.repository.impl;
 
-import by.skillmatrix.entity.SkillMatrixEntity_;
+import by.skillmatrix.entity.SkillMatrix_;
 import by.skillmatrix.repository.criteria.SkillMatrixCriteria;
 import by.skillmatrix.entity.SkillMatrix;
 import by.skillmatrix.repository.impl.specificationbuilder.MatrixSpecificationBuilder;
@@ -67,17 +67,17 @@ public class SkillMatrixRepositoryImpl implements SkillMatrixRepository {
     private Sort getSkillMatrixSort(SkillMatrixSortType sortType) {
         switch (sortType) {
             case CREATION_DATE_ASC:
-                return Sort.by(SkillMatrixEntity_.CREATION_DATE).ascending()
-                        .and(Sort.by(SkillMatrixEntity_.CREATION_TIME).ascending());
+                return Sort.by(SkillMatrix_.CREATION_DATE).ascending()
+                        .and(Sort.by(SkillMatrix_.CREATION_TIME).ascending());
             case CREATION_DATE_DESC:
-                return Sort.by(SkillMatrixEntity_.CREATION_DATE).descending()
-                        .and(Sort.by(SkillMatrixEntity_.CREATION_TIME).descending());
+                return Sort.by(SkillMatrix_.CREATION_DATE).descending()
+                        .and(Sort.by(SkillMatrix_.CREATION_TIME).descending());
             case AVG_ASSESSMENT_ASC:
-                return Sort.by(SkillMatrixEntity_.AVG_ASSESSMENT).ascending();
+                return Sort.by(SkillMatrix_.AVG_ASSESSMENT).ascending();
             case AVG_ASSESSMENT_DESC:
-                return Sort.by(SkillMatrixEntity_.AVG_ASSESSMENT).descending();
+                return Sort.by(SkillMatrix_.AVG_ASSESSMENT).descending();
         }
-        return Sort.by(SkillMatrixEntity_.CREATION_DATE).descending()
-                .and(Sort.by(SkillMatrixEntity_.CREATION_TIME).descending());
+        return Sort.by(SkillMatrix_.CREATION_DATE).descending()
+                .and(Sort.by(SkillMatrix_.CREATION_TIME).descending());
     }
 }

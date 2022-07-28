@@ -1,5 +1,6 @@
 package by.skillmatrix.param;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,9 +14,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class MatrixSearchParams {
-    private Long employeeId;
+    private Long personId;
     private Long schemeId;
-    private String sort = "date.d";
+    @Schema(type = "boolean")
+    private Boolean isEmployee;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fromDate;
     @DateTimeFormat(pattern = "dd-MM-yyyy")

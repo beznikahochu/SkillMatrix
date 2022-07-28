@@ -1,12 +1,12 @@
 package by.skillmatrix.repository.impl;
 
-import by.skillmatrix.entity.SkillMatrixEntity_;
+import by.skillmatrix.entity.SkillMatrix;
+import by.skillmatrix.entity.SkillMatrix_;
 import by.skillmatrix.repository.SkillMatrixRepository;
 import by.skillmatrix.repository.criteria.SkillMatrixCriteria;
 import by.skillmatrix.repository.impl.criteriaquerybuilder.MatrixCriteriaPredicateBuilder;
 import by.skillmatrix.repository.page.PageOptions;
 import by.skillmatrix.repository.sorttype.SkillMatrixSortType;
-import by.skillmatrix.entity.SkillMatrixEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 public class SkillMatrixRepositoryImpl
-        extends AbstractRepository<SkillMatrixEntity, Long>
+        extends AbstractRepository<SkillMatrix, Long>
         implements SkillMatrixRepository
 {
 
@@ -30,7 +30,7 @@ public class SkillMatrixRepositoryImpl
 
     @Override
     @Transactional
-    public SkillMatrixEntity save(SkillMatrixEntity schemeEntity) {
+    public SkillMatrix save(SkillMatrix schemeEntity) {
         if (schemeEntity.getId() == null) {
             return create(schemeEntity);
         }
@@ -38,21 +38,26 @@ public class SkillMatrixRepositoryImpl
     }
 
     @Override
+    public void calkAvgAssessment(Long id) {
+
+    }
+
+    @Override
     @Transactional
-    public List<SkillMatrixEntity> findByCriteria(
+    public List<SkillMatrix> findByCriteria(
             SkillMatrixCriteria criteria,
             PageOptions pageOptions,
             SkillMatrixSortType sortType
     ) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<SkillMatrixEntity> cq = cb.createQuery(SkillMatrixEntity.class);
-        Root<SkillMatrixEntity> root = cq.from(SkillMatrixEntity.class);
-        root.fetch(SkillMatrixEntity_.SKILL_MATRIX_SCHEME, JoinType.LEFT);
-        root.fetch(SkillMatrixEntity_.EMPLOYEE, JoinType.LEFT);
+        CriteriaQuery<SkillMatrix> cq = cb.createQuery(SkillMatrix.class);
+        Root<SkillMatrix> root = cq.from(SkillMatrix.class);
+        root.fetch(SkillMatrix_.SKILL_MATRIX_SCHEME, JoinType.LEFT);
+        root.fetch(SkillMatrix_.PERSON, JoinType.LEFT);
         Predicate predicate = matrixCriteriaPredicateBuilder.build(criteria, root);
         cq.where(predicate);
         cq.orderBy(getSkillMatrixOrder(cb, root, sortType));
-        TypedQuery<SkillMatrixEntity> typedQuery = entityManager.createQuery(cq);
+        TypedQuery<SkillMatrix> typedQuery = entityManager.createQuery(cq);
         typedQuery.setFirstResult((pageOptions.getPage() - 1) * pageOptions.getPageSize());
         typedQuery.setMaxResults(pageOptions.getPageSize());
         return typedQuery.getResultList();
@@ -60,21 +65,31 @@ public class SkillMatrixRepositoryImpl
 
     @Override
     @Transactional
-    public Optional<SkillMatrixEntity> findWithAssessmentsById(Long id) {
-        EntityGraph entityGraph = entityManager.getEntityGraph("skill-matrix-with-assessments");
+    public Optional<SkillMatrix> findById(Long id) {
+        EntityGraph entityGraph = entityManager.getEntityGraph("skill-matrix-with-scheme-and-person");
         Map<String, Object> properties = new HashMap<>();
         properties.put("javax.persistence.fetchgraph", entityGraph);
-        SkillMatrixEntity entity = entityManager.find(SkillMatrixEntity.class, id, properties);
+        SkillMatrix entity = entityManager.find(SkillMatrix.class, id, properties);
         return Optional.ofNullable(entity);
     }
 
-    private Order getSkillMatrixOrder(CriteriaBuilder cb, Root<SkillMatrixEntity> root, SkillMatrixSortType sortType) {
+    @Override
+    @Transactional
+    public Optional<SkillMatrix> findWithAssessmentsById(Long id) {
+        EntityGraph entityGraph = entityManager.getEntityGraph("skill-matrix-with-assessments");
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistence.fetchgraph", entityGraph);
+        SkillMatrix entity = entityManager.find(SkillMatrix.class, id, properties);
+        return Optional.ofNullable(entity);
+    }
+
+    private Order getSkillMatrixOrder(CriteriaBuilder cb, Root<SkillMatrix> root, SkillMatrixSortType sortType) {
         switch (sortType) {
             case CREATION_DATE_ASC:
-                return cb.asc(root.get(SkillMatrixEntity_.CREATION_DATE));
+                return cb.asc(root.get(SkillMatrix_.CREATION_DATE));
             case CREATION_DATE_DESC:
-                return cb.desc(root.get(SkillMatrixEntity_.CREATION_DATE));
+                return cb.desc(root.get(SkillMatrix_.CREATION_DATE));
         }
-        return cb.desc(root.get(SkillMatrixEntity_.CREATION_DATE));
+        return cb.desc(root.get(SkillMatrix_.CREATION_DATE));
     }
 }

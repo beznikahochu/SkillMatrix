@@ -1,7 +1,6 @@
 package by.skillmatrix.dto.category;
 
 import by.skillmatrix.dto.skill.SkillWithAssessmentDto;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -9,7 +8,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "SkillCategoryWithAssessmentsDto")
 public class SkillCategoryWithAssessmentsDto {
 

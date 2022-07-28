@@ -1,13 +1,13 @@
 package by.skillmatrix.service.impl;
 
 import by.skillmatrix.dto.user.*;
-import by.skillmatrix.entity.Employee;
+import by.skillmatrix.entity.Person;
 import by.skillmatrix.entity.Role;
 import by.skillmatrix.entity.User;
 import by.skillmatrix.entity.id.UserAndRoleId;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.UserMapperImpl;
-import by.skillmatrix.repository.EmployeeRepository;
+import by.skillmatrix.repository.PersonRepository;
 import by.skillmatrix.repository.RoleRepository;
 import by.skillmatrix.repository.UserAndRoleRepository;
 import by.skillmatrix.repository.UserRepository;
@@ -32,21 +32,21 @@ public class UserServiceImplTest {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private UserAndRoleRepository userAndRoleRepository;
-    private EmployeeRepository employeeRepository;
+    private PersonRepository personRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
     @BeforeEach
     void beforeEach() {
         userRepository = Mockito.mock(UserRepository.class);
         roleRepository = Mockito.mock(RoleRepository.class);
-        employeeRepository = Mockito.mock(EmployeeRepository.class);
+        personRepository = Mockito.mock(PersonRepository.class);
         userAndRoleRepository = Mockito.mock(UserAndRoleRepository.class);
         passwordEncoder = Mockito.mock(BCryptPasswordEncoder.class);
         userService = new UserServiceImpl(
                 userRepository,
                 roleRepository,
                 userAndRoleRepository,
-                employeeRepository,
+                personRepository,
                 new UserMapperImpl(),
                 passwordEncoder
         );
@@ -90,7 +90,7 @@ public class UserServiceImplTest {
         user.setId(id);
         user.setLogin("login");
         user.setPassword("123");
-        user.setEmployeeId(1L);
+        user.setPersonId(1L);
 
         Role role1 = new Role();
         role1.setId(1L);
@@ -116,7 +116,7 @@ public class UserServiceImplTest {
         UserFullInfoDto expectedResult = new UserFullInfoDto();
         expectedResult.setId(user.getId());
         expectedResult.setLogin(user.getLogin());
-        expectedResult.setEmployeeId(user.getEmployeeId());
+        expectedResult.setPersonId(user.getPersonId());
 
         RoleDto role1Dto = new RoleDto();
         role1Dto.setId(role1.getId());
@@ -150,66 +150,6 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void findByLoginTest() {
-        String login = "login";
-
-        User user = new User();
-        user.setId(1L);
-        user.setLogin(login);
-        user.setPassword("123");
-        user.setEmployeeId(1L);
-
-        Role role1 = new Role();
-        role1.setId(1L);
-        role1.setName("USER");
-
-        Role role2 = new Role();
-        role2.setId(2L);
-        role2.setName("MANAGER");
-
-        Role role3 = new Role();
-        role3.setId(3L);
-        role3.setName("ADMIN");
-
-        List<Role> roles = new ArrayList<>();
-        roles.add(role1);
-        roles.add(role2);
-        roles.add(role3);
-
-        user.setRoles(roles);
-
-        Mockito.when(userRepository.findUserWithRolesByLogin(login)).thenReturn(Optional.of(user));
-
-        UserFullInfoDto expectedResult = new UserFullInfoDto();
-        expectedResult.setId(user.getId());
-        expectedResult.setLogin(user.getLogin());
-        expectedResult.setEmployeeId(user.getEmployeeId());
-
-        RoleDto role1Dto = new RoleDto();
-        role1Dto.setId(role1.getId());
-        role1Dto.setName(role1.getName());
-
-        RoleDto role2Dto = new RoleDto();
-        role2Dto.setId(role2.getId());
-        role2Dto.setName(role2.getName());
-
-        RoleDto role3Dto = new RoleDto();
-        role3Dto.setId(role3.getId());
-        role3Dto.setName(role3.getName());
-
-        List<RoleDto> rolesDto = new ArrayList<>();
-        rolesDto.add(role1Dto);
-        rolesDto.add(role2Dto);
-        rolesDto.add(role3Dto);
-
-        expectedResult.setRoles(rolesDto);
-
-        UserFullInfoDto result = userService.findByLogin(login);
-
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     void addRoleTest() {
         Long userId = 1L;
         UserRoleSettingDto settingDto = new UserRoleSettingDto();
@@ -219,7 +159,7 @@ public class UserServiceImplTest {
         user.setId(userId);
         user.setLogin("login");
         user.setPassword("123");
-        user.setEmployeeId(1L);
+        user.setPersonId(1L);
         user.setRoles(new ArrayList<>());
 
         Role role = new Role();
@@ -234,7 +174,7 @@ public class UserServiceImplTest {
         UserFullInfoDto expectedResult = new UserFullInfoDto();
         expectedResult.setId(user.getId());
         expectedResult.setLogin(user.getLogin());
-        expectedResult.setEmployeeId(user.getEmployeeId());
+        expectedResult.setPersonId((user.getPersonId()));
 
         RoleDto roleDto = new RoleDto();
         roleDto.setId(role.getId());
@@ -258,7 +198,7 @@ public class UserServiceImplTest {
         user.setId(userId);
         user.setLogin("login");
         user.setPassword("123");
-        user.setEmployeeId(1L);
+        user.setPersonId(1L);
         user.setRoles(new ArrayList<>());
 
         Mockito.when(userRepository.findUserWithRolesById(userId))
@@ -266,7 +206,7 @@ public class UserServiceImplTest {
 
         UserFullInfoDto expectedDto = new UserFullInfoDto();
         expectedDto.setId(userId);
-        expectedDto.setEmployeeId(user.getEmployeeId());
+        expectedDto.setPersonId(user.getPersonId());
         expectedDto.setLogin(user.getLogin());
         expectedDto.setRoles(new ArrayList<>());
 
@@ -287,8 +227,8 @@ public class UserServiceImplTest {
     @Test
     void setEmployeeTest() {
         Long userId = 1L;
-        UserEmployeeSettingDto settingDto = new UserEmployeeSettingDto();
-        settingDto.setEmployeeId(1L);
+        UserPeopleSettingDto settingDto = new UserPeopleSettingDto();
+        settingDto.setPeopleId(1L);
 
         User user = new User();
         user.setId(userId);
@@ -296,23 +236,23 @@ public class UserServiceImplTest {
         user.setPassword("password");
         user.setRoles(new ArrayList<>());
 
-        Employee employee = new Employee();
-        employee.setId(settingDto.getEmployeeId());
-        employee.setLastName("name");
-        employee.setFirstName("name");
+        Person person = new Person();
+        person.setId(settingDto.getPeopleId());
+        person.setLastName("name");
+        person.setFirstName("name");
 
         Mockito.when(userRepository.findUserWithRolesById(userId))
                 .thenReturn(Optional.of(user));
-        Mockito.when(employeeRepository.findById(settingDto.getEmployeeId()))
-                .thenReturn(Optional.of(employee));
+        Mockito.when(personRepository.findById(settingDto.getPeopleId()))
+                .thenReturn(Optional.of(person));
 
         UserFullInfoDto expectedResult = new UserFullInfoDto();
         expectedResult.setId(userId);
         expectedResult.setLogin(user.getLogin());
         expectedResult.setRoles(new ArrayList<>());
-        expectedResult.setEmployeeId(employee.getId());
+        expectedResult.setPersonId(person.getId());
 
-        UserFullInfoDto result = userService.setEmployee(userId, settingDto);
+        UserFullInfoDto result = userService.setPerson(userId, settingDto);
 
         assertEquals(expectedResult, result);
     }

@@ -1,6 +1,6 @@
 package by.skillmatrix.entitygenerator;
 
-import by.skillmatrix.entity.Employee;
+import by.skillmatrix.entity.Person;
 import by.skillmatrix.entity.SkillMatrix;
 import by.skillmatrix.entity.SkillMatrixScheme;
 import com.github.javafaker.Faker;
@@ -20,10 +20,10 @@ public class SkillMatrixGenerator {
         faker = new Faker();
     }
 
-    public SkillMatrix generateSkillMatrix(Employee employee, SkillMatrixScheme scheme) {
+    public SkillMatrix generateSkillMatrix(Person person, SkillMatrixScheme scheme) {
         SkillMatrix skillMatrix = new SkillMatrix();
         skillMatrix.setName(faker.funnyName().name());
-        skillMatrix.setEmployee(employee);
+        skillMatrix.setPerson(person);
         skillMatrix.setSkillMatrixScheme(scheme);
 
         Date creationDate = faker.date().past(5, TimeUnit.DAYS);

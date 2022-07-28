@@ -6,7 +6,7 @@ import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixFullInfoDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
 import by.skillmatrix.entity.*;
-import by.skillmatrix.entity.Employee;
+import by.skillmatrix.entity.Person;
 import by.skillmatrix.excel.SkillMatrixExcelBuilder;
 import by.skillmatrix.exception.IncorrectDateException;
 import by.skillmatrix.exception.NotFoundException;
@@ -17,7 +17,7 @@ import by.skillmatrix.param.PageParams;
 import by.skillmatrix.repository.SkillCategoryRepository;
 import by.skillmatrix.repository.SkillMatrixRepository;
 import by.skillmatrix.repository.SkillMatrixSchemeRepository;
-import by.skillmatrix.repository.EmployeeRepository;
+import by.skillmatrix.repository.PersonRepository;
 import by.skillmatrix.repository.criteria.SkillMatrixCriteria;
 import by.skillmatrix.repository.page.PageOptions;
 import by.skillmatrix.repository.sorttype.SkillMatrixSortType;
@@ -44,7 +44,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     private final SkillMatrixRepository skillMatrixRepository;
     private final SkillMatrixSchemeRepository schemeDao;
     private final SkillCategoryRepository categoryDao;
-    private final EmployeeRepository employeeRepository;
+    private final PersonRepository personRepository;
     private final SkillMatrixMapper skillMatrixMapper;
     private final FullSkillMatrixMapper fullSkillMatrixMapper;
     private final SkillMatrixExcelBuilder excelBuilder;
@@ -56,15 +56,15 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
 
         SkillMatrix skillMatrix = skillMatrixMapper.toSkillMatrixEntity(skillMatrixCreationDto);
 
-        Long userId = skillMatrixCreationDto.getEmployeeId();
+        Long userId = skillMatrixCreationDto.getPersonId();
         Long schemeId = skillMatrixCreationDto.getSchemeId();
 
-        Employee employee = employeeRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("User not found by id"));
+        Person person = personRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("Person not found by id"));
         SkillMatrixScheme matrixScheme = schemeDao.findById(schemeId)
                 .orElseThrow(() -> new NotFoundException("SkillMatrixScheme not found by id"));
 
-        skillMatrix.setEmployee(employee);
+        skillMatrix.setPerson(person);
         skillMatrix.setSkillMatrixScheme(matrixScheme);
         skillMatrix.setCreationDate(LocalDate.now());
         skillMatrix.setCreationTime(LocalTime.now());
@@ -93,12 +93,16 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
 
     @Override
     @Transactional
-    public void calkAvgAssessment(Long id) {
+    public SkillMatrixDto calkAvgAssessment(Long id) {
         log.debug("Try to calculate AvgAssessment of SkillMatrix with id: {}", id);
 
         skillMatrixRepository.calkAvgAssessment(id);
+        SkillMatrix updatedMatrix = skillMatrixRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("SkillMatrix not found by id"));
+        SkillMatrixDto updatedSchemeDto = skillMatrixMapper.toSkillMatrixDto(updatedMatrix);
 
         log.debug("AvgAssessment of SkillMatrix with id {} updated", id);
+        return updatedSchemeDto;
     }
 
     @Override
@@ -112,19 +116,20 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
     }
 
     @Override
-    public List<SkillMatrixDto> findByParams(PageParams pageParams, MatrixSearchParams params) {
+    public List<SkillMatrixDto> findByParams(PageParams pageParams, MatrixSearchParams params, String sort) {
         log.debug("Try to get all SkillMatrix");
 
         PageOptions pageOptions = new PageOptions(pageParams.getPage(), pageParams.getPageSize());
-        SkillMatrixSortType sortType = getMatrixSortTypeByString(params.getSort());
+        SkillMatrixSortType sortType = getMatrixSortTypeByString(sort);
 
         checkDates(params.getFromDate(), params.getToDate());
 
         SkillMatrixCriteria criteria = SkillMatrixCriteria.builder()
                 .schemeId(params.getSchemeId())
-                .employeeId(params.getEmployeeId())
+                .personId(params.getPersonId())
                 .fromDate(params.getFromDate())
                 .toDate(params.getToDate())
+                .isEmployee(params.getIsEmployee())
                 .build();//TODO Перенестри в маппер
 
         List<SkillMatrix> skillMatrixEntities = skillMatrixRepository
@@ -205,7 +210,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
 
     private SkillMatrixSortType getMatrixSortTypeByString(String type) {
         if (type == null) {
-            return SkillMatrixSortType.CREATION_DATE_ASC;
+            return SkillMatrixSortType.CREATION_DATE_DESC;
         }
         switch (type) {
             case "date.a":
@@ -217,7 +222,7 @@ public class SkillMatrixServiceImpl implements SkillMatrixService {
             case "assessment.d":
                 return SkillMatrixSortType.AVG_ASSESSMENT_DESC;
         }
-        return SkillMatrixSortType.CREATION_DATE_ASC;
+        return SkillMatrixSortType.CREATION_DATE_DESC;
     }
 
     private void checkDates(LocalDate from, LocalDate to) {

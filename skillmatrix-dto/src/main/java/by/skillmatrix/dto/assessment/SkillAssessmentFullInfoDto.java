@@ -1,13 +1,10 @@
 package by.skillmatrix.dto.assessment;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import org.springframework.validation.annotation.Validated;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "SkillAssessmentCreationDto")
 public class SkillAssessmentFullInfoDto {
 
@@ -16,7 +13,6 @@ public class SkillAssessmentFullInfoDto {
 
     @JsonProperty("skillId")
     private Long skillId;
-
 
     @JsonProperty("assessment")
     private Long assessment;

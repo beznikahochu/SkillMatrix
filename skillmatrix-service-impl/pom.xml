@@ -23,6 +23,10 @@
         </dependency>
         <dependency>
             <groupId>by.skillmatrix</groupId>
+            <artifactId>skillmatrix-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>by.skillmatrix</groupId>
             <artifactId>skillmatrix-repository</artifactId>
         </dependency>
         <dependency>

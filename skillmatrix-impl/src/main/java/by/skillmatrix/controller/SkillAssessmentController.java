@@ -1,7 +1,7 @@
 package by.skillmatrix.controller;
 
 import by.skillmatrix.dto.assessment.SkillAssessmentFullInfoDto;
-import by.skillmatrix.service.SkillAssessmentProcessingService;
+import by.skillmatrix.service.SkillAssessmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "9. Skill Assessment Controller", description = "works with skill assessment")
 public class SkillAssessmentController {
 
-    private final SkillAssessmentProcessingService skillAssessmentService;
+    private final SkillAssessmentService skillAssessmentService;
 
     @PostMapping
     @PreAuthorize("hasRole('MANAGER')")

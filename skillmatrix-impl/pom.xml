@@ -55,7 +55,7 @@
 		</dependency>
 		<dependency>
 			<groupId>by.skillmatrix</groupId>
-			<artifactId>skillmatrix-test</artifactId>
+			<artifactId>skillmatrix-test-utils</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

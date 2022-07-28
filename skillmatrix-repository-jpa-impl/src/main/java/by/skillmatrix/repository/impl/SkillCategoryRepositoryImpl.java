@@ -11,13 +11,13 @@ import java.util.List;
 
 @Repository
 public class SkillCategoryRepositoryImpl
-        extends AbstractRepository<SkillCategoryEntity, Long>
+        extends AbstractRepository<SkillCategory, Long>
         implements SkillCategoryRepository
 {
 
     @Override
     @Transactional
-    public SkillCategoryEntity save(SkillCategoryEntity schemeEntity) {
+    public SkillCategory save(SkillCategory schemeEntity) {
         if (schemeEntity.getId() == null) {
             return create(schemeEntity);
         }
@@ -26,21 +26,21 @@ public class SkillCategoryRepositoryImpl
 
     @Override
     @Transactional
-    public List<SkillCategoryEntity> findFullSkillCategoryBySchemeId(Long id) {
+    public List<SkillCategory> findFullSkillCategoryBySchemeId(Long id) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<SkillCategoryEntity> cq = cb.createQuery(SkillCategoryEntity.class);
-        Root<SkillCategoryEntity> root = cq.from(SkillCategoryEntity.class);
-        Join scheme = (Join) root.fetch(SkillCategoryEntity_.SKILL_MATRIX_SCHEME, JoinType.LEFT);
-        Join skill = (Join) root.fetch(SkillCategoryEntity_.SKILLS, JoinType.LEFT);
+        CriteriaQuery<SkillCategory> cq = cb.createQuery(SkillCategory.class);
+        Root<SkillCategory> root = cq.from(SkillCategory.class);
+        Join scheme = (Join) root.fetch(SkillCategory_.SKILL_MATRIX_SCHEME, JoinType.LEFT);
+        Join skill = (Join) root.fetch(SkillCategory_.SKILLS, JoinType.LEFT);
         cq.where(
-                cb.equal(scheme.get(SkillMatrixSchemeEntity_.ID), id)
+                cb.equal(scheme.get(SkillMatrixScheme_.ID), id)
         );
         cq.orderBy(
-                cb.asc(root.get(SkillCategoryEntity_.POSITION)),
-                cb.asc(skill.get(SkillEntity_.POSITION))
+                cb.asc(root.get(SkillCategory_.POSITION)),
+                cb.asc(skill.get(Skill_.POSITION))
         );
         cq.distinct(true);
-        TypedQuery<SkillCategoryEntity> query = entityManager.createQuery(cq);
+        TypedQuery<SkillCategory> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
 }

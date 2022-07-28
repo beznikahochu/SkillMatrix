@@ -12,7 +12,10 @@ import java.util.Optional;
 @Repository
 public interface SkillMatrixSpringDataRepository extends JpaRepository<SkillMatrix, Long>,
         JpaSpecificationExecutor<SkillMatrix> {
-    @EntityGraph("skill-matrix-with-scheme-and-user")
+
+    @EntityGraph("skill-matrix-with-scheme-and-person")
+    Optional<SkillMatrix> findById(Long id);
+    @EntityGraph("skill-matrix-with-scheme-and-person")
     Page<SkillMatrix> findAll(
             Specification<SkillMatrix> specification,
             Pageable pageable
@@ -22,10 +25,9 @@ public interface SkillMatrixSpringDataRepository extends JpaRepository<SkillMatr
 
     @Modifying
     @Query(
-            value = "UPDATE skill_matrices SET avg_assessment = " +
-                    "(SELECT AVG(assessment) FROM skill_assessments WHERE skill_matrix_id = :id) " +
-                    "WHERE id = :id",
-            nativeQuery = true
+            value = "UPDATE SkillMatrix SET avgAssessment = " +
+                    "(SELECT AVG(assessment) FROM SkillAssessment WHERE skillMatrixId = :id) " +
+                    "WHERE id = :id"
     )
     int calkAvgAssessment(Long id);
 }

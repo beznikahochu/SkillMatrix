@@ -29,7 +29,7 @@ public class Skill {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "position", columnDefinition = "default 0")
+    @Column(name = "position")
     private Long position;
 
     @ToString.Exclude

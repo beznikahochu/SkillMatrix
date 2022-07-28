@@ -22,9 +22,10 @@ public interface SkillMatrixSchemeService {
 
     /**
      * Update SkillMatrixScheme.
+     *
      * @param id Id of SkillMatrixScheme
      * @param modificationDto SkillMatrixScheme data for update
-     * @return updating SkillMatrixScheme
+     * @return updated SkillMatrixScheme
      */
     SkillMatrixSchemeDto update(Long id, SkillMatrixSchemeModificationDto modificationDto);
 
@@ -46,7 +47,7 @@ public interface SkillMatrixSchemeService {
      * Find SkillMatrixScheme by id.
      *
      * @param id id of SkillMatrixScheme
-     * @return updating SkillMatrixScheme
+     * @return found SkillMatrixScheme
      */
     SkillMatrixSchemeDto findById(Long id);
 
@@ -54,7 +55,7 @@ public interface SkillMatrixSchemeService {
      * Find full SkillMatrixScheme by id.
      *
      * @param id id of SkillMatrixScheme
-     * @return updating SkillMatrixScheme
+     * @return found SkillMatrixScheme
      */
     SkillMatrixSchemeFullInfoDto findFullInfoById(Long id);
 }

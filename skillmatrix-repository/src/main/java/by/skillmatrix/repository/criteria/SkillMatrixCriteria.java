@@ -12,8 +12,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class SkillMatrixCriteria {
-    private Long employeeId;
+    private Long personId;
     private Long schemeId;
+    private Boolean isEmployee;
     private LocalDate fromDate;
     private LocalDate toDate;
 }

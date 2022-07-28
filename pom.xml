@@ -24,7 +24,7 @@
         <module>skillmatrix-service</module>
         <module>skillmatrix-service-impl</module>
         <module>skillmatrix-impl</module>
-        <module>skillmatrix-test</module>
+        <module>skillmatrix-test-utils</module>
         <module>skillmatrix-security</module>
         <module>skillmatrix-validation</module>
     </modules>
@@ -79,7 +79,7 @@
             </dependency>
             <dependency>
                 <groupId>by.skillmatrix</groupId>
-                <artifactId>skillmatrix-test</artifactId>
+                <artifactId>skillmatrix-test-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
