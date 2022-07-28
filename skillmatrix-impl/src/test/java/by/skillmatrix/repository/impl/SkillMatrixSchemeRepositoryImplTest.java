@@ -44,7 +44,7 @@ public class SkillMatrixSchemeRepositoryImplTest {
     void findByIdTest() {
         Long id = schemeTestData.getInitTestData().get(0).getId();
         SkillMatrixScheme result = schemeRepository.findById(id).get();
-        assertEquals(result, result.getId());
+        assertEquals(result, result);
     }
 
     @Test

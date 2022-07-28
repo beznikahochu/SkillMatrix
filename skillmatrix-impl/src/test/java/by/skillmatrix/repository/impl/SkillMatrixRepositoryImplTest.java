@@ -81,7 +81,6 @@ public class SkillMatrixRepositoryImplTest {
     void whenFindByIdReturnEmptyTest() {
         Long id = -1l;
         Optional<SkillMatrix> result = matrixRepository.findById(id);
-        Long id23 = matrixTestData.getInitTestData().get(0).getId();
         assertTrue(result.isEmpty());
     }
 

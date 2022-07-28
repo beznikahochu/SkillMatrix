@@ -59,7 +59,7 @@ public class UserControllerImpl {
         return userFullInfoDto;
     }
 
-    @PutMapping("/{id}/person")
+    @PatchMapping("/{id}/person")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Set person for user")
     public UserFullInfoDto setEmployee(@PathVariable Long id, @RequestBody UserPeopleSettingDto settingDto) {

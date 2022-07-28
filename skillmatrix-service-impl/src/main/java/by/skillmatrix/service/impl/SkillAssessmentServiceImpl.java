@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SkillAssessmentServiceImpl implements SkillAssessmentService {
 
-    private final SkillAssessmentRepository skillAssessmentDao;
+    private final SkillAssessmentRepository skillAssessmentRepository;
     private final SkillMatrixRepository skillMatrixRepository;
     private final SkillRepository skillRepository;
     private final SkillAssessmentMapper skillAssessmentMapper;
@@ -43,7 +43,7 @@ public class SkillAssessmentServiceImpl implements SkillAssessmentService {
         checkAssessment(creationDto.getAssessment());
 
         SkillAssessment skillAssessment = skillAssessmentMapper.toSkillAssessmentEntity(creationDto);
-        SkillAssessment createdAssessment = skillAssessmentDao.save(skillAssessment);
+        SkillAssessment createdAssessment = skillAssessmentRepository.save(skillAssessment);
         SkillAssessmentFullInfoDto createdAssessmentDto = skillAssessmentMapper.toSkillAssessmentFullInfoDto(createdAssessment);
 
         log.debug("Return saved SkillAssessment: {}", createdAssessmentDto);

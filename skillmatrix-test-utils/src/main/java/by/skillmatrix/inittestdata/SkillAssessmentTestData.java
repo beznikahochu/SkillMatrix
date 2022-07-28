@@ -22,9 +22,9 @@ public class SkillAssessmentTestData extends InitTestDataController<SkillAssessm
         Random random = new Random();
 
         List<SkillMatrix> matrices =  entityManager
-                .createQuery("FROM SkillMatrixEntity", SkillMatrix.class).getResultList();
+                .createQuery("FROM SkillMatrix", SkillMatrix.class).getResultList();
         List<Skill> skills =  entityManager
-                .createQuery("FROM SkillEntity", Skill.class).getResultList();
+                .createQuery("FROM Skill", Skill.class).getResultList();
 
 
         for (int i = 0; i < count; i++) {

@@ -21,7 +21,7 @@ public class SkillTestData extends InitTestDataController<Skill>{
     public void initTestData(int count) {
         Random random = new Random();
         List<SkillCategory> categories =  entityManager
-                .createQuery("FROM SkillCategoryEntity", SkillCategory.class).getResultList();
+                .createQuery("FROM SkillCategory", SkillCategory.class).getResultList();
 
         for (int i = 0; i < count; i++) {
             int categoryIndex = random.nextInt(categories.size());

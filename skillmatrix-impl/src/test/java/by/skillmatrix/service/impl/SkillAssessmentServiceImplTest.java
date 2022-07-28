@@ -10,6 +10,7 @@ import by.skillmatrix.repository.SkillAssessmentRepository;
 import by.skillmatrix.repository.SkillMatrixRepository;
 import by.skillmatrix.repository.SkillRepository;
 import by.skillmatrix.service.SkillAssessmentService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

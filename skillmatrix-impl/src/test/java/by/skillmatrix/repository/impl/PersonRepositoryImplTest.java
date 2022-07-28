@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(classes = SkillMatrixApplication.class)
 @ContextConfiguration(initializers = PostgresContainerInitializer.class)
-public class EmployeeRepositoryImplTest {
+public class PersonRepositoryImplTest {
 
     private static final int EMPLOYEE_COUNT = 5;
     private static InitTestDataController<Person> personTestData;
@@ -28,8 +28,8 @@ public class EmployeeRepositoryImplTest {
 
     @BeforeAll
     static void initData(@Autowired InitTestDataController<Person> employeeTestData) {
-        EmployeeRepositoryImplTest.personTestData = employeeTestData;
-        EmployeeRepositoryImplTest.personTestData.initTestData(EMPLOYEE_COUNT);
+        PersonRepositoryImplTest.personTestData = employeeTestData;
+        PersonRepositoryImplTest.personTestData.initTestData(EMPLOYEE_COUNT);
     }
 
     @AfterAll
