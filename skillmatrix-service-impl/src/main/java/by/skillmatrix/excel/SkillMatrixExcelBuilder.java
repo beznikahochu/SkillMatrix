@@ -54,7 +54,7 @@ public class SkillMatrixExcelBuilder {
 
         buildHeaderRow(sheet, styler, rowNum++, "Название матрицы:", matrixName);
         buildHeaderRow(sheet, styler, rowNum++, "Схема матрицы:", schemeName);
-        buildHeaderRow(sheet, styler, rowNum++, "Сотрудник:", firstName + " " + lastName);
+        buildHeaderRow(sheet, styler, rowNum++, "Фамилия и имя:", firstName + " " + lastName);
         buildHeaderRow(sheet, styler, rowNum++, "Дата создания:", date);
 
         return rowNum;
