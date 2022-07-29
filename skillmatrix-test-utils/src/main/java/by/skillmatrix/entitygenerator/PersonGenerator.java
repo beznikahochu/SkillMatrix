@@ -5,8 +5,6 @@ import com.github.javafaker.Faker;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Random;
 
 @Component
@@ -24,9 +22,11 @@ public class PersonGenerator {
         Person person = new Person();
         person.setFirstName(faker.name().firstName());
         person.setLastName(faker.name().lastName());
-        person.setDateOfBirth(faker.date().birthday().toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate());
+        person.setDateOfBirth(LocalDate.of(
+                random.nextInt(LocalDate.now().getYear()-1970)+1970,
+                random.nextInt(12)+1,
+                random.nextInt(28)+1
+        ));
         person.setIsEmployee(random.nextBoolean());
         return person;
     }

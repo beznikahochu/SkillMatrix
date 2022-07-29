@@ -3,6 +3,7 @@ package by.skillmatrix.repository.impl;
 import by.skillmatrix.SkillMatrixApplication;
 import by.skillmatrix.entity.Person;
 import by.skillmatrix.inittestdata.InitTestDataController;
+import by.skillmatrix.inittestdata.PersonTestData;
 import by.skillmatrix.repository.PersonRepository;
 import by.skillmatrix.testcontainer.PostgresContainerInitializer;
 import org.junit.jupiter.api.AfterAll;
@@ -21,15 +22,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ContextConfiguration(initializers = PostgresContainerInitializer.class)
 public class PersonRepositoryImplTest {
 
-    private static final int EMPLOYEE_COUNT = 5;
+    private static final int PERSON_COUNT = 5;
     private static InitTestDataController<Person> personTestData;
     @Autowired
     private PersonRepository personRepository;
 
     @BeforeAll
-    static void initData(@Autowired InitTestDataController<Person> employeeTestData) {
-        PersonRepositoryImplTest.personTestData = employeeTestData;
-        PersonRepositoryImplTest.personTestData.initTestData(EMPLOYEE_COUNT);
+    static void initData(@Autowired InitTestDataController<Person> personTestData) {
+        PersonRepositoryImplTest.personTestData = personTestData;
+        personTestData.initTestData(PERSON_COUNT);
     }
 
     @AfterAll

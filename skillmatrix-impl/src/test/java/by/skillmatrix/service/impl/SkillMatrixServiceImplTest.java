@@ -8,21 +8,16 @@ import by.skillmatrix.repository.PersonRepository;
 import by.skillmatrix.repository.SkillCategoryRepository;
 import by.skillmatrix.repository.SkillMatrixRepository;
 import by.skillmatrix.repository.SkillMatrixSchemeRepository;
-import by.skillmatrix.repository.criteria.SkillMatrixCriteria;
-import by.skillmatrix.repository.page.PageOptions;
-import by.skillmatrix.repository.sorttype.SkillMatrixSortType;
 import by.skillmatrix.dto.scheme.SkillMatrixSchemeDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixCreationDto;
 import by.skillmatrix.dto.skillmatrix.SkillMatrixDto;
-import by.skillmatrix.dto.skillmatrix.SkillMatrixModificationDto;
 import by.skillmatrix.excel.SkillMatrixExcelBuilder;
 import by.skillmatrix.exception.NotFoundException;
 import by.skillmatrix.mapper.PersonMapperImpl;
 import by.skillmatrix.mapper.FullSkillMatrixMapperImpl;
 import by.skillmatrix.mapper.SkillMatrixMapperImpl;
-import by.skillmatrix.param.MatrixSearchParams;
-import by.skillmatrix.param.PageParams;
 import by.skillmatrix.service.SkillMatrixService;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,8 +28,6 @@ import org.mockito.Mockito;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -60,6 +53,12 @@ public class SkillMatrixServiceImplTest {
         LocalTime extendedTime = LocalTime.now();
         localTimeMockedStatic = Mockito.mockStatic(LocalTime.class);
         localTimeMockedStatic.when(LocalTime::now).thenReturn(extendedTime);
+    }
+
+    @AfterAll
+    static void afterAll() {
+        Mockito.reset(LocalDate.class);
+        Mockito.reset(LocalTime.class);
     }
 
     @BeforeEach
@@ -144,7 +143,7 @@ public class SkillMatrixServiceImplTest {
         SkillMatrixCreationDto creationDto = new SkillMatrixCreationDto();
         creationDto.setPersonId(1L);
         creationDto.setName("matrix");
-        creationDto.setSchemeId(1l);
+        creationDto.setSchemeId(1L);
 
         SkillMatrixScheme scheme = new SkillMatrixScheme();
         scheme.setId(1L);

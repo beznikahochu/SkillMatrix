@@ -53,7 +53,7 @@ public class SkillMatrixSchemeServiceImplTest {
         scheme.setName(creationDto.getName());
 
         SkillMatrixScheme createdScheme = new SkillMatrixScheme();
-        createdScheme.setId(1l);
+        createdScheme.setId(1L);
         createdScheme.setName(scheme.getName());
 
         Mockito.when(schemeRepository.save(scheme)).thenReturn(createdScheme);
@@ -92,7 +92,7 @@ public class SkillMatrixSchemeServiceImplTest {
     void deleteTest() {
         ArgumentCaptor<Long> longCaptor = ArgumentCaptor.forClass(Long.class);
 
-        Long id = 1l;
+        Long id = 1L;
         skillMatrixSchemeService.delete(id);
 
         Mockito.verify(schemeRepository).delete(longCaptor.capture());
@@ -157,7 +157,7 @@ public class SkillMatrixSchemeServiceImplTest {
     void whenFindByIdThrowsNotFoundExceptionTest() {
         Long id = 1L;
         Mockito.when(schemeRepository.findById(id)).thenReturn(Optional.empty());
-        assertThrows(NotFoundException.class, () -> skillMatrixSchemeService.findById(1l));
+        assertThrows(NotFoundException.class, () -> skillMatrixSchemeService.findById(1L));
     }
 
     @Test
@@ -242,7 +242,7 @@ public class SkillMatrixSchemeServiceImplTest {
 
         expectedResult.setCategories(List.of(skillCategory1Dto, skillCategory2Dto));
 
-        SkillMatrixSchemeFullInfoDto result = skillMatrixSchemeService.findFullInfoById(1l);
+        SkillMatrixSchemeFullInfoDto result = skillMatrixSchemeService.findFullInfoById(1L);
 
         assertEquals(expectedResult, result);
     }
@@ -251,6 +251,6 @@ public class SkillMatrixSchemeServiceImplTest {
     void whenFindFullInfoByIdThrowsNotFoundExceptionTest() {
         Long id = 1L;
         Mockito.when(schemeRepository.findById(id)).thenReturn(Optional.empty());
-        assertThrows(NotFoundException.class, () -> skillMatrixSchemeService.findById(1l));
+        assertThrows(NotFoundException.class, () -> skillMatrixSchemeService.findById(1L));
     }
 }

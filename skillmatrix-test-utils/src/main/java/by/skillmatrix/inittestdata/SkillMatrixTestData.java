@@ -5,15 +5,15 @@ import by.skillmatrix.entity.SkillMatrix;
 import by.skillmatrix.entity.SkillMatrixScheme;
 import by.skillmatrix.entitygenerator.SkillMatrixGenerator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Random;
 
-@Component
+@Repository
 @RequiredArgsConstructor
-public class SkillMatrixTestData extends InitTestDataController<SkillMatrix>{
+public class SkillMatrixTestData extends InitTestDataController<SkillMatrix> {
     private final SkillMatrixGenerator matrixGenerator;
 
     @Override

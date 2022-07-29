@@ -5,6 +5,7 @@ import by.skillmatrix.dto.person.PersonDto;
 import by.skillmatrix.entity.Person;
 import by.skillmatrix.mapper.PersonMapperImpl;
 import by.skillmatrix.repository.PersonRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

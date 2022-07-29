@@ -1,6 +1,7 @@
 package by.skillmatrix.inittestdata;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +14,7 @@ import javax.persistence.criteria.Root;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-@Component
+@Repository
 public abstract class InitTestDataController<T> {
 
     @PersistenceContext

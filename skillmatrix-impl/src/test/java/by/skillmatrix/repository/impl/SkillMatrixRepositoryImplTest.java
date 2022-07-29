@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -21,13 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @ContextConfiguration(initializers = PostgresContainerInitializer.class)
 public class SkillMatrixRepositoryImplTest {
 
-    private static final int EMPLOYEE_COUNT = 2;
+    private static final int PERSON_COUNT = 2;
     private static final int SCHEME_COUNT = 2;
     private static final int CATEGORY_COUNT = 4;
     private static final int SKILL_COUNT = 15;
     private static final int MATRIX_COUNT = 10;
     private static final int ASSESSMENT_COUNT = 130;
-    private static InitTestDataController<Person> employeeTestData;
+    private static InitTestDataController<Person> personTestData;
     private static InitTestDataController<SkillMatrixScheme> schemeTestData;
     private static InitTestDataController<SkillCategory> categoryTestData;
     private static InitTestDataController<Skill> skillTestData;
@@ -45,14 +46,14 @@ public class SkillMatrixRepositoryImplTest {
             @Autowired InitTestDataController<SkillMatrix> matrixTestData,
             @Autowired InitTestDataController<SkillAssessment> assessmentTestData
     ) {
-        SkillMatrixRepositoryImplTest.employeeTestData = personTestData;
+        SkillMatrixRepositoryImplTest.personTestData = personTestData;
         SkillMatrixRepositoryImplTest.schemeTestData = schemeTestData;
         SkillMatrixRepositoryImplTest.categoryTestData = categoryTestData;
         SkillMatrixRepositoryImplTest.skillTestData = skillTestData;
         SkillMatrixRepositoryImplTest.matrixTestData = matrixTestData;
         SkillMatrixRepositoryImplTest.assessmentTestData = assessmentTestData;
 
-        employeeTestData.initTestData(EMPLOYEE_COUNT);
+        personTestData.initTestData(PERSON_COUNT);
         schemeTestData.initTestData(SCHEME_COUNT);
         categoryTestData.initTestData(CATEGORY_COUNT);
         skillTestData.initTestData(SKILL_COUNT);
@@ -67,7 +68,7 @@ public class SkillMatrixRepositoryImplTest {
         skillTestData.clear();
         categoryTestData.clear();
         schemeTestData.clear();
-        employeeTestData.clear();
+        personTestData.clear();
     }
 
     @Test

@@ -3,14 +3,14 @@ package by.skillmatrix.inittestdata;
 import by.skillmatrix.entity.Person;
 import by.skillmatrix.entitygenerator.PersonGenerator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Stream;
 
-@Component
+@Repository
 @RequiredArgsConstructor
-public class EmployeeTestData extends InitTestDataController<Person>{
+public class PersonTestData extends InitTestDataController<Person> {
 
     private final PersonGenerator personGenerator;
 

@@ -70,7 +70,7 @@ public class SkillCategoryRepositoryImplTest {
 
     @Test
     void findFullSkillCategoryBySchemeIdTest() {
-        Long schemeId = categoryTestData.getInitTestData().get(0).getId();
+        Long schemeId = categoryTestData.getInitTestData().get(0).getSkillMatrixScheme().getId();
         List<SkillCategory> result = categoryRepository.findFullSkillCategoryBySchemeId(schemeId);
 
         assertNotEquals(0, result.size());

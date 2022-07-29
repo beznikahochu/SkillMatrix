@@ -28,8 +28,8 @@ public class SkillMatrixExcelBuilder {
 
         int rowNum = 0;
 
-        rowNum = buildHeader(sheet, styler, rowNum,skillMatrix);
-        rowNum = buildTabNamesRow(sheet, styler,rowNum, "Название", "Оценка","Комментарий");
+        rowNum = buildHeader(sheet, styler, rowNum,skillMatrix) + 1;
+        rowNum = buildTabNamesRow(sheet, styler,rowNum, "Название ", "Оценка","Комментарий");
         rowNum = buildCategoriesAndSkillsRows(sheet, styler,rowNum,skillMatrix);
         buildResultRow(sheet, styler,rowNum,skillMatrix);
 
@@ -132,6 +132,9 @@ public class SkillMatrixExcelBuilder {
 
     private int buildResultRow(Sheet sheet, SkillMatrixCellStyler styler,
                                int rowNum, SkillMatrix skillMatrix) {
+        if (skillMatrix.getAvgAssessment() == null) {
+            return rowNum;
+        }
         CellStyle style = styler.avgAssessmentCellStyle;
         Row skillRow = sheet.createRow(rowNum++);
         Cell resultCell = skillRow.createCell(1);
@@ -177,8 +180,8 @@ public class SkillMatrixExcelBuilder {
         }
 
         private CellStyle createAvgAssessmentCellStyle(Workbook workbook) {
-            CellStyle style = createSimpleCellStyle(workbook);
-            style.setAlignment(HorizontalAlignment.CENTER);
+            CellStyle style = createAssessmentCellStyle(workbook);
+            style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
             return style;
         }

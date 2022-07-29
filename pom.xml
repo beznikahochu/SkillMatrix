@@ -39,6 +39,7 @@
         <springdoc-openapi.version>1.6.2</springdoc-openapi.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <org.apache.poi.poi.version>5.2.2</org.apache.poi.poi.version>
+        <postgresql.version>42.2.2</postgresql.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -131,11 +132,6 @@
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
                 <version>${org.apache.poi.poi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.javafaker</groupId>
-                <artifactId>javafaker</artifactId>
-                <version>1.0.2</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>

@@ -4,11 +4,12 @@ import by.skillmatrix.entity.SkillMatrixScheme;
 import by.skillmatrix.entitygenerator.SkillMatrixSchemeGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Repository
 @RequiredArgsConstructor
-public class SkillMatrixSchemeTestData extends InitTestDataController<SkillMatrixScheme>{
+public class SkillMatrixSchemeTestData extends InitTestDataController<SkillMatrixScheme> {
 
     private final SkillMatrixSchemeGenerator skillMatrixSchemeGenerator;
 

@@ -9,7 +9,6 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/root-changelog.xml
-    contexts: test
   jpa:
     show-sql: true
     hibernate:
