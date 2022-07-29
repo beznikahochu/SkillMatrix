@@ -113,7 +113,7 @@ public class SkillMatrixController {
         return skillMatrix;
     }
 
-    @PostMapping("/{id}/calkAvgAssessment")
+    @PatchMapping("/{id}/calkAvgAssessment")
     @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Сalculate avg assessment for skill matrix by id")
     public SkillMatrixDto calcAvgAssessment(@PathVariable Long id) {

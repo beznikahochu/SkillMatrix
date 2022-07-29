@@ -8,6 +8,8 @@ services:
       DATASOURCE_URL: "jdbc:postgresql://skill-matrix-bd:5432/skill-matrix-bd"
       DATASOURCE_USERNAME: postgres
       DATASOURCE_PASSWORD: 1234
+      MIN_ASSESSMENT: 1
+      MAX_ASSESSMENT: 4
       PORT: 8080
     depends_on:
       - skill-matrix-bd
