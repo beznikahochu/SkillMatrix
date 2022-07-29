@@ -38,8 +38,12 @@ public class SkillMatrixRepositoryImpl
     }
 
     @Override
+    @Transactional
     public void calkAvgAssessment(Long id) {
-
+        entityManager.createQuery(
+                "UPDATE SkillMatrix SET avgAssessment = " +
+                "(SELECT AVG(assessment) FROM SkillAssessment WHERE skillMatrixId = "+ id +") " +
+                "WHERE id = "+ id).executeUpdate(); //TODO
     }
 
     @Override
@@ -89,6 +93,10 @@ public class SkillMatrixRepositoryImpl
                 return cb.asc(root.get(SkillMatrix_.CREATION_DATE));
             case CREATION_DATE_DESC:
                 return cb.desc(root.get(SkillMatrix_.CREATION_DATE));
+            case AVG_ASSESSMENT_ASC:
+                return cb.desc(root.get(SkillMatrix_.SKILL_ASSESSMENTS));
+            case AVG_ASSESSMENT_DESC:
+                return cb.desc(root.get(SkillMatrix_.AVG_ASSESSMENT));
         }
         return cb.desc(root.get(SkillMatrix_.CREATION_DATE));
     }

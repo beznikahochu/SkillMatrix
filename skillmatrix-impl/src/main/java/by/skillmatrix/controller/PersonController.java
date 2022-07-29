@@ -26,7 +26,7 @@ public class PersonController {
     private final PersonService personService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('MANAGER')")
     @Operation(summary = "Create new person")
     public PersonDto create(@RequestBody PersonCreationDto personDto) {
         log.info("Try to create new person with login: {}", personDto);
