@@ -23,9 +23,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "login", nullable = false, unique = true)
+    @Column(name = "login", nullable = false, unique = true, updatable = false)
     private String login;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -45,6 +47,8 @@ public class User {
     @JoinColumn (name="person_id", unique = true, updatable = false, insertable = false)
     private Person person;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Column(name="person_id", unique = true)
     private Long personId;
 }

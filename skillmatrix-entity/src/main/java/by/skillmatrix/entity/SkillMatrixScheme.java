@@ -25,6 +25,8 @@ public class SkillMatrixScheme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Column(name = "name", nullable = false)
     private String name;
 

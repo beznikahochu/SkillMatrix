@@ -33,9 +33,13 @@ public class SkillAssessment {
     @JoinColumn(name = "skill_id", insertable = false, updatable = false)
     private Skill skill;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Column(name = "assessment", nullable = false)
     private Long assessment;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Column(name = "comment")
     private String comment;
 }

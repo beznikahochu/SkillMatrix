@@ -47,9 +47,13 @@ public class SkillMatrix {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Column(name = "name", nullable = false)
     private String name;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Column(name = "avg_assessment", updatable = false, insertable = false)
     private Float avgAssessment;
 
